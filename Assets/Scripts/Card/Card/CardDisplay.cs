@@ -1,0 +1,29 @@
+﻿using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class CardDisplay : MonoBehaviour
+{
+    public Card card;
+    [Header("UI References")]
+    public Image cardImage;
+    public TMP_Text manaText;
+
+    [Header("Minion Stats")]
+    public GameObject minionStatsPanel;
+    public TMP_Text attackText;
+    public TMP_Text healthText;
+    public void SetupCard(Card card)
+    {
+        this.card = card;
+        cardImage = card.image;
+        manaText.text = card.mana.ToString();
+        if (card.type == Card.CardType.minion)
+        {
+            Minion minionCard = card as Minion;
+            attackText.text = minionCard.currentAttack.ToString();
+            healthText.text = minionCard.maxHealth.ToString();
+            minionStatsPanel.SetActive(true);
+        }
+    }
+}
