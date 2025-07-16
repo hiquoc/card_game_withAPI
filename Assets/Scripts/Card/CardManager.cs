@@ -90,7 +90,7 @@ public class CardManager : MonoBehaviour
                     mana = 2
                 };
 
-                CardEffect cardEffect1 = new(2, CardEffect.Type.Damage, CardEffect.Target.ChosenTarget);
+                CardEffect cardEffect1 = new(2, CardEffect.Type.Buff, CardEffect.Target.Self, CardEffect.BuffType.DealDamageOverTime, 3, false, "Arrow");
                 card.onPlay.Add(cardEffect1);
             }
 

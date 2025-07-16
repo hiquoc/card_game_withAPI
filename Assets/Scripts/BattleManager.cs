@@ -20,6 +20,9 @@ public class BattleManager : MonoBehaviour
     List<GameObject> tmpMinionList => turn == 0 ? playerMinionList : enemyMinionList;
     List<GameObject> reversedTmpMinionList => turn == 1 ? playerMinionList : enemyMinionList;
 
+    List<ActiveEffect> playerActiveEffectList, enemyActiveEffectList;
+    List<ActiveEffect> tmpActiveEffectList => turn == 0 ? playerActiveEffectList : enemyActiveEffectList;
+
     public Button endTurnBtn;
 
 
@@ -38,8 +41,11 @@ public class BattleManager : MonoBehaviour
         SetupCharacter();
 
         rm = ReferenceManager.Instance;
-
-        endTurnBtn.onClick.AddListener(() => EndPlayerTurn());
+        playerMinionList = new List<GameObject>();
+        enemyMinionList = new List<GameObject>();
+        playerActiveEffectList = new List<ActiveEffect>();
+        enemyActiveEffectList = new List<ActiveEffect>();
+        endTurnBtn.onClick.AddListener(() => StartCoroutine(EndPlayerTurn()));
 
     }
     private void Start()
@@ -65,14 +71,16 @@ public class BattleManager : MonoBehaviour
         UpdateMana();
         rm.cm.DrawPlayerCard();
         ResetAttack();
-        if (player.GetAttack() > 0 || playerMinionList.Count > 0)
-            rm.am.drawable = true;
+        /*if (player.GetAttack() > 0 || playerMinionList.Count > 0)*/
+        rm.am.drawable = true;
     }
-    void EndPlayerTurn()
+    IEnumerator EndPlayerTurn()
     {
-        /*Debug.Log("Btn clicked" + turn);*/
+        Debug.Log(rm.aq.isPlaying);
+        yield return new WaitUntil(() => rm.aq.isPlaying == false);// cho animation
         endTurnBtn.interactable = false;
         rm.am.drawable = false;
+        CallActiveEffect(false);
         turn = turn == 0 ? 1 : 0;
         StartEnemyTurn();
     }
@@ -89,9 +97,11 @@ public class BattleManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         rm.ai.PlayMinionCard();
-        /*yield return new WaitUntil(()=>rm.ai.isDone == true);*/
-        yield return new WaitForSeconds(2f);
-
+        yield return new WaitUntil(() => rm.ai.isDone == true); //cho chon muc tieu
+        yield return new WaitUntil(() => rm.aq.isPlaying == false);// cho animation
+        Debug.Log("isDone");
+        yield return new WaitForSeconds(1f);
+        CallActiveEffect(false);
         //Start Player Turn
         turn = turn == 0 ? 1 : 0;
         turnNum++;
@@ -121,6 +131,7 @@ public class BattleManager : MonoBehaviour
             minionDisplay.minion.SetCanAttack(true);
         }
     }
+
     //Card logic
     public IEnumerator PlayCard(GameObject cardObj)
     {
@@ -166,7 +177,7 @@ public class BattleManager : MonoBehaviour
              minion.SetActive(true);*/
         }
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.1f);
         PlayOnPlayEffect(card);
         ReferenceManager.Instance.validZone.SetActive(false);
 
@@ -177,7 +188,7 @@ public class BattleManager : MonoBehaviour
         }
         /*UpdateMana();*/
     }
-
+    //Play effect
     void PlayOnPlayEffect(Card card)
     {
         foreach (CardEffect effect in card.onPlay)
@@ -200,7 +211,7 @@ public class BattleManager : MonoBehaviour
     {
         foreach (CardEffect c in card.onDeath)
         {
-            Debug.Log(c.target);
+            /*Debug.Log(c.target);*/
             /*if (c.target == CardEffect.Target.ChosenMinion || c.target == CardEffect.Target.ChosenTarget)
             {
                 pendingEffect = new PendingEffect { pendingCardEffect = c, pendingCard = card };
@@ -216,17 +227,22 @@ public class BattleManager : MonoBehaviour
             ApplyEffect(card, c, null);
         }
     }
-    public IEnumerator OnMinionDeath(GameObject minionObj)
+
+    public IEnumerator OnMinionDeath(GameObject minionObj, bool haveOnDeathEffect)
     {
+        yield return new WaitUntil(() => !isWaiting);
+        /*        Debug.Log("OnDeath");*/
+        if (haveOnDeathEffect)
+        {
+            PlayOnDeathEffect(minionObj.GetComponent<MinionDisplay>().minion);
+            yield return null;//Wait for effect animation later
+        }
         if (playerMinionList.Contains(minionObj))
         {
             playerMinionList.Remove(minionObj);
         }
         else
             enemyMinionList.Remove(minionObj);
-        yield return new WaitUntil(() => !isWaiting);
-        Debug.Log("OnDeath");
-        PlayOnDeathEffect(minionObj.GetComponent<MinionDisplay>().minion);
         Destroy(minionObj);
     }
     /////////Player selecting target
@@ -331,80 +347,50 @@ public class BattleManager : MonoBehaviour
         CardDrag.canDrag = false;
         CardHover.canHover = false;
     }
-
+    //Apply Effect Logic
     void ApplyEffect(Card card, CardEffect cardEffect, ITarget target)
     {
+        /*Debug.Log("Apply");*/
+
         int value = cardEffect.value;
         switch (cardEffect.target)
         {
+            case CardEffect.Target.Self:
+                ApplyEffectToTarget(card, cardEffect, turn == 0 ? player : enemy, value);
+                break;
+            case CardEffect.Target.Enemy:
+                ApplyEffectToTarget(card, cardEffect, turn == 1 ? player : enemy, value);
+                break;
             case CardEffect.Target.ChosenTarget:
-                ApplyEffectToTarget(cardEffect.type, target, value);
+                ApplyEffectToTarget(card, cardEffect, target, value);
                 break;
             case CardEffect.Target.ChosenMinion:
-                ApplyEffectToTarget(cardEffect.type, target, value);
+                ApplyEffectToTarget(card, cardEffect, target, value);
                 break;
             case CardEffect.Target.All:
-                ApplyEffectToAll(cardEffect.type, value);
+                ApplyEffectToAll(card, cardEffect, value);
                 break;
             case CardEffect.Target.AllMinions:
-                ApplyEffectToAllMinions(cardEffect.type, value);
+                ApplyEffectToAllMinions(card, cardEffect, value);
                 break;
             case CardEffect.Target.AllEnemyMinions:
-                ApplyEffectToAllEnemyMinions(cardEffect.type, card, value);
+                ApplyEffectToAllEnemyMinions(card, cardEffect, value);
                 break;
             case CardEffect.Target.AllAllyMinions:
-                DealDamageToAllAllyMinions(cardEffect.type, card, value);
+                ApplyEffectToAllAllyMinions(card, cardEffect, value);
                 break;
             case CardEffect.Target.RandomAllyMinion:
-                ApplyEffectToTarget(cardEffect.type, GetRandomAllyMinion(card), value);
+                ApplyEffectToTarget(card, cardEffect, GetRandomAllyMinion(card), value);
                 break;
             case CardEffect.Target.RandomEnemyMinion:
-                ApplyEffectToTarget(cardEffect.type, GetRandomEnemyMinion(card), value);
+                ApplyEffectToTarget(card, cardEffect, GetRandomEnemyMinion(card), value);
                 break;
         }
     }
 
-
-    private void ApplyEffectToAll(CardEffect.Type type, int value)
+    public void ApplyEffectToTarget(Card card, CardEffect effect, ITarget target, int value)
     {
-        ApplyEffectToAllMinions(type, value);
-        ApplyEffectToTarget(type, player, value);
-        ApplyEffectToTarget(type, enemy, value);
-    }
-
-    private void ApplyEffectToAllMinions(CardEffect.Type type, int value)
-    {
-        foreach (GameObject obj in playerMinionList)
-        {
-            ITarget target = obj.GetComponent<MinionDisplay>().minion;
-            ApplyEffectToTarget(type, target, value);
-        }
-        foreach (GameObject obj in enemyMinionList)
-        {
-            ITarget target = obj.GetComponent<MinionDisplay>().minion;
-            ApplyEffectToTarget(type, target, value);
-        }
-    }
-    private void ApplyEffectToAllEnemyMinions(CardEffect.Type type, Card card, int value)
-    {
-        foreach (GameObject obj in GetEnemyMinionListFromACard(card))
-        {
-            ITarget target = obj.GetComponent<MinionDisplay>().minion;
-            ApplyEffectToTarget(type, target, value);
-        }
-    }
-    private void DealDamageToAllAllyMinions(CardEffect.Type type, Card card, int value)
-    {
-        foreach (GameObject obj in GetAllyMinionListFromACard(card))
-        {
-            ITarget target = obj.GetComponent<MinionDisplay>().minion;
-            ApplyEffectToTarget(type, target, value);
-        }
-    }
-
-    public void ApplyEffectToTarget(CardEffect.Type type, ITarget target, int value)
-    {
-        switch (type)
+        switch (effect.type)
         {
             case CardEffect.Type.Damage:
                 target.TakeDamage(value);
@@ -412,18 +398,84 @@ public class BattleManager : MonoBehaviour
             case CardEffect.Type.Heal:
                 target.RestoreHealth(value);
                 break;
+            case CardEffect.Type.Buff:
+                switch (effect.buffType)
+                {
+                    case CardEffect.BuffType.None:
+                        break;
+                    case CardEffect.BuffType.Attack:
+                        target.IncreaseAttack(value); break;
+                    case CardEffect.BuffType.Shield:
+                        target.IncreaseShield(value); break;
+                    case CardEffect.BuffType.HealOverTime:
+                        /*target.IncreaseAttack(value); */
+                        break;
+                    case CardEffect.BuffType.DealDamageOverTime:
+                        target.TakeDamage(value);
+                        break;
+                }
+                if (effect.duration > 0 && !IsInActiveList(card, effect))
+                {
+                    tmpActiveEffectList.Add(new(card, effect, effect.duration, target));
+                    Debug.Log("Added new active effect");
+                }
+                break;
             default:
-                Debug.Log("Unchecked effect type: " + type);
+                Debug.Log("Unchecked effect type: " + effect.type);
                 break;
         }
+        rm.ai.isDone = true; //Tam thoi de logic cho luot cua ai o day
     }
+
+    private void ApplyEffectToAll(Card card, CardEffect effect, int value)
+    {
+        ApplyEffectToAllMinions(card, effect, value);
+        ApplyEffectToTarget(card, effect, player, value);
+        ApplyEffectToTarget(card, effect, enemy, value);
+    }
+
+    private void ApplyEffectToAllMinions(Card card, CardEffect effect, int value)
+    {
+        foreach (GameObject obj in playerMinionList)
+        {
+            ITarget target = obj.GetComponent<MinionDisplay>().minion;
+            ApplyEffectToTarget(card, effect, target, value);
+        }
+        foreach (GameObject obj in enemyMinionList)
+        {
+            ITarget target = obj.GetComponent<MinionDisplay>().minion;
+            ApplyEffectToTarget(card, effect, target, value);
+        }
+    }
+    private void ApplyEffectToAllEnemyMinions(Card card, CardEffect effect, int value)
+    {
+        /*Debug.Log("ApplyEffectToAllEnemyMinions");*/
+        /*Debug.Log(GetEnemyMinionListFromACard(card).Count);*/
+        foreach (GameObject obj in GetEnemyMinionListFromACard(card))
+        {
+            ITarget target = obj.GetComponent<MinionDisplay>().minion;
+            ApplyEffectToTarget(card, effect, target, value);
+        }
+    }
+    private void ApplyEffectToAllAllyMinions(Card card, CardEffect effect, int value)
+    {
+        foreach (GameObject obj in GetAllyMinionListFromACard(card))
+        {
+            ITarget target = obj.GetComponent<MinionDisplay>().minion;
+            ApplyEffectToTarget(card, effect, target, value);
+        }
+    }
+
+
     Minion GetRandomAllyMinion(Card card)
     {
-        return playerMinionList[Random.Range(0, playerMinionList.Count)].GetComponent<MinionDisplay>().minion;
+        List<GameObject> list = GetAllyMinionListFromACard(card);
+        return list[Random.Range(0, list.Count)].GetComponent<MinionDisplay>().minion;
     }
     Minion GetRandomEnemyMinion(Card card)
     {
-        return enemyMinionList[Random.Range(0, enemyMinionList.Count)].GetComponent<MinionDisplay>().minion;
+        List<GameObject> list = GetEnemyMinionListFromACard(card);
+        return list[Random.Range(0, list.Count)].GetComponent<MinionDisplay>().minion;
     }
     List<GameObject> GetAllyMinionListFromACard(Card card)
     {
@@ -434,7 +486,49 @@ public class BattleManager : MonoBehaviour
     List<GameObject> GetEnemyMinionListFromACard(Card card)
     {
         if (card is Minion minion)
+        {
             return enemyMinionList.Contains(minion.GetGameObject()) ? playerMinionList : enemyMinionList;
+        }
         return turn == 1 ? playerMinionList : enemyMinionList;
+    }
+    //Active Effect Logic
+    void CallActiveEffect(bool onStart)
+    {
+        List<ActiveEffect> expiredEffects = new();
+        foreach (ActiveEffect ae in tmpActiveEffectList)
+        {
+            if (ae.pendingTime > 0)
+            {
+                if ((onStart && ae.effect.isOnStartOfTurn) || (!onStart && !ae.effect.isOnStartOfTurn))
+                {
+                    /*Debug.Log("ActiveEffect");*/
+                    PlayOnPlayEffect(ae.card);
+                    ae.pendingTime -= 1;
+
+                    if (ae.pendingTime <= 0)
+                        expiredEffects.Add(ae);
+                }
+            }
+        }
+        foreach (var expired in expiredEffects)
+            tmpActiveEffectList.Remove(expired);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ///////////////////////// Helper Function //////////////////////////////
+    private bool IsInActiveList(Card card, CardEffect effect)
+    {
+        return tmpActiveEffectList.Exists(c => c.card == card && c.effect == effect);
     }
 }

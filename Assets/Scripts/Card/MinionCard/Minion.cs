@@ -53,6 +53,22 @@ public class Minion : Card, ITarget
             SetCanAttack(false);
         });
     }
+    public void IncreaseAttack(int value)
+    {
+        currentAttack += value;
+    }
+    public void DecreaseAttack(int value)
+    {
+        currentAttack -= value;
+    }
+    public void IncreaseShield(int value)
+    {
+        return;
+    }
+    public void DecreaseShield(int value)
+    {
+        return;
+    }
     public GameObject GetGameObject()
     {
         return display.gameObject;

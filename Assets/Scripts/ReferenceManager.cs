@@ -13,6 +13,7 @@ public class ReferenceManager : MonoBehaviour
     public BattleManager bm;
     public ArrowManager am;
     public EnemyAI ai;
+    public AnimationManager aq;
 
     private void Awake()
     {

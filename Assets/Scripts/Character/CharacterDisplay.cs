@@ -39,7 +39,18 @@ public class CharacterDisplay : MonoBehaviour
         character.display = this;
         //Thay doi image,skill cua nhan vat sau
     }
-
+    public void UpdateAttack()
+    {
+        attackText.text = $"{character.currentAttack}";
+        if (character.currentAttack > 0)
+        {
+            attackObj.SetActive(true);
+        }
+        else
+        {
+            attackObj.SetActive(false);
+        }
+    }
     public void UpdateHealth()
     {
         healthText.text = $"{character.currentHealth}";
@@ -85,6 +96,7 @@ public class CharacterDisplay : MonoBehaviour
         seq.AppendCallback(() =>
         {
             attacker.SetParent(originalParent);
+            character.SetHasAttackedThisTurn(true);
             rm.bm.isWaiting = false;
         });
     }

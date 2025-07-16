@@ -12,8 +12,6 @@ public abstract class Card
 
     public List<CardEffect> onPlay = new();
     public List<CardEffect> onDeath = new();
-    public List<CardEffect> onEndOfTurn = new();
-    public List<CardEffect> onStartOfTurn = new();
 
     public enum CardType
     {

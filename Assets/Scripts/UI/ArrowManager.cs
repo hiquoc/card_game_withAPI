@@ -170,7 +170,7 @@ public class ArrowManager : MonoBehaviour
     }
     IEnumerator MoveArrowCoroutine(Vector2 targetPos)
     {
-        float moveTime = 0.2f;
+        float moveTime = 0.1f;
         float currentTime = 0f;
         arrow.SetActive(true);
         while (currentTime < moveTime)
@@ -214,7 +214,7 @@ public class ArrowManager : MonoBehaviour
     }
     IEnumerator EnemyMoveArrowCoroutine(Vector2 targetPos, GameObject targetObj)
     {
-        float moveTime = 1f;
+        float moveTime = 0.5f;
         float currentTime = 0f;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform,
             rm.bm.enemyDisplay.gameObject.GetComponent<RectTransform>().position,

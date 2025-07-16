@@ -30,7 +30,9 @@ public class EnemyAI : MonoBehaviour
     }*/
     public void PlayMinionCard()
     {
-        GameObject cardObj = enemyHand.Find(c => c.GetComponent<CardDisplay>().card.type == Card.CardType.minion);
+        /*GameObject cardObj = enemyHand.Find(c => c.GetComponent<CardDisplay>().card.type == Card.CardType.minion);*/
+        isDone = false;
+        GameObject cardObj = GetCard();
         if (!cardObj)
         {
             throw new Exception("Card khong ton tai");
@@ -43,7 +45,7 @@ public class EnemyAI : MonoBehaviour
     }
     public void DropCardAI(GameObject cardObj)
     {
-        /*Debug.Log("AI");*/
+        Debug.Log("AI");
         CardDrag cardDrag = cardObj.GetComponent<CardDrag>();
         CardDisplay cardDisplay = cardDrag.GetComponent<CardDisplay>();
         if (cardDisplay.card.type == Card.CardType.minion)
@@ -52,16 +54,22 @@ public class EnemyAI : MonoBehaviour
             cardDrag.minionHolderObj = minionHolderObj;
             RectTransform minionHolderRT = minionHolderObj.GetComponent<RectTransform>();
             cardDrag.minionHolderRT = minionHolderRT;
+            Debug.Log("MinionCard");
             /*bm.PlayCard(cardDisplay.gameObject);*/
             /*cardDrag.lastMinionHolderPos = minionHolderRT.position;*/
         }
         else
         {
-            /*Debug.Log("SpellCard");*/
+            Debug.Log("SpellCard");
         }
         StartCoroutine(rm.bm.PlayCard(cardDisplay.gameObject));
         /*cm.UpdateCardPosition(0, cm.playerHand, cm.playerHandPosition);*/
 
+    }
+    public GameObject GetCard()
+    {
+        GameObject cardObj = enemyHand[0];
+        return cardObj;
     }
     public GameObject GetTarget(CardEffect.Target targetType)
     {

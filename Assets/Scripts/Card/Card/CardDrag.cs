@@ -116,19 +116,35 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         Vector2 screenCenter = new((Screen.width + 100f) / 2f, Screen.height / 2f);
         ReferenceManager rm = ReferenceManager.Instance;
         transform.SetParent(rm.animationLayer);
+        rt.localEulerAngles = new Vector2(0f, 0f);
         Sequence seq = DOTween.Sequence();
         seq.Append(rt.DOMove(screenCenter, 0.8f));
-        seq.Join(rt.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.2f));
+        seq.Join(rt.DOScale(new Vector3(2f, 2f, 2f), 0.2f));
+        gameObject.TryGetComponent(out FlipCard flipCard);
+        if (flipCard != null && !flipCard.flipped)
+        {
+            seq.AppendCallback(() => flipCard.Flip());
+            seq.AppendInterval(0.5f);
+        }
         yield return seq.WaitForCompletion();
+        yield return new WaitForSeconds(1f);
     }
     public IEnumerator MoveMinionCard()
     {
         ReferenceManager rm = ReferenceManager.Instance;
         transform.SetParent(rm.animationLayer);
+        rt.localEulerAngles = new Vector2(0f, 0f);
         Sequence seq = DOTween.Sequence();
         seq.Append(rt.DOMove(minionHolderRT.position, 0.8f));
-        seq.Join(rt.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.2f));
+        seq.Join(rt.DOScale(new Vector3(2f, 2f, 2f), 0.2f));
+        gameObject.TryGetComponent(out FlipCard flipCard);
+        if (flipCard != null && !flipCard.flipped)
+        {
+            seq.AppendCallback(() => flipCard.Flip());
+            seq.AppendInterval(0.5f);
+        }
         yield return seq.WaitForCompletion();
+        yield return new WaitForSeconds(1f);
     }
 
 }

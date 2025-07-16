@@ -42,7 +42,7 @@ public class ValidZone : MonoBehaviour, IDropHandler
                 /*Debug.Log("SpellCard");*/
 
             }
-            Debug.Log("3");
+
             StartCoroutine(rm.bm.PlayCard(cardDisplay.gameObject));
             /*cm.UpdateCardPosition(0, cm.playerHand, cm.playerHandPosition);*/
         }

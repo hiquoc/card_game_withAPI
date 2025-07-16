@@ -14,22 +14,14 @@ public class Character : ITarget
     public int maxMana = 10;
     public int currentAttack = 0;
     private bool canAttack = false;
+    private bool hasAttackedThisTurn = false;
 
     public List<CardEffect> skill = new();
     public string skillName;
     public string skillDes;
 
 
-    public void IncreaseShield(int value)
-    {
-        currentShield += value;
-        display.UpdateShield();
-    }
-    public void DecreaseShield(int value)
-    {
-        currentShield = Mathf.Max(0, currentShield - value);
-        display.UpdateShield();
-    }
+
     public void SetMana(int value)
     {
         currentMana = Mathf.Min(value, maxMana);
@@ -82,6 +74,14 @@ public class Character : ITarget
     {
         return canAttack && GetAttack() > 0;
     }
+    public void SetHasAttackedThisTurn(bool v)
+    {
+        hasAttackedThisTurn = v;
+    }
+    public bool HasAttackedThisTurn()
+    {
+        return hasAttackedThisTurn;
+    }
     public void AttackTarget(ITarget target)
     {
         display.PlayAttackAnimation(target, () =>
@@ -90,7 +90,28 @@ public class Character : ITarget
             SetCanAttack(false);
         });
     }
-
+    public void IncreaseAttack(int value)
+    {
+        currentAttack += value;
+        if (!HasAttackedThisTurn())
+            SetCanAttack(true);
+        display.UpdateAttack();
+    }
+    public void DecreaseAttack(int value)
+    {
+        currentAttack = Mathf.Max(0, currentAttack - value);
+        display.UpdateAttack();
+    }
+    public void IncreaseShield(int value)
+    {
+        currentShield += value;
+        display.UpdateShield();
+    }
+    public void DecreaseShield(int value)
+    {
+        currentShield = Mathf.Max(0, currentShield - value);
+        display.UpdateShield();
+    }
     public GameObject GetGameObject()
     {
         return display.gameObject;

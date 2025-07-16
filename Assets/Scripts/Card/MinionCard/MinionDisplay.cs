@@ -42,7 +42,10 @@ public class MinionDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         /*if (cardPreviewObj != null)
             Destroy(cardPreviewObj);*/
     }
-
+    public void UpdateAttack()
+    {
+        attackText.text = $"{minion.currentAttack}";
+    }
     public void UpdateHealth()
     {
         healthText.text = minion.currentHealth.ToString();
@@ -51,7 +54,7 @@ public class MinionDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void Die()
     {
         Debug.Log($"{minion.name} Died");
-        StartCoroutine(rm.bm.OnMinionDeath(gameObject));
+        StartCoroutine(rm.bm.OnMinionDeath(gameObject, minion.onDeath.Count > 0));
     }
 
     public void PlayAttackAnimation(ITarget target, System.Action onComplete)

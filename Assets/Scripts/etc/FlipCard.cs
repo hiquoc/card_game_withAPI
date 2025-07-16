@@ -8,7 +8,7 @@ public class FlipCard : MonoBehaviour
 
     float flipDuration = 0.5f;
 
-    bool flipped = false;
+    public bool flipped = false;
     private void Awake()
     {
         front = transform.Find("Front").gameObject;
