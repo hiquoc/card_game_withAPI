@@ -18,7 +18,8 @@ public class CardManager : MonoBehaviour
     [SerializeField]
     int maxHandSize;
 
-    public RectTransform animationLayer;
+    ReferenceManager rm;
+    RectTransform animationLayer;
 
     private void Awake()
     {
@@ -33,11 +34,9 @@ public class CardManager : MonoBehaviour
         playerCards = new();
         enemyCards = new();
 
+        rm = ReferenceManager.Instance;
+        animationLayer = rm.animationLayer;
         InitDeck();
-    }
-    private void Start()
-    {
-
     }
     public void DrawInitHand()
     {
@@ -48,13 +47,16 @@ public class CardManager : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            yield return new WaitForSeconds(0.5f);
-            DrawCard(0, playerCards, playerHand);
-            DrawCard(1, enemyCards, enemyHand);
+            yield return new WaitForSeconds(0.2f);
+            yield return StartCoroutine(DrawCard(0));
+            yield return new WaitForSeconds(0.2f);
+            yield return StartCoroutine(DrawCard(1));
+
         }
     }
-    public void DrawPlayerCard() => DrawCard(0, playerCards, playerHand);
-    public void DrawEnemyCard() => DrawCard(1, enemyCards, enemyHand);
+
+    public void DrawPlayerCard() => StartCoroutine(DrawCard(0));
+    public void DrawEnemyCard() => StartCoroutine(DrawCard(1));
 
     private void InitDeck()
     {
@@ -69,29 +71,59 @@ public class CardManager : MonoBehaviour
         for (int i = 0; i < 30; i++)
         {
             Card card;
-            if (i > 2)
+            if (i > 0 && i <= 1)
             {
-                card = new Minion(3, 2, null)
+                card = new MinionCard(i, 3, 2, null)
                 {
                     type = Card.CardType.minion,
                     mana = 3,
                 };
-                CardEffect cardEffect1 = new(2, CardEffect.Type.Damage, CardEffect.Target.ChosenTarget);
+                DamageEffect cardEffect1 = new(2, CardEffect.Target.ChosenTarget, "arrow");
                 card.onPlay.Add(cardEffect1);
 
-                CardEffect cardEffect2 = new(1, CardEffect.Type.Damage, CardEffect.Target.AllEnemyMinions);
-                card.onDeath.Add(cardEffect2);
+                BuffEffect cardEffect2 = new(0, CardEffect.Target.CurrentMinion, "", BuffEffect.BuffType.Taunt);
+                card.onPlay.Add(cardEffect2);
+            }
+            else if (i > 1)
+            {
+                card = new MinionCard(i, 3, 2, null)
+                {
+                    type = Card.CardType.minion,
+                    mana = 3,
+                };
+                DamageEffect cardEffect2 = new(1, CardEffect.Target.RandomEnemyMinion, "fireball");
+                card.onEndOfTurn.Add(cardEffect2);
+                BuffEffect cardEffect1 = new(2, CardEffect.Target.RandomAllyMinion, "attack", BuffEffect.BuffType.Attack);
+                card.onPlay.Add(cardEffect1);
+                BuffEffect cardEffect4 = new(1, CardEffect.Target.AllAllyMinions, "", BuffEffect.BuffType.ActiveHealthBuff);
+                card.onPlay.Add(cardEffect4);
+                /*DrawEffect cardEffect3 = new();
+                card.onEndOfTurn.Add(cardEffect3);*/
+                HealEffect cardEffect = new(3, CardEffect.Target.AllAllyMinions, "heal");
+                card.onDeath.Add(cardEffect);
+                DamageEffect cardEffect3 = new(3, CardEffect.Target.AllEnemy, "explosion");
+                card.onDeath.Add(cardEffect3);
             }
             else
             {
                 card = new SpellCard
                 {
+                    id = i,
                     type = Card.CardType.spell,
                     mana = 2
                 };
 
-                CardEffect cardEffect1 = new(2, CardEffect.Type.Buff, CardEffect.Target.Self, CardEffect.BuffType.DealDamageOverTime, 3, false, "Arrow");
+                /*DrawEffect cardEffect1 = new();
+                card.onPlay.Add(cardEffect1);*/
+
+                BuffEffect cardEffect1 = new(2, CardEffect.Target.Self, "attack", BuffEffect.BuffType.Attack, 1, false);
                 card.onPlay.Add(cardEffect1);
+
+                BuffEffect cardEffect3 = new(2, CardEffect.Target.Self, "shield", BuffEffect.BuffType.Shield, 1, false);
+                card.onPlay.Add(cardEffect3);
+
+                HealEffect cardEffect2 = new(1, CardEffect.Target.AllAlly, "heal");
+                card.onPlay.Add(cardEffect2);
             }
 
             deck.list.Add(card);
@@ -107,18 +139,24 @@ public class CardManager : MonoBehaviour
             cardQueue.Enqueue(cardObj);
         }
     }
-    public void DrawCard(int turn, Queue<GameObject> cards, List<GameObject> hand)
+    public IEnumerator DrawCard(int turn)
     {
+        Queue<GameObject> cards = turn == 0 ? playerCards : enemyCards;
+        List<GameObject> hand = turn == 0 ? playerHand : enemyHand;
         GameObject cardObj = cards.Dequeue();
         hand.Add(cardObj);
         RectTransform rt = cardObj.GetComponent<RectTransform>();
         rt.SetParent(animationLayer, true);
-        UpdateCardPosition(turn, hand, turn == 0 ? playerHandPosition : enemyHandPosition);
+        UpdateCardPosition(turn);
+        rm.sm.Play("cardDrawn");
+        yield return null;
     }
-    public void UpdateCardPosition(int turn, List<GameObject> hand, RectTransform handPosition)
-    {
-        if (hand.Count == 0) return;
 
+    public void UpdateCardPosition(int turn)
+    {
+        List<GameObject> hand = turn == 0 ? playerHand : enemyHand;
+        RectTransform handPosition = turn == 0 ? playerHandPosition : enemyHandPosition;
+        if (hand.Count == 0) return;
         float spacingScale = Mathf.Min(1.3f, 8f / hand.Count);
         float cardSpacing = 1f * spacingScale / maxHandSize;
         float firstCardPos = 0.5f - (hand.Count - 1) * cardSpacing / 2;

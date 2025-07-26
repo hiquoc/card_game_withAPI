@@ -87,16 +87,17 @@ public class ArrowManager : MonoBehaviour
                 if (!rm.bm.playerMinionList.Contains(result.gameObject)) continue;
                 target = mininon.minion;
             }
-            Debug.Log(target.CanAttack());
+            /*Debug.Log(target.CanAttack());*/
             if (target == null || !target.CanAttack()) continue;
 
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, null, out startPos);
             rt.anchoredPosition = startPos;
-            Debug.Log("UI Element hit: " + result.gameObject.name);
+            /*Debug.Log("UI Element hit: " + result.gameObject.name);*/
             iAttacker = target;
             isDrawing = true;
             isAttacking = true;
             rm.bm.isWaiting = true;
+            rm.bm.ShowAttackableTarget();
             break;
         }
 
@@ -126,6 +127,7 @@ public class ArrowManager : MonoBehaviour
         isDrawing = false;
         arrow.SetActive(false);
         rm.bm.isWaiting = false;
+        rm.bm.HideAttackableTarget();
 
         if (!isAttacking) return;
         isAttacking = false;
@@ -150,10 +152,11 @@ public class ArrowManager : MonoBehaviour
                 target = minion.minion;
             }
             if (target == null) continue;
-
+            if (!rm.bm.CanAttackTarget(iAttacker, target)) return;
             //Do attack
-            Debug.Log("Attacking");
+            /*Debug.Log("Attacking");*/
             iAttacker.AttackTarget(target);
+            return;
             /*break;*/
         }
 
@@ -192,11 +195,11 @@ public class ArrowManager : MonoBehaviour
 
     ////////////////////////////
     // Enemy AI
-    public void EnemyArrowForSelectingATarget(RectTransform rect, CardEffect.Target targetType)
+    public void EnemyArrowForSelectingATarget(Card card, RectTransform rect, CardEffect.Target targetType)
     {
         RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, rect.position, null, out startPos);
         rt.anchoredPosition = startPos;
-        GameObject targetObj = rm.ai.GetTarget(targetType);
+        GameObject targetObj = rm.ai.GetTargetByTargetType(card, targetType);
         MinionDisplay obj = targetObj.GetComponent<MinionDisplay>();
         Vector2 screenPoint;
         if (obj == null)
@@ -206,18 +209,18 @@ public class ArrowManager : MonoBehaviour
         else
             screenPoint = RectTransformUtility.WorldToScreenPoint(null, targetObj.GetComponent<RectTransform>().position);
         RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, screenPoint, null, out Vector2 endPos);
-        StartCoroutine(EnemyMoveArrowCoroutine(endPos, targetObj));
-        Debug.Log(targetObj.name);
+        StartCoroutine(EnemyMoveArrowCoroutine(rect, endPos, targetObj));
+        /*Debug.Log(targetObj.name);*/
         /*Debug.Log(endPos);*/
         /*isSelecting = true;*/
         //Stop drawing will be called in ExitSelectTarget (BattleManager.cs)
     }
-    IEnumerator EnemyMoveArrowCoroutine(Vector2 targetPos, GameObject targetObj)
+    IEnumerator EnemyMoveArrowCoroutine(RectTransform rect, Vector2 targetPos, GameObject targetObj)
     {
         float moveTime = 0.5f;
         float currentTime = 0f;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform,
-            rm.bm.enemyDisplay.gameObject.GetComponent<RectTransform>().position,
+            rect.position,
             null, out Vector2 startPos);
         while (currentTime < moveTime)
         {
@@ -241,4 +244,13 @@ public class ArrowManager : MonoBehaviour
         arrowRect.localEulerAngles = new Vector3(0, 0, angle - 90);
         arrow.SetActive(true);
     }
+
+
+
+
+
+
+
+    ////////////////////Helper function///////////////////
+
 }

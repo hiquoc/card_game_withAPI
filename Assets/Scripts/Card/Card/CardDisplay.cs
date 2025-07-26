@@ -20,7 +20,7 @@ public class CardDisplay : MonoBehaviour
         manaText.text = card.mana.ToString();
         if (card.type == Card.CardType.minion)
         {
-            Minion minionCard = card as Minion;
+            MinionCard minionCard = card as MinionCard;
             attackText.text = minionCard.currentAttack.ToString();
             healthText.text = minionCard.maxHealth.ToString();
             minionStatsPanel.SetActive(true);

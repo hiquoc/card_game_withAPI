@@ -3,88 +3,140 @@
   "WorkspaceRootPath": "D:\\UnityProjects\\Web Card Game\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\card\\cardeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\card\\cardeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\deck\\removefromdeckvalidzone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\deck\\removefromdeckvalidzone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\animation\\animation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\animation\\animation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\deck\\selectedcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\deck\\selectedcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|d:\\unityprojects\\web card game\\assets\\scripts\\card\\card\\carddrag.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\card\\carddrag.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\deck\\cardindeck.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\deck\\cardindeck.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\battlemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\battlemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|d:\\unityprojects\\web card game\\assets\\scripts\\card\\deck\\deckmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\deck\\deckmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\enemy\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\enemy\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\animation\\animationmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\animation\\animationmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\referencemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\referencemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\cardmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\cardmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\etc\\pendingeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\etc\\pendingeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\card\\carddisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\card\\carddisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\etc\\activeeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\etc\\activeeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\card\\card.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\card\\card.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\etc\\itarget.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\etc\\itarget.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\minioncard\\minion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\minioncard\\minion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\character\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\character\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\etc\\selectabletarget.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\etc\\selectabletarget.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\character\\characterdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\character\\characterdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\deck\\deckvalidzone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\deck\\deckvalidzone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\ui\\arrowmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\arrowmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\minioncard\\miniondisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\minioncard\\miniondisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\referencemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\referencemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\validzone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\validzone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\battlemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\battlemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\card\\carddrag.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\card\\carddrag.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\enemy\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\enemy\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\ui\\startandendbattle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\startandendbattle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\cardmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\cardmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\minioncard\\minioncard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\minioncard\\minioncard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\character\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\character\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\character\\characterdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\character\\characterdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\ui\\popup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\popup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\minioncard\\miniondisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\minioncard\\miniondisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\card\\cardhover.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\card\\cardhover.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\animation\\animationmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\animation\\animationmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\etc\\buffmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\etc\\buffmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\etc\\itarget.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\etc\\itarget.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\cardeffect\\cardeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\cardeffect\\cardeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\cardeffect\\summoneffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\cardeffect\\summoneffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\cardeffect\\damageeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\cardeffect\\damageeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\cardeffect\\buffeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\cardeffect\\buffeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\card\\card.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\card\\card.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\enemy\\cardaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\enemy\\cardaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\card\\enemy\\aistate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\enemy\\aistate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\animation\\soundmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\animation\\soundmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\etc\\buffinstance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\etc\\buffinstance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\etc\\selectabletarget.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\etc\\selectabletarget.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|D:\\UnityProjects\\Web Card Game\\assets\\scripts\\etc\\activeeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9A1D8A31-952C-67FF-6095-28977866F861}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\etc\\activeeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Deck.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\Card\\Deck.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -94,30 +146,31 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 10,
+          "SelectedChildIndex": 35,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "BattleManager.cs",
               "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\BattleManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\BattleManager.cs",
               "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\BattleManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\BattleManager.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAcwC8AAABNAAAAAAAAAA==",
+              "ViewState": "AgIAACQAAAAAAAAAAAAowB4AAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-27T14:08:13.083Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 12,
               "Title": "CardManager.cs",
               "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\CardManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\CardManager.cs",
               "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\CardManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Card\\CardManager.cs",
-              "ViewState": "AgIAAEoAAAAAAAAAAAAAAFwAAACZAAAAAAAAAA==",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAAAHwAAABTAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-01T08:38:27.833Z",
               "IsPinned": true
@@ -130,10 +183,11 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\ReferenceManager.cs",
               "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\ReferenceManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\ReferenceManager.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA8AAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAwBcAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-07T13:32:24.964Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
@@ -149,135 +203,253 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 11,
+              "Title": "StartAndEndBattle.cs",
+              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\UI\\StartAndEndBattle.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\StartAndEndBattle.cs",
+              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\UI\\StartAndEndBattle.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\StartAndEndBattle.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwBUAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-25T13:20:41.48Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "EnemyAI.cs",
+              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Enemy\\EnemyAI.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\Enemy\\EnemyAI.cs",
+              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Enemy\\EnemyAI.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\Enemy\\EnemyAI.cs",
+              "ViewState": "AgIAAMkAAAAAAAAAAAAowNQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-11T03:06:48.565Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "Deck.cs",
+              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Deck.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\Deck.cs",
+              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Deck.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\Deck.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-25T04:54:08.201Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "AIState.cs",
+              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Enemy\\AIState.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\Enemy\\AIState.cs",
+              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Enemy\\AIState.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\Enemy\\AIState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T12:51:16.151Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "CardAction.cs",
+              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Enemy\\CardAction.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\Enemy\\CardAction.cs",
+              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Enemy\\CardAction.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\Enemy\\CardAction.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAgwDAAAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T12:16:32.456Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "BuffInstance.cs",
+              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\etc\\BuffInstance.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\etc\\BuffInstance.cs",
+              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\etc\\BuffInstance.cs",
+              "RelativeToolTip": "Assets\\Scripts\\etc\\BuffInstance.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:21:13.904Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "BuffManager.cs",
+              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\etc\\BuffManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\etc\\BuffManager.cs",
+              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\etc\\BuffManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\etc\\BuffManager.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAkwBIAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:43:55.719Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "SelectableTarget.cs",
+              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\etc\\SelectableTarget.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\etc\\SelectableTarget.cs",
+              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\etc\\SelectableTarget.cs",
+              "RelativeToolTip": "Assets\\Scripts\\etc\\SelectableTarget.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwA4AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-20T08:05:22.705Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
               "Title": "AnimationManager.cs",
               "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Animation\\AnimationManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Animation\\AnimationManager.cs",
               "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Animation\\AnimationManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Animation\\AnimationManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAACoAAAAAAAAAAAA5wCIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-15T08:57:49.774Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Animation.cs",
-              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Animation\\Animation.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Animation\\Animation.cs",
-              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Animation\\Animation.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Animation\\Animation.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAABXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-15T08:55:01.934Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "PendingEffect.cs",
-              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\etc\\PendingEffect.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\etc\\PendingEffect.cs",
-              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\etc\\PendingEffect.cs",
-              "RelativeToolTip": "Assets\\Scripts\\etc\\PendingEffect.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-14T08:51:52.47Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 32,
               "Title": "ActiveEffect.cs",
               "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\etc\\ActiveEffect.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\etc\\ActiveEffect.cs",
               "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\etc\\ActiveEffect.cs",
               "RelativeToolTip": "Assets\\Scripts\\etc\\ActiveEffect.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAA+wAYAAABWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-14T08:51:17.517Z"
+              "WhenOpened": "2025-07-21T01:58:19.391Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 16,
+              "Title": "Popup.cs",
+              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\UI\\Popup.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\Popup.cs",
+              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\UI\\Popup.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\Popup.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAkAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T03:50:43.261Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "BuffEffect.cs",
+              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\CardEffect\\BuffEffect.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\CardEffect\\BuffEffect.cs",
+              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\CardEffect\\BuffEffect.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\CardEffect\\BuffEffect.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBUAAACDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-20T07:36:37.622Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "SoundManager.cs",
+              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Animation\\SoundManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Animation\\SoundManager.cs",
+              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Animation\\SoundManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Animation\\SoundManager.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwCEAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-19T12:38:57.543Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "SummonEffect.cs",
+              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\CardEffect\\SummonEffect.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\CardEffect\\SummonEffect.cs",
+              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\CardEffect\\SummonEffect.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\CardEffect\\SummonEffect.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-16T07:24:35.795Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "DamageEffect.cs",
+              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\CardEffect\\DamageEffect.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\CardEffect\\DamageEffect.cs",
+              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\CardEffect\\DamageEffect.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\CardEffect\\DamageEffect.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAIAAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-16T06:56:33.911Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
               "Title": "CardEffect.cs",
-              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Card\\CardEffect.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\Card\\CardEffect.cs",
-              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Card\\CardEffect.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Card\\Card\\CardEffect.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAAswCsAAAAFAAAAAAAAAA==",
+              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\CardEffect\\CardEffect.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\CardEffect\\CardEffect.cs",
+              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\CardEffect\\CardEffect.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\CardEffect\\CardEffect.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAgwBgAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-14T07:33:45.377Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-14T07:33:45.377Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 26,
               "Title": "Card.cs",
               "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Card\\Card.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\Card\\Card.cs",
               "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Card\\Card.cs",
               "RelativeToolTip": "Assets\\Scripts\\Card\\Card\\Card.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-13T09:10:56.56Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "CardDisplay.cs",
-              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Card\\CardDisplay.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\Card\\CardDisplay.cs",
-              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Card\\CardDisplay.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Card\\Card\\CardDisplay.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAbAAAAAAAAAA==",
+              "Title": "CardDrag.cs",
+              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Card\\CardDrag.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\Card\\CardDrag.cs",
+              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Card\\CardDrag.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\Card\\CardDrag.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAowFoAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-13T09:10:55.448Z"
+              "WhenOpened": "2025-07-12T07:36:23.038Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 18,
               "Title": "CardHover.cs",
               "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Card\\CardHover.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\Card\\CardHover.cs",
               "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Card\\CardHover.cs",
               "RelativeToolTip": "Assets\\Scripts\\Card\\Card\\CardHover.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAIBQwCIAAAATAAAA",
+              "ViewState": "AgIAACUAAAAAAAAAAAAqwC4AAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-12T09:25:54.809Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "SelectableTarget.cs",
-              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\etc\\SelectableTarget.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\etc\\SelectableTarget.cs",
-              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\etc\\SelectableTarget.cs",
-              "RelativeToolTip": "Assets\\Scripts\\etc\\SelectableTarget.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAzwBkAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-12T07:44:41.065Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 13,
-              "Title": "Minion.cs",
-              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\MinionCard\\Minion.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\MinionCard\\Minion.cs",
-              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\MinionCard\\Minion.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Card\\MinionCard\\Minion.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAswDcAAAApAAAAAAAAAA==",
+              "Title": "MinionCard.cs",
+              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\MinionCard\\MinionCard.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\MinionCard\\MinionCard.cs",
+              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\MinionCard\\MinionCard.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\MinionCard\\MinionCard.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAewCUAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-12T07:16:15.979Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 17,
               "Title": "MinionDisplay.cs",
               "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\MinionCard\\MinionDisplay.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\MinionCard\\MinionDisplay.cs",
               "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\MinionCard\\MinionDisplay.cs",
               "RelativeToolTip": "Assets\\Scripts\\Card\\MinionCard\\MinionDisplay.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAxwC4AAAAjAAAAAAAAAA==",
+              "ViewState": "AgIAADIAAAAAAAAAAAAuwDwAAABIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-07T13:32:07.45Z"
             },
@@ -289,81 +461,123 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Character\\Character.cs",
               "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Character\\Character.cs",
               "RelativeToolTip": "Assets\\Scripts\\Character\\Character.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFwAAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAkwEMAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-01T07:58:31.534Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 15,
               "Title": "CharacterDisplay.cs",
               "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Character\\CharacterDisplay.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Character\\CharacterDisplay.cs",
               "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Character\\CharacterDisplay.cs",
               "RelativeToolTip": "Assets\\Scripts\\Character\\CharacterDisplay.cs",
-              "ViewState": "AgIAAE8AAAAAAAAAAAAWwGIAAAAzAAAAAAAAAA==",
+              "ViewState": "AgIAAEcAAAAAAAAAAAA6wBwAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-12T06:57:46.939Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 21,
               "Title": "ITarget.cs",
               "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\etc\\ITarget.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\etc\\ITarget.cs",
               "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\etc\\ITarget.cs",
               "RelativeToolTip": "Assets\\Scripts\\etc\\ITarget.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwA4AAAAqAAAAAAAAAA==",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAmwAwAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-12T06:33:02.665Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "EnemyAI.cs",
-              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Enemy\\EnemyAI.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\Enemy\\EnemyAI.cs",
-              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Enemy\\EnemyAI.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Card\\Enemy\\EnemyAI.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAowCIAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-11T03:06:48.565Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 5,
               "Title": "ArrowManager.cs",
               "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\UI\\ArrowManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\ArrowManager.cs",
               "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\UI\\ArrowManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\UI\\ArrowManager.cs",
-              "ViewState": "AgIAAJsAAAAAAAAAAAAiwCwAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAALoAAAAAAAAAAAD4v8IAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-10T07:43:53.39Z"
+              "WhenOpened": "2025-07-10T07:43:53.39Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 7,
               "Title": "ValidZone.cs",
               "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\ValidZone.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\ValidZone.cs",
               "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\ValidZone.cs",
               "RelativeToolTip": "Assets\\Scripts\\ValidZone.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAACwAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAxwBMAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-27T13:53:30.589Z"
+              "WhenOpened": "2025-06-27T13:53:30.589Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "CardDrag.cs",
-              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Card\\CardDrag.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\Card\\CardDrag.cs",
-              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Card\\CardDrag.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Card\\Card\\CardDrag.cs",
-              "ViewState": "AgIAAHgAAAAAAAAAAAAewIAAAAAtAAAAAAAAAA==",
+              "Title": "CardInDeck.cs",
+              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Deck\\CardInDeck.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\Deck\\CardInDeck.cs",
+              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Deck\\CardInDeck.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\Deck\\CardInDeck.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAQwBgAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-12T07:36:23.038Z",
+              "WhenOpened": "2025-07-26T06:44:08.431Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SelectedCard.cs",
+              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Deck\\SelectedCard.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\Deck\\SelectedCard.cs",
+              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Deck\\SelectedCard.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\Deck\\SelectedCard.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAYwCQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-26T07:34:27.05Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DeckValidZone.cs",
+              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Deck\\DeckValidZone.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\Deck\\DeckValidZone.cs",
+              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Deck\\DeckValidZone.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\Deck\\DeckValidZone.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwCcAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-26T06:57:09.779Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RemoveFromDeckValidZone.cs",
+              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Deck\\RemoveFromDeckValidZone.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\Deck\\RemoveFromDeckValidZone.cs",
+              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Deck\\RemoveFromDeckValidZone.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\Deck\\RemoveFromDeckValidZone.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-26T07:40:59.802Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DeckManager.cs",
+              "DocumentMoniker": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Deck\\DeckManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\Deck\\DeckManager.cs",
+              "ToolTip": "D:\\UnityProjects\\Web Card Game\\Assets\\Scripts\\Card\\Deck\\DeckManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\Deck\\DeckManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-26T10:05:02.029Z",
               "EditorCaption": ""
             }
           ]

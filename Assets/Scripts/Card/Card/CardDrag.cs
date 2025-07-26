@@ -49,7 +49,7 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         originalParent = transform.parent;
 
         transform.SetAsLastSibling();
-        if (isMinionCard)
+        if (isMinionCard && rm.bm.playerMinionList.Count < 6)
         {
             minionHolderObj = Instantiate(rm.minionHolderPrefab, rm.playerMinionPosition);
             minionHolderRT = minionHolderObj.GetComponent<RectTransform>();
@@ -105,14 +105,15 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         isDroppedValidZone = false;
         cardHover.ResetSiblingIndex();
 
-        CardManager cm = CardManager.Instance;
-        cm.UpdateCardPosition(0, cm.playerHand, cm.playerHandPosition);
+        rm.cm.UpdateCardPosition(0);
 
     }
 
     //Di chuyen the bai
     public IEnumerator MoveSpellCard()
     {
+        canDrag = false;
+        CardHover.canHover = false;
         Vector2 screenCenter = new((Screen.width + 100f) / 2f, Screen.height / 2f);
         ReferenceManager rm = ReferenceManager.Instance;
         transform.SetParent(rm.animationLayer);
@@ -124,13 +125,20 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         if (flipCard != null && !flipCard.flipped)
         {
             seq.AppendCallback(() => flipCard.Flip());
-            seq.AppendInterval(0.5f);
+            seq.AppendInterval(1f);
         }
+
+        rm.cm.UpdateCardPosition(rm.bm.turn);
+
         yield return seq.WaitForCompletion();
         yield return new WaitForSeconds(1f);
+        canDrag = true;
+        CardHover.canHover = true;
     }
     public IEnumerator MoveMinionCard()
     {
+        canDrag = false;
+        CardHover.canHover = false;
         ReferenceManager rm = ReferenceManager.Instance;
         transform.SetParent(rm.animationLayer);
         rt.localEulerAngles = new Vector2(0f, 0f);
@@ -138,13 +146,18 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         seq.Append(rt.DOMove(minionHolderRT.position, 0.8f));
         seq.Join(rt.DOScale(new Vector3(2f, 2f, 2f), 0.2f));
         gameObject.TryGetComponent(out FlipCard flipCard);
+
+        rm.cm.UpdateCardPosition(rm.bm.turn);
+
         if (flipCard != null && !flipCard.flipped)
         {
             seq.AppendCallback(() => flipCard.Flip());
-            seq.AppendInterval(0.5f);
+            seq.AppendInterval(1f);
         }
         yield return seq.WaitForCompletion();
         yield return new WaitForSeconds(1f);
+        canDrag = true;
+        CardHover.canHover = true;
     }
 
 }

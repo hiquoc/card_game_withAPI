@@ -26,6 +26,7 @@ public class CharacterDisplay : MonoBehaviour
     {
         character.maxHealth = health;
         character.currentHealth = health;
+        character.baseHealth = health;
         character.characterName = name;
 
         healthText.text = $"{health}";
@@ -72,6 +73,14 @@ public class CharacterDisplay : MonoBehaviour
     {
         manaText.text = character.currentMana.ToString();
     }
+    public void ShowReadyToAttack()
+    {
+        gameObject.GetComponent<SelectableTarget>().ReadyToAttackHighlight();
+    }
+    public void HideReadyToAttack()
+    {
+        gameObject.GetComponent<SelectableTarget>().DisableHighlight();
+    }
     public void PlayAttackAnimation(ITarget target, System.Action onComplete)
     {
         rm.bm.isWaiting = true;
@@ -87,6 +96,7 @@ public class CharacterDisplay : MonoBehaviour
         Transform originalParent = attacker.parent;
         attacker.SetParent(aniLayer);
 
+        SoundManager.Instance.Play("attacked");
         Sequence seq = DOTween.Sequence();
         seq.Append(attacker.transform.DOScale(1.3f, 0.3f));
         seq.Append(attacker.DOMove(targetPos + offset, 0.3f).SetEase(Ease.InOutQuad));
@@ -100,5 +110,18 @@ public class CharacterDisplay : MonoBehaviour
             rm.bm.isWaiting = false;
         });
     }
-
+    public void HaveAttackBuff(bool v)
+    {
+        if (v)
+            attackText.color = Color.green;
+        else
+            attackText.color = Color.white;
+    }
+    public void HaveHealthBuff(bool v)
+    {
+        if (v)
+            healthText.color = Color.green;
+        else
+            healthText.color = Color.white;
+    }
 }

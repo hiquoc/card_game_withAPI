@@ -13,6 +13,7 @@ public class SelectableTarget : MonoBehaviour, IPointerClickHandler
     }
     public void EnableHighlight()
     {
+        targetableHighlight.effectColor = Color.red;
         targetableHighlight.enabled = true;
     }
     public void DisableHighlight()
@@ -22,8 +23,12 @@ public class SelectableTarget : MonoBehaviour, IPointerClickHandler
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
         if (!isTargetable || BattleManager.Instance.turn != 0) return;
-        Debug.Log(gameObject.name);
+        /*Debug.Log(gameObject.name);*/
         BattleManager.Instance.OnSelectTarget(gameObject);
     }
-
+    public void ReadyToAttackHighlight()
+    {
+        targetableHighlight.effectColor = Color.green;
+        targetableHighlight.enabled = true;
+    }
 }

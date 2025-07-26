@@ -8,7 +8,7 @@ public class Character : ITarget
     public GameObject gameObject => display.gameObject;
     public string characterName;
     public Image characterImage;
-    public int currentHealth, maxHealth;
+    public int currentHealth, baseHealth, maxHealth;
     public int currentShield = 0;
     public int currentMana = 0;
     public int maxMana = 10;
@@ -39,6 +39,7 @@ public class Character : ITarget
     }
     public void TakeDamage(int value)
     {
+        OnTakeDamage(value);
         if (currentShield > 0)
         {
             int absorbed = Mathf.Min(currentShield, value);
@@ -47,6 +48,7 @@ public class Character : ITarget
             if (value <= 0) return;
         }
         currentHealth -= value;
+        display.HaveHealthBuff(currentHealth > baseHealth);
         display.UpdateHealth();
         if (currentHealth <= 0)
             Debug.Log(characterName + " Died");
@@ -63,16 +65,37 @@ public class Character : ITarget
     public void RestoreHealth(int value)
     {
         currentHealth = Mathf.Min(currentHealth + value, maxHealth);
+        OnHeal(value);
         display.UpdateHealth();
     }
-
+    public void IncreaseHealth(int value)
+    {
+        maxHealth += value;
+        RestoreHealth(value);
+        OnHeal(value);
+        display.HaveHealthBuff(currentHealth > baseHealth);
+    }
+    public void DecreaseHealth(int value)
+    {
+        maxHealth -= value;
+        currentHealth -= value;
+        display.HaveHealthBuff(currentHealth > baseHealth);
+        display.UpdateHealth();
+        OnTakeDamage(value);
+        if (currentHealth <= 0)
+            Debug.Log(characterName + " Died");
+    }
     public void SetCanAttack(bool v)
     {
         canAttack = v;
+        if (canAttack)
+            display.ShowReadyToAttack();
+        else
+            display.HideReadyToAttack();
     }
     public bool CanAttack()
     {
-        return canAttack && GetAttack() > 0;
+        return canAttack && GetAttack() > 0 && !hasAttackedThisTurn;
     }
     public void SetHasAttackedThisTurn(bool v)
     {
@@ -87,6 +110,8 @@ public class Character : ITarget
         display.PlayAttackAnimation(target, () =>
         {
             target.TakeDamage(currentAttack);
+            TakeDamage(target.GetAttack());
+
             SetCanAttack(false);
         });
     }
@@ -115,5 +140,22 @@ public class Character : ITarget
     public GameObject GetGameObject()
     {
         return display.gameObject;
+    }
+    public Vector3 GetPosition()
+    {
+        return display.gameObject.transform.position;
+    }
+
+    void OnTakeDamage(int value)
+    {
+        PoolManager pp = PoolManager.Instance;
+        GameObject popup = pp.GetPopup();
+        pp.Show(popup, value, GetGameObject().transform, false);
+    }
+    void OnHeal(int value)
+    {
+        PoolManager pp = PoolManager.Instance;
+        GameObject popup2 = pp.GetPopup();
+        pp.Show(popup2, value, GetGameObject().transform, true);
     }
 }
