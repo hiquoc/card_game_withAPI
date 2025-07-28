@@ -61,7 +61,7 @@ public class BattleManager : MonoBehaviour
     }
     private IEnumerator StartPlayerTurnAfterDelay()
     {
-        yield return StartCoroutine(rm.blurPanel.gameObject.GetComponent<StartAndEndBattle>().PlayStartBattle());
+        yield return StartCoroutine(GetComponent<StartAndEndBattle>().PlayStartBattle());
         /*yield return new WaitForSeconds(2.5f);*/
         yield return StartCoroutine(StartPlayerTurn());
     }
@@ -391,7 +391,7 @@ public class BattleManager : MonoBehaviour
     /////////Player selecting target
     private void EnterSelectTarget(Card card, CardEffect.Target targetType)
     {
-        /*Debug.Log("Enter");*/
+        Debug.Log("Enter");
         isWaiting = true;
         List<GameObject> selectableTarget = new();
         if (targetType == CardEffect.Target.ChosenMinion)
@@ -588,7 +588,7 @@ public class BattleManager : MonoBehaviour
                 {
                     if (source is MinionCard minion && !minion.isDying || source is Character)
                     {
-                        Debug.Log(source is MinionCard minion1 && !minion1.isDying);
+                        /*Debug.Log(source is MinionCard minion1 && !minion1.isDying);*/
                         source.TakeDamage(value);
                     }
 
@@ -664,7 +664,7 @@ public class BattleManager : MonoBehaviour
                     case BuffEffect.BuffType.ActiveHealthBuff:
                     case BuffEffect.BuffType.ActiveAttackDebuff:
                     case BuffEffect.BuffType.ActiveHealthDebuff:
-                        Debug.Log(buffEffect.buffType);
+                        /*Debug.Log(buffEffect.buffType);*/
                         BuffManager.Instance.ApplyBuff(card, effect as BuffEffect, source, turn);
                         break;
 
@@ -848,6 +848,7 @@ public class BattleManager : MonoBehaviour
             {
                 foreach (GameObject obj in GetAllyMinionListFromACard(card))
                 {
+
                     ITarget source = obj.GetComponent<MinionDisplay>().minion;
                     ApplyEffectToTarget(card, effect, source, value, true);
                 }
@@ -857,6 +858,7 @@ public class BattleManager : MonoBehaviour
         {
             foreach (GameObject obj in GetAllyMinionListFromACard(card))
             {
+                /*Debug.Log(obj.name);*/
                 ITarget source = obj.GetComponent<MinionDisplay>().minion;
                 ApplyEffectToTarget(card, effect, source, value);
             }
@@ -993,7 +995,16 @@ public class BattleManager : MonoBehaviour
      }
  */
 
-
+    public void PlayEndAnimation()
+    {
+        bool isWin = player.GetHealth() > 0;
+        StartCoroutine(PlayEndAnimationCoroutine(isWin));
+    }
+    IEnumerator PlayEndAnimationCoroutine(bool isWin)
+    {
+        yield return new WaitForSeconds(2f);
+        GetComponent<StartAndEndBattle>().PlayEndBattle(isWin);
+    }
 
 
 

@@ -40,6 +40,7 @@ public class Character : ITarget
     public void TakeDamage(int value)
     {
         OnTakeDamage(value);
+        /*Debug.Log("show");*/
         if (currentShield > 0)
         {
             int absorbed = Mathf.Min(currentShield, value);
@@ -51,7 +52,11 @@ public class Character : ITarget
         display.HaveHealthBuff(currentHealth > baseHealth);
         display.UpdateHealth();
         if (currentHealth <= 0)
+        {
             Debug.Log(characterName + " Died");
+            display.PlayDeathAnimation();
+        }
+
     }
 
     public int GetAttack()
@@ -66,13 +71,14 @@ public class Character : ITarget
     {
         currentHealth = Mathf.Min(currentHealth + value, maxHealth);
         OnHeal(value);
+        Debug.Log(value);
         display.UpdateHealth();
     }
     public void IncreaseHealth(int value)
     {
         maxHealth += value;
         RestoreHealth(value);
-        OnHeal(value);
+        OnHeal(value); Debug.Log(value);
         display.HaveHealthBuff(currentHealth > baseHealth);
     }
     public void DecreaseHealth(int value)
@@ -82,6 +88,7 @@ public class Character : ITarget
         display.HaveHealthBuff(currentHealth > baseHealth);
         display.UpdateHealth();
         OnTakeDamage(value);
+        Debug.Log("show");
         if (currentHealth <= 0)
             Debug.Log(characterName + " Died");
     }
@@ -117,7 +124,7 @@ public class Character : ITarget
     }
     public void IncreaseAttack(int value)
     {
-        currentAttack += value;
+        currentAttack += value; Debug.Log(value);
         if (!HasAttackedThisTurn())
             SetCanAttack(true);
         display.UpdateAttack();
@@ -146,16 +153,14 @@ public class Character : ITarget
         return display.gameObject.transform.position;
     }
 
-    void OnTakeDamage(int value)
-    {
-        PoolManager pp = PoolManager.Instance;
-        GameObject popup = pp.GetPopup();
-        pp.Show(popup, value, GetGameObject().transform, false);
-    }
     void OnHeal(int value)
     {
-        PoolManager pp = PoolManager.Instance;
-        GameObject popup2 = pp.GetPopup();
-        pp.Show(popup2, value, GetGameObject().transform, true);
+        if (value == 0) return;
+        display.ShowPopup(value);
+    }
+    void OnTakeDamage(int value)
+    {
+        if (value == 0) return;
+        display.ShowPopup(-value);
     }
 }

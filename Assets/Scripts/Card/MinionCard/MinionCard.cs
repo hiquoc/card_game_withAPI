@@ -33,13 +33,13 @@ public class MinionCard : Card, ITarget
     {
         currentHealth = Mathf.Min(currentHealth + value, maxHealth);
         OnHeal(value);
+        /*Debug.Log(value);*/
         display.UpdateHealth();
     }
     public void IncreaseHealth(int value)
     {
         maxHealth += value;
         RestoreHealth(value);
-        OnHeal(value);
         display.HaveHealthBuff(currentHealth > baseHealth);
     }
     public void DecreaseHealth(int value)
@@ -117,15 +117,13 @@ public class MinionCard : Card, ITarget
     }
     void OnHeal(int value)
     {
-        PoolManager pp = PoolManager.Instance;
-        GameObject popup2 = pp.GetPopup();
-        pp.Show(popup2, value, GetGameObject().transform, true);
+        if (value == 0) return;
+        display.ShowPopup(value);
     }
     void OnTakeDamage(int value)
     {
-        PoolManager pp = PoolManager.Instance;
-        GameObject popup2 = pp.GetPopup();
-        pp.Show(popup2, value, GetGameObject().transform, false);
+        if (value == 0) return;
+        display.ShowPopup(-value);
     }
     public void AddTaunt()
     {

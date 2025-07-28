@@ -117,5 +117,9 @@ public class BuffManager : MonoBehaviour
         }
     }
 
+    public bool IsBuffing(ITarget target)
+    {
+        return activeBuffMap.ContainsKey(target as MinionCard);
+    }
 
 }

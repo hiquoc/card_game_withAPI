@@ -11,6 +11,7 @@ public class ReferenceManager : MonoBehaviour
     public GameObject validZone;
     public Sprite tauntMinionSprite;
     public RectTransform blurPanel;
+    public RectTransform endGamePanel;
 
     [Header("Instance")]
     public CardManager cm;

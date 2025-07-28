@@ -13,7 +13,7 @@ public class MinionDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public TMP_Text attackText;
     public TMP_Text healthText;
     Coroutine coroutine;
-
+    Popup activePopup;
     ReferenceManager rm;
 
     private void Awake()
@@ -156,5 +156,18 @@ public class MinionDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             Destroy(cardPreviewPrefab);
         }
     }
-
+    public void ShowPopup(int value)
+    {
+        if (activePopup == null)
+        {
+            GameObject popupGO = PoolManager.Instance.GetPopup();
+            activePopup = popupGO.GetComponent<Popup>();
+        }
+        StartCoroutine(ShowPopupCoroutine(value));
+    }
+    IEnumerator ShowPopupCoroutine(int value)
+    {
+        yield return null;
+        activePopup.AddValue(value, transform);
+    }
 }

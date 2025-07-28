@@ -14,7 +14,7 @@ public class CardManager : MonoBehaviour
     public RectTransform playerHandPosition, playerDeckPosition;
     public RectTransform enemyHandPosition, enemyDeckPosition;
     public SplineContainer splineContainer;
-
+    bool isDrawing = false;
     [SerializeField]
     int maxHandSize;
 
@@ -84,7 +84,7 @@ public class CardManager : MonoBehaviour
                 BuffEffect cardEffect2 = new(0, CardEffect.Target.CurrentMinion, "", BuffEffect.BuffType.Taunt);
                 card.onPlay.Add(cardEffect2);
             }
-            else if (i > 1)
+            else if (i > 1 && i < 5)
             {
                 card = new MinionCard(i, 3, 2, null)
                 {
@@ -104,6 +104,22 @@ public class CardManager : MonoBehaviour
                 DamageEffect cardEffect3 = new(3, CardEffect.Target.AllEnemy, "explosion");
                 card.onDeath.Add(cardEffect3);
             }
+            else if (i > 5)
+            {
+                card = new MinionCard(i, 3, 2, null)
+                {
+                    type = Card.CardType.minion,
+                    mana = 3,
+                };
+                DamageEffect cardEffect2 = new(1, CardEffect.Target.RandomEnemyMinion, "arrow");
+                card.onStartOfTurn.Add(cardEffect2);
+                BuffEffect cardEffect1 = new(2, CardEffect.Target.RandomAllyMinion, "attack", BuffEffect.BuffType.Attack);
+                card.onPlay.Add(cardEffect1);
+                /*DrawEffect cardEffect3 = new();
+                card.onEndOfTurn.Add(cardEffect3);*/
+                HealEffect cardEffect = new(3, CardEffect.Target.AllAllyMinions, "heal");
+                card.onDeath.Add(cardEffect);
+            }
             else
             {
                 card = new SpellCard
@@ -119,11 +135,11 @@ public class CardManager : MonoBehaviour
                 BuffEffect cardEffect1 = new(2, CardEffect.Target.Self, "attack", BuffEffect.BuffType.Attack, 1, false);
                 card.onPlay.Add(cardEffect1);
 
-                BuffEffect cardEffect3 = new(2, CardEffect.Target.Self, "shield", BuffEffect.BuffType.Shield, 1, false);
+                /*BuffEffect cardEffect3 = new(2, CardEffect.Target.Self, "shield", BuffEffect.BuffType.Shield, 1, false);
                 card.onPlay.Add(cardEffect3);
 
                 HealEffect cardEffect2 = new(1, CardEffect.Target.AllAlly, "heal");
-                card.onPlay.Add(cardEffect2);
+                card.onPlay.Add(cardEffect2);*/
             }
 
             deck.list.Add(card);
@@ -143,6 +159,16 @@ public class CardManager : MonoBehaviour
     {
         Queue<GameObject> cards = turn == 0 ? playerCards : enemyCards;
         List<GameObject> hand = turn == 0 ? playerHand : enemyHand;
+        if (hand.Count == 10)
+        {
+            Debug.Log("You cant have more than 10 card!");
+            yield break;
+        }
+        if (cards.Count == 0)
+        {
+            Debug.Log("You have rand out of card!");
+            yield break;
+        }
         GameObject cardObj = cards.Dequeue();
         hand.Add(cardObj);
         RectTransform rt = cardObj.GetComponent<RectTransform>();
@@ -173,7 +199,8 @@ public class CardManager : MonoBehaviour
 
             GameObject card = hand[i];
             GameObject currentCard = card;
-
+            /*currentCard.GetComponent<CardHover>().enabled = false;
+            currentCard.GetComponent<CardDrag>().enabled = false;*/
             Sequence seq = DOTween.Sequence();
             seq.Append(currentCard.transform.DOMove(splinePosition, 0.5f));
             seq.Join(currentCard.transform.DORotate(new Vector3(0, 0, angle), 0.5f));
@@ -182,9 +209,15 @@ public class CardManager : MonoBehaviour
             seq.OnComplete(() =>
             {
                 if (turn == 0)
+                {
                     currentCard.GetComponent<FlipCard>().Flip();
+                    /*currentCard.GetComponent<CardHover>().enabled = false;
+                    currentCard.GetComponent<CardDrag>().enabled = false;*/
+                }
+
                 if (card.transform.parent != handPosition)
                     card.transform.SetParent(handPosition);
+
             });
         }
     }

@@ -1,6 +1,8 @@
 ﻿using DG.Tweening;
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterDisplay : MonoBehaviour
 {
@@ -17,6 +19,8 @@ public class CharacterDisplay : MonoBehaviour
     ReferenceManager rm;
 
     public TMP_Text skillNameText, skillDesText;
+    private Popup activePopup;
+
     private void Awake()
     {
         character = new();
@@ -123,5 +127,32 @@ public class CharacterDisplay : MonoBehaviour
             healthText.color = Color.green;
         else
             healthText.color = Color.white;
+    }
+    public void ShowPopup(int value)
+    {
+        if (activePopup == null)
+        {
+            GameObject popupGO = PoolManager.Instance.GetPopup();
+            activePopup = popupGO.GetComponent<Popup>();
+        }
+        StartCoroutine(ShowPopupCoroutine(value));
+    }
+    IEnumerator ShowPopupCoroutine(int value)
+    {
+        yield return null;
+        activePopup.AddValue(value, transform);
+    }
+
+    public void PlayDeathAnimation()
+    {
+        StartCoroutine(PlayDeathAnimationCoroutine());
+    }
+    IEnumerator PlayDeathAnimationCoroutine()
+    {
+        DeathExplosionUI deathExplosion = GetComponent<DeathExplosionUI>();
+        yield return new WaitForSeconds(1f);
+        deathExplosion.Explode(GetComponent<Image>());
+        rm.bm.PlayEndAnimation();
+        gameObject.SetActive(false);
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class PoolManager : MonoBehaviour
@@ -37,6 +36,7 @@ public class PoolManager : MonoBehaviour
         else
         {
             GameObject obj = Instantiate(popupPre, rm.canvas.transform);
+            obj.transform.position = Vector3.zero;
             obj.SetActive(false);
             return obj;
         }
@@ -47,14 +47,15 @@ public class PoolManager : MonoBehaviour
         pool.Enqueue(popup);
     }
 
-    public void Show(GameObject popup, int value, Transform target, bool isHealing)
+    /*public void Show(GameObject popup, int value, Transform target)
     {
-        StartCoroutine(ShowCoroutine(popup, value, target, isHealing));
+        StartCoroutine(ShowCoroutine(popup, value, target));
     }
 
-    private IEnumerator ShowCoroutine(GameObject popup, int value, Transform target, bool isHealing)
+    private IEnumerator ShowCoroutine(GameObject popup, int value, Transform target)
     {
-        yield return StartCoroutine(popup.GetComponent<Popup>().Show(value, target, isHealing));
-        ReturnPopup(popup);
-    }
+        yield return null;
+        Popup popupS = popup.GetComponent<Popup>();
+        popupS.AddValue(value, target);
+    }*/
 }
