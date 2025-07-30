@@ -69,7 +69,7 @@ public class AnimationManager : MonoBehaviour
     }
     public IEnumerator PlaySingleAnimation(Animation animation)
     {
-        Debug.Log("Playing animation " + animation.animationId);
+        /*Debug.Log("Playing animation " + animation.animationId);*/
         Sequence seq = DOTween.Sequence();
         GameObject aniObj = null;
         RectTransform aniRT = null;
@@ -94,7 +94,7 @@ public class AnimationManager : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("Unknown animation " + animation.animationId);
+                /*Debug.Log("Unknown animation " + animation.animationId);*/
                 break;
         }
 
@@ -141,8 +141,11 @@ public class AnimationManager : MonoBehaviour
         {
             if (aniRT != null)
             {
-                /*Debug.Log(aniObj);*/
-                aniRT.position = animation.source;
+                /*Debug.Log(animation.source);*/
+                if(animation.isAOE) 
+                    aniRT.anchoredPosition = animation.source;
+                else
+                    aniRT.position=animation.source;
                 if (aniObj.TryGetComponent(out Animator ani))
                     ani.Play("Move");
             }

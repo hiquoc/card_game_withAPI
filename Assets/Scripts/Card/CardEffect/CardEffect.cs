@@ -36,7 +36,7 @@
         AllAllyMinions,
         RandomAllyMinion,
         RandomEnemyMinion,
-        ChosenMinion,
+        /*ChosenMinion,*/
         ChosenTarget,
     }
 }

@@ -195,11 +195,11 @@ public class ArrowManager : MonoBehaviour
 
     ////////////////////////////
     // Enemy AI
-    public void EnemyArrowForSelectingATarget(Card card, RectTransform rect, CardEffect.Target targetType)
+    public void EnemyArrowForSelectingATarget(Card card, RectTransform rect, CardEffect cardEffect)
     {
         RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, rect.position, null, out startPos);
-        rt.anchoredPosition = startPos;
-        GameObject targetObj = rm.ai.GetTargetByTargetType(card, targetType);
+        rt.anchoredPosition = startPos; 
+        GameObject targetObj = rm.ai.GetTargetByTargetType(card, cardEffect);
         MinionDisplay obj = targetObj.GetComponent<MinionDisplay>();
         Vector2 screenPoint;
         if (obj == null)

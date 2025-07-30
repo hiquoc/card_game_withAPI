@@ -7,6 +7,7 @@ public interface ITarget
     public GameObject GetGameObject();
     public Vector3 GetPosition();
     public void TakeDamage(int value);
+    public int GetMaxHealth();
     public int GetHealth();
     public void RestoreHealth(int value);
     public void IncreaseHealth(int value);

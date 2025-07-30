@@ -6,9 +6,10 @@ using UnityEngine.Networking;
 public class LoginHandler : MonoBehaviour
 {
     public TMP_Text username, password;
-    public GameObject resultPanel, loginPanel, loginBtn, logoutBtn, userBtn;
+    public GameObject resultPanel, loginPanel, loginBtn, logoutBtn,signupBtn, userBtn;
     public TMP_Text resultTxt;
-    string loginUrl = "http://172.20.10.9:8080/auth/token";
+    string loginUrl = DataFetcher.address + "auth/login";
+    string logoutUrl = DataFetcher.address + "auth/logout";
 
     public void LoginBtnClicked()
     {
@@ -36,19 +37,22 @@ public class LoginHandler : MonoBehaviour
         {
             /*Debug.Log("Login success: " + request.downloadHandler.text);*/
 
-            LoginResponse response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
-            SceneLoader.Instance.token = response.result.token;
+            LoginResult response = JsonUtility.FromJson<LoginResult>(request.downloadHandler.text);
+            SceneLoader.Instance.token = response.data;
+            SceneLoader.Instance.username = username;
+            Debug.Log("Received Token: " + response.data);
 
-            /*Debug.Log("Received Token: " + token);*/
             resultPanel.SetActive(true);
             resultTxt.text = "Login successfully!";
             yield return new WaitForSeconds(2f);
             loginPanel.SetActive(false);
             loginBtn.SetActive(false);
+            signupBtn.SetActive(false);
             logoutBtn.SetActive(true);
             userBtn.SetActive(true);
             TMP_Text userTxt = userBtn.GetComponentInChildren<TMP_Text>();
             userTxt.text = username;
+
         }
         else
         {
@@ -83,15 +87,14 @@ public class LoginHandler : MonoBehaviour
     [System.Serializable]
     public class LoginResult
     {
-        public string token;
-        public bool authenticated;
-    }
-
-    [System.Serializable]
-    public class LoginResponse
-    {
         public int code;
-        public LoginResult result;
+        public string message;
+        public string data;
     }
 
+    public void LogoutBtnClicked()
+    {
+        if (SceneLoader.Instance.token == "") return;
+
+    }
 }

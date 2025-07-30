@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      create-a-title-image-for--card-battle----the-card-_0: 3161205495210447516
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

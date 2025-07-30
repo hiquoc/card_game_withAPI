@@ -36,7 +36,7 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
     {
         /*Debug.Log(2);*/
-        if (!isDraggable || !canDrag) return;
+        if (!isDraggable || !canDrag||rm.bm.turn==1) return;
 
         canvasGroup.blocksRaycasts = false;
         isDragging = true;
@@ -110,10 +110,10 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     }
 
     //Di chuyen the bai
-    public IEnumerator MoveSpellCard()
+    public IEnumerator MoveSpellCard(bool canHover)
     {
         canDrag = false;
-        CardHover.canHover = false;
+        CardHover.canHover = canHover;
         Vector2 screenCenter = new((Screen.width + 100f) / 2f, Screen.height / 2f);
         ReferenceManager rm = ReferenceManager.Instance;
         transform.SetParent(rm.animationLayer);
@@ -135,10 +135,11 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         canDrag = true;
         CardHover.canHover = true;
     }
-    public IEnumerator MoveMinionCard()
+    public IEnumerator MoveMinionCard(bool canHover)
     {
+        /*Debug.Log("StartMove" +canHover);*/
         canDrag = false;
-        CardHover.canHover = false;
+        CardHover.canHover = canHover;
         ReferenceManager rm = ReferenceManager.Instance;
         transform.SetParent(rm.animationLayer);
         rt.localEulerAngles = new Vector2(0f, 0f);
@@ -158,6 +159,7 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         yield return new WaitForSeconds(1f);
         canDrag = true;
         CardHover.canHover = true;
+        /*Debug.Log("EndMove");*/
     }
 
 }

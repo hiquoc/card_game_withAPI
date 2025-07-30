@@ -64,7 +64,7 @@ public class BuffManager : MonoBehaviour
     }
     void ApplyBuffEffect(ITarget target, BuffInstance buffInstance)
     {
-        Debug.Log(buffInstance.effect.buffType);
+        /*Debug.Log(buffInstance.effect.buffType);*/
         switch (buffInstance.effect.buffType)
         {
             case BuffEffect.BuffType.ActiveAttackBuff:

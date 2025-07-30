@@ -11,7 +11,7 @@ public class MinionCard : Card, ITarget
     bool canAttack = false;
     public GameObject minionPrefab;
     public bool isDying = false;
-    public MinionCard(int id, int health, int attack, GameObject prefab)
+    public MinionCard(int id, int attack, int health,  GameObject prefab)
     {
         this.id = id;
         maxHealth = health;
@@ -25,17 +25,23 @@ public class MinionCard : Card, ITarget
     {
         return currentAttack;
     }
+    public int GetMaxHealth()
+    {
+        return maxHealth;
+    }
     public int GetHealth()
     {
         return currentHealth;
     }
     public void RestoreHealth(int value)
     {
-        currentHealth = Mathf.Min(currentHealth + value, maxHealth);
-        OnHeal(value);
-        /*Debug.Log(value);*/
+        int healed = Mathf.Min(value, maxHealth - currentHealth);
+        currentHealth += healed;
+
+        OnHeal(healed);
         display.UpdateHealth();
     }
+
     public void IncreaseHealth(int value)
     {
         maxHealth += value;
@@ -118,12 +124,14 @@ public class MinionCard : Card, ITarget
     void OnHeal(int value)
     {
         if (value == 0) return;
-        display.ShowPopup(value);
+        if(display!=null)
+            display.ShowPopup(value);
     }
     void OnTakeDamage(int value)
     {
         if (value == 0) return;
-        display.ShowPopup(-value);
+        if (display != null)
+            display.ShowPopup(-value);
     }
     public void AddTaunt()
     {

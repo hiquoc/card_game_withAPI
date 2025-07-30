@@ -9,7 +9,7 @@ public class SceneLoader : MonoBehaviour
     public static SceneLoader Instance;
     public Slider slider;
     public Image circle;
-    public TMP_Text usernameTxt, passwordTxt;
+    public string username;
     public string token;
 
     string loginUrl = "http://172.20.10.9:8080/auth/token";

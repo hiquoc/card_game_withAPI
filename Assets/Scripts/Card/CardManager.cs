@@ -14,10 +14,8 @@ public class CardManager : MonoBehaviour
     public RectTransform playerHandPosition, playerDeckPosition;
     public RectTransform enemyHandPosition, enemyDeckPosition;
     public SplineContainer splineContainer;
-    bool isDrawing = false;
     [SerializeField]
     int maxHandSize;
-
     ReferenceManager rm;
     RectTransform animationLayer;
 
@@ -60,11 +58,11 @@ public class CardManager : MonoBehaviour
 
     private void InitDeck()
     {
-        InitSideDeck(playerDeck, playerCards, playerDeckPosition, true);
         playerDeck.Setup();
+        InitSideDeck(playerDeck, playerCards, playerDeckPosition, true);
 
-        InitSideDeck(enemyDeck, enemyCards, enemyDeckPosition, false);
         enemyDeck.Setup();
+        InitSideDeck(enemyDeck, enemyCards, enemyDeckPosition, false);      
     }
     private void InitSideDeck(Deck deck, Queue<GameObject> cardQueue, Transform deckPosition, bool isPlayer)
     {
@@ -73,48 +71,59 @@ public class CardManager : MonoBehaviour
             Card card;
             if (i > 0 && i <= 1)
             {
-                card = new MinionCard(i, 3, 2, null)
+                card = new MinionCard(i, 1, 2, null)
                 {
                     type = Card.CardType.minion,
                     mana = 3,
                 };
-                DamageEffect cardEffect1 = new(2, CardEffect.Target.ChosenTarget, "arrow");
-                card.onPlay.Add(cardEffect1);
+                /*DamageEffect cardEffect1 = new(2, CardEffect.Target.ChosenTarget, "arrow");
+                card.onPlay.Add(cardEffect1);*/
 
-                BuffEffect cardEffect2 = new(0, CardEffect.Target.CurrentMinion, "", BuffEffect.BuffType.Taunt);
+                /*BuffEffect cardEffect2 = new(0, CardEffect.Target.CurrentMinion, "", BuffEffect.BuffType.Taunt);
+                card.onPlay.Add(cardEffect2);*/
+
+                BuffEffect cardEffect2 = new(01, CardEffect.Target.ChosenTarget, "attack", BuffEffect.BuffType.Attack,1,false);
                 card.onPlay.Add(cardEffect2);
+                /*BuffEffect cardEffect3 = new(2, CardEffect.Target.AllAlly, "heal", BuffEffect.BuffType.IncreaseMaxHealth);
+                card.onPlay.Add(cardEffect3);*/
             }
             else if (i > 1 && i < 5)
             {
-                card = new MinionCard(i, 3, 2, null)
+                card = new MinionCard(i, 1, 2, null)
                 {
                     type = Card.CardType.minion,
                     mana = 3,
                 };
                 DamageEffect cardEffect2 = new(1, CardEffect.Target.RandomEnemyMinion, "fireball");
                 card.onEndOfTurn.Add(cardEffect2);
+                /*card.onEndOfTurn.Add(cardEffect2);
+                card.onEndOfTurn.Add(cardEffect2);*/
+
                 BuffEffect cardEffect1 = new(2, CardEffect.Target.RandomAllyMinion, "attack", BuffEffect.BuffType.Attack);
                 card.onPlay.Add(cardEffect1);
-                BuffEffect cardEffect4 = new(1, CardEffect.Target.AllAllyMinions, "", BuffEffect.BuffType.ActiveHealthBuff);
+                /*BuffEffect cardEffect4 = new(1, CardEffect.Target.AllAllyMinions, "", BuffEffect.BuffType.ActiveHealthBuff);
                 card.onPlay.Add(cardEffect4);
-                /*DrawEffect cardEffect3 = new();
-                card.onEndOfTurn.Add(cardEffect3);*/
+                DrawEffect cardEffect3 = new();
+                card.onEndOfTurn.Add(cardEffect3);
+                BuffEffect cardEffect9 = new(2, CardEffect.Target.RandomAllyMinion, "heal", BuffEffect.BuffType.HealOverTime,1,true);
+                card.onPlay.Add(cardEffect9);*/
                 HealEffect cardEffect = new(3, CardEffect.Target.AllAllyMinions, "heal");
-                card.onDeath.Add(cardEffect);
+                card.onPlay.Add(cardEffect);
                 DamageEffect cardEffect3 = new(3, CardEffect.Target.AllEnemy, "explosion");
                 card.onDeath.Add(cardEffect3);
             }
             else if (i > 5)
             {
-                card = new MinionCard(i, 3, 2, null)
+                card = new MinionCard(i, 1, 2, null)
                 {
                     type = Card.CardType.minion,
                     mana = 3,
                 };
-                DamageEffect cardEffect2 = new(1, CardEffect.Target.RandomEnemyMinion, "arrow");
+                
+                /*DamageEffect cardEffect2 = new(1, CardEffect.Target.RandomEnemyMinion, "arrow");
                 card.onStartOfTurn.Add(cardEffect2);
                 BuffEffect cardEffect1 = new(2, CardEffect.Target.RandomAllyMinion, "attack", BuffEffect.BuffType.Attack);
-                card.onPlay.Add(cardEffect1);
+                card.onPlay.Add(cardEffect1);*/
                 /*DrawEffect cardEffect3 = new();
                 card.onEndOfTurn.Add(cardEffect3);*/
                 HealEffect cardEffect = new(3, CardEffect.Target.AllAllyMinions, "heal");
@@ -132,14 +141,16 @@ public class CardManager : MonoBehaviour
                 /*DrawEffect cardEffect1 = new();
                 card.onPlay.Add(cardEffect1);*/
 
-                BuffEffect cardEffect1 = new(2, CardEffect.Target.Self, "attack", BuffEffect.BuffType.Attack, 1, false);
+                /*BuffEffect cardEffect1 = new(2, CardEffect.Target.Self, "attack", BuffEffect.BuffType.Attack, 1, false);
                 card.onPlay.Add(cardEffect1);
 
-                /*BuffEffect cardEffect3 = new(2, CardEffect.Target.Self, "shield", BuffEffect.BuffType.Shield, 1, false);
+                BuffEffect cardEffect3 = new(2, CardEffect.Target.Self, "shield", BuffEffect.BuffType.Shield);
                 card.onPlay.Add(cardEffect3);
 
                 HealEffect cardEffect2 = new(1, CardEffect.Target.AllAlly, "heal");
                 card.onPlay.Add(cardEffect2);*/
+                DamageEffect cardEffect3 = new(3, CardEffect.Target.AllEnemy, "explosion");
+                card.onPlay.Add(cardEffect3);
             }
 
             deck.list.Add(card);
@@ -161,33 +172,42 @@ public class CardManager : MonoBehaviour
         List<GameObject> hand = turn == 0 ? playerHand : enemyHand;
         if (hand.Count == 10)
         {
-            Debug.Log("You cant have more than 10 card!");
+            rm.textHelper.ShowText("You can't have more than 10 card!");
             yield break;
         }
         if (cards.Count == 0)
         {
-            Debug.Log("You have rand out of card!");
+            rm.textHelper.ShowText("You have ran out of card!");
             yield break;
         }
+        CardDrag.canDrag = false;
+        CardHover.canHover = false;
         GameObject cardObj = cards.Dequeue();
         hand.Add(cardObj);
         RectTransform rt = cardObj.GetComponent<RectTransform>();
         rt.SetParent(animationLayer, true);
-        UpdateCardPosition(turn);
         rm.sm.Play("cardDrawn");
+        Tween tween= UpdateCardPosition(turn);
+        if (tween != null) {
+            yield return tween.WaitForCompletion();
+        }
+        CardDrag.canDrag = true;
+        CardHover.canHover = true;
         yield return null;
+        
     }
 
-    public void UpdateCardPosition(int turn)
+    public Tween UpdateCardPosition(int turn)
     {
         List<GameObject> hand = turn == 0 ? playerHand : enemyHand;
         RectTransform handPosition = turn == 0 ? playerHandPosition : enemyHandPosition;
-        if (hand.Count == 0) return;
+        if (hand.Count == 0) return null;
         float spacingScale = Mathf.Min(1.3f, 8f / hand.Count);
         float cardSpacing = 1f * spacingScale / maxHandSize;
         float firstCardPos = 0.5f - (hand.Count - 1) * cardSpacing / 2;
         Spline spline = splineContainer.Splines[turn];
 
+        Tween tween = null;
         for (int i = 0; i < hand.Count; i++)
         {
             float p = firstCardPos + i * cardSpacing;
@@ -198,9 +218,7 @@ public class CardManager : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(0, 0, angle);
 
             GameObject card = hand[i];
-            GameObject currentCard = card;
-            /*currentCard.GetComponent<CardHover>().enabled = false;
-            currentCard.GetComponent<CardDrag>().enabled = false;*/
+            GameObject currentCard = card;           
             Sequence seq = DOTween.Sequence();
             seq.Append(currentCard.transform.DOMove(splinePosition, 0.5f));
             seq.Join(currentCard.transform.DORotate(new Vector3(0, 0, angle), 0.5f));
@@ -217,8 +235,10 @@ public class CardManager : MonoBehaviour
 
                 if (card.transform.parent != handPosition)
                     card.transform.SetParent(handPosition);
-
+                if (i == hand.Count - 1)
+                    tween = seq;
             });
         }
+        return tween;
     }
 }

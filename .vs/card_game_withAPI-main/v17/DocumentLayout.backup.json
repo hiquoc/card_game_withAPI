@@ -1,0 +1,499 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\battlemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\battlemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\getdata\\deckhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\getdata\\deckhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|c:\\users\\gaming\\downloads\\card_game_withapi-main\\card_game_withapi-main\\assets\\scripts\\ui\\menu\\stagepicker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\menu\\stagepicker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\getdata\\loginhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\getdata\\loginhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|c:\\users\\gaming\\downloads\\card_game_withapi-main\\card_game_withapi-main\\assets\\scripts\\card\\enemy\\cardaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\enemy\\cardaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\card\\enemy\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\enemy\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\animation\\animationmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\animation\\animationmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\card\\cardeffect\\buffeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\cardeffect\\buffeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\card\\enemy\\aistate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\enemy\\aistate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\card\\cardmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\cardmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\character\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\character\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\card\\minioncard\\minioncard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\minioncard\\minioncard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\animation\\animation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\animation\\animation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\getdata\\datafetcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\getdata\\datafetcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\ui\\menu\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\menu\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\ui\\menu\\sceneloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\menu\\sceneloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\etc\\itarget.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\etc\\itarget.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\card\\card\\card.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\card\\card.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\ui\\arrowmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\arrowmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\ui\\texthelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\texthelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\character\\characterdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\character\\characterdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\card\\minioncard\\miniondisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\minioncard\\miniondisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\card\\card\\cardhover.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\card\\cardhover.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\card\\card\\carddrag.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\card\\carddrag.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\referencemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\referencemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\ui\\popup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\popup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\card\\cardeffect\\cardeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\card\\cardeffect\\cardeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\ui\\startandendbattle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\startandendbattle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\assets\\scripts\\validzone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6520C46B-4A01-90D6-DCC0-F556D15AC375}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\validzone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BattleManager.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\BattleManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\BattleManager.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\BattleManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\BattleManager.cs",
+              "ViewState": "AgIAALoAAAAAAAAAAAAAALoAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T13:08:26.901Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "ReferenceManager.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\ReferenceManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\ReferenceManager.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\ReferenceManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\ReferenceManager.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAiwBwAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T05:00:53.709Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "CardManager.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Card\\CardManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\CardManager.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Card\\CardManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\CardManager.cs",
+              "ViewState": "AgIAAH0AAAAAAAAAAAAmwG0AAABZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T13:10:21.239Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "EnemyAI.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Card\\Enemy\\EnemyAI.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\Enemy\\EnemyAI.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Card\\Enemy\\EnemyAI.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\Enemy\\EnemyAI.cs",
+              "ViewState": "AgIAACABAAAAAAAAAAAWwB8BAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T13:18:49.075Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StagePicker.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\UI\\Menu\\StagePicker.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\Menu\\StagePicker.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\UI\\Menu\\StagePicker.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\Menu\\StagePicker.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAIwCEAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-30T14:03:57.893Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Animation.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Animation\\Animation.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Animation\\Animation.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Animation\\Animation.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Animation\\Animation.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-30T10:47:15.033Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Card.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Card\\Card\\Card.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\Card\\Card.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Card\\Card\\Card.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\Card\\Card.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-30T09:26:17.517Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "BuffEffect.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Card\\CardEffect\\BuffEffect.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\CardEffect\\BuffEffect.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Card\\CardEffect\\BuffEffect.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\CardEffect\\BuffEffect.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAkAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T13:53:23.695Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "ITarget.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\etc\\ITarget.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\etc\\ITarget.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\etc\\ITarget.cs",
+              "RelativeToolTip": "Assets\\Scripts\\etc\\ITarget.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAMwAsAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T13:40:04.177Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CardAction.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Card\\Enemy\\CardAction.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\Enemy\\CardAction.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Card\\Enemy\\CardAction.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\Enemy\\CardAction.cs",
+              "ViewState": "AgIAAI0AAAAAAAAAAAA0wEQAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T13:16:31.392Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AIState.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Card\\Enemy\\AIState.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\Enemy\\AIState.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Card\\Enemy\\AIState.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\Enemy\\AIState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T13:16:27.891Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "SceneLoader.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\UI\\Menu\\SceneLoader.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\Menu\\SceneLoader.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\UI\\Menu\\SceneLoader.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\Menu\\SceneLoader.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAqwAoAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T11:54:04.859Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "MainMenu.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\UI\\Menu\\MainMenu.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\Menu\\MainMenu.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\UI\\Menu\\MainMenu.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\Menu\\MainMenu.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T11:47:11.835Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "DataFetcher.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\GetData\\DataFetcher.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\GetData\\DataFetcher.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\GetData\\DataFetcher.cs",
+              "RelativeToolTip": "Assets\\Scripts\\GetData\\DataFetcher.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T07:36:02.281Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "CardHover.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Card\\Card\\CardHover.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\Card\\CardHover.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Card\\Card\\CardHover.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\Card\\CardHover.cs",
+              "ViewState": "AgIAADoAAAAAAAAAAAAAAD0AAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T05:18:44.395Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "CardDrag.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Card\\Card\\CardDrag.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\Card\\CardDrag.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Card\\Card\\CardDrag.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\Card\\CardDrag.cs",
+              "ViewState": "AgIAAIkAAAAAAAAAAAAAAKEAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T05:13:23.79Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "StartAndEndBattle.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\UI\\StartAndEndBattle.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\StartAndEndBattle.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\UI\\StartAndEndBattle.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\StartAndEndBattle.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T04:59:03.18Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "ValidZone.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\ValidZone.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\ValidZone.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\ValidZone.cs",
+              "RelativeToolTip": "Assets\\Scripts\\ValidZone.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAQwA0AAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T05:12:58.72Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "TextHelper.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\UI\\TextHelper.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\TextHelper.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\UI\\TextHelper.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\TextHelper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T05:01:46.533Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "ArrowManager.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\UI\\ArrowManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\ArrowManager.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\UI\\ArrowManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\ArrowManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAMkAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T13:52:12.845Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AnimationManager.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Animation\\AnimationManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Animation\\AnimationManager.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Animation\\AnimationManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Animation\\AnimationManager.cs",
+              "ViewState": "AgIAAIAAAAAAAAAAAIAwwI8AAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T04:37:08.633Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "Popup.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\UI\\Popup.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\Popup.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\UI\\Popup.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\Popup.cs",
+              "ViewState": "AgIAADoAAAAAAAAAAAD4v0oAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T13:26:58.992Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "CharacterDisplay.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Character\\CharacterDisplay.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Character\\CharacterDisplay.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Character\\CharacterDisplay.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Character\\CharacterDisplay.cs",
+              "ViewState": "AgIAAI4AAAAAAAAAAAAAAIoAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T14:34:38.482Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "MinionCard.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Card\\MinionCard\\MinionCard.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\MinionCard\\MinionCard.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Card\\MinionCard\\MinionCard.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\MinionCard\\MinionCard.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAuwCkAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T13:40:48.478Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "MinionDisplay.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Card\\MinionCard\\MinionDisplay.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\MinionCard\\MinionDisplay.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Card\\MinionCard\\MinionDisplay.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\MinionCard\\MinionDisplay.cs",
+              "ViewState": "AgIAAIwAAAAAAAAAAAAAAKsAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T13:26:52.441Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Character.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Character\\Character.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Character\\Character.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Character\\Character.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Character\\Character.cs",
+              "ViewState": "AgIAAD0AAAAAAAAAAAASwFEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T14:40:25.697Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "CardEffect.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Card\\CardEffect\\CardEffect.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Card\\CardEffect\\CardEffect.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\Card\\CardEffect\\CardEffect.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Card\\CardEffect\\CardEffect.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwCMAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T14:19:44.679Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "LoginHandler.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\GetData\\LoginHandler.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\GetData\\LoginHandler.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\GetData\\LoginHandler.cs",
+              "RelativeToolTip": "Assets\\Scripts\\GetData\\LoginHandler.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAowBYAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T07:30:06.211Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DeckHandler.cs",
+              "DocumentMoniker": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\GetData\\DeckHandler.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\GetData\\DeckHandler.cs",
+              "ToolTip": "C:\\Users\\GAMING\\Downloads\\card_game_withAPI-main\\card_game_withAPI-main\\Assets\\Scripts\\GetData\\DeckHandler.cs",
+              "RelativeToolTip": "Assets\\Scripts\\GetData\\DeckHandler.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAAAwwCgAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T07:48:58.541Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

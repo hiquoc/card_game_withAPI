@@ -132,9 +132,11 @@ public class CharacterDisplay : MonoBehaviour
     {
         if (activePopup == null)
         {
+            /*Debug.Log("new Popup");*/
             GameObject popupGO = PoolManager.Instance.GetPopup();
             activePopup = popupGO.GetComponent<Popup>();
         }
+        /*Debug.Log("Character " + value);*/
         StartCoroutine(ShowPopupCoroutine(value));
     }
     IEnumerator ShowPopupCoroutine(int value)

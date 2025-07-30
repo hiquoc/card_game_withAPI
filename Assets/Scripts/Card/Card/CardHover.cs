@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 public class CardHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public static bool canHover = true;
+    bool hasEnter = false;
     private Vector2 originalPosition;
     private Vector3 originalRotation;
     private RectTransform rt;
@@ -19,6 +20,7 @@ public class CardHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         if (CardDrag.isDragging || !canHover) return;
         /*Debug.Log(1);*/
+        hasEnter = true;
         originalPosition = rt.anchoredPosition;
         originalRotation = rt.localEulerAngles;
         originalIndex = transform.GetSiblingIndex();
@@ -57,7 +59,7 @@ public class CardHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         }
         if (cardObj != null)
             Destroy(cardObj);
-        if (CardDrag.isDragging || !canHover || rt == null) return;
+        if (CardDrag.isDragging || !canHover || !hasEnter || rt == null) return;
         /*Debug.Log("x");*/
         rt.anchoredPosition = originalPosition;
         rt.localEulerAngles = originalRotation;

@@ -89,7 +89,7 @@ public class MinionDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void Die()
     {
-        /*Debug.Log($"{minion.name} Died");*/
+        /*Debug.Log($"{transform.position} Died");*/
         rm.bm.EqueueMinionDeath(gameObject);
     }
 
@@ -155,14 +155,21 @@ public class MinionDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         {
             Destroy(cardPreviewPrefab);
         }
+        if (activePopup != null)
+        {
+            activePopup.StopAndReturnPopup();
+        }
     }
     public void ShowPopup(int value)
     {
+        if (gameObject == null) return;
+        if (rm.bm.dyingMinions.Contains(gameObject)) return;
         if (activePopup == null)
         {
             GameObject popupGO = PoolManager.Instance.GetPopup();
             activePopup = popupGO.GetComponent<Popup>();
-        }
+        }      
+        /*Debug.Log("Minion "+value);*/
         StartCoroutine(ShowPopupCoroutine(value));
     }
     IEnumerator ShowPopupCoroutine(int value)

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public class ReferenceManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class ReferenceManager : MonoBehaviour
     public Sprite tauntMinionSprite;
     public RectTransform blurPanel;
     public RectTransform endGamePanel;
+    public TextHelper textHelper;
 
     [Header("Instance")]
     public CardManager cm;
@@ -25,6 +27,7 @@ public class ReferenceManager : MonoBehaviour
     [Header("Deck Builder")]
     public GameObject deckValidZone;
     public GameObject removeFromDeckValidZone;
+    public Transform allCardPanel, selectedCardPanel;
 
     private void Awake()
     {

@@ -24,13 +24,13 @@ public class ValidZone : MonoBehaviour, IDropHandler
         {
             if (rm.bm.turn == 1)
             {
-                Debug.Log("Is not your turn");
+                rm.textHelper.ShowText("Is not your turn");
                 return;
             }
             CardDisplay cardDisplay = cardDrag.GetComponent<CardDisplay>();
             if (cardDisplay.card is MinionCard && rm.bm.playerMinionList.Count > 5)
             {
-                Debug.Log("Your board is full");
+                rm.textHelper.ShowText("Your board is full");
                 return;
             }
             cardDrag.isDroppedValidZone = true;
