@@ -5,11 +5,11 @@ using UnityEngine.Networking;
 
 public class LoginHandler : MonoBehaviour
 {
-    public TMP_Text username, password;
+    public TMP_InputField  username, password;
     public GameObject resultPanel, loginPanel, loginBtn, logoutBtn,signupBtn, userBtn;
     public TMP_Text resultTxt;
     string loginUrl = DataFetcher.address + "auth/login";
-    string logoutUrl = DataFetcher.address + "auth/logout";
+
 
     public void LoginBtnClicked()
     {
@@ -92,9 +92,6 @@ public class LoginHandler : MonoBehaviour
         public string data;
     }
 
-    public void LogoutBtnClicked()
-    {
-        if (SceneLoader.Instance.token == "") return;
+    
 
-    }
 }

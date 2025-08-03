@@ -11,8 +11,7 @@ public class SceneLoader : MonoBehaviour
     public Image circle;
     public string username;
     public string token;
-
-    string loginUrl = "http://172.20.10.9:8080/auth/token";
+    public int enemyId;
     private void Awake()
     {
         if (Instance != null)

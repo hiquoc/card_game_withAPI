@@ -184,9 +184,9 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 1
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
+  m_overflowMode: 1
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
@@ -325,6 +325,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDroppedOnValidZone: 0
+  cardId: 0
+  attack: 0
+  health: 0
+  cardInCollectionPre: {fileID: 8411805487078954436, guid: f53b3b054c62d5c40a66f5499eb65bd3, type: 3}
 --- !u!225 &-5514956796979974056
 CanvasGroup:
   m_ObjectHideFlags: 0

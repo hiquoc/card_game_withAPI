@@ -1,8 +1,12 @@
-using DG.Tweening;
+﻿using DG.Tweening;
+using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.Splines;
+using UnityEngine.UI;
 
 public class CardManager : MonoBehaviour
 {
@@ -18,6 +22,8 @@ public class CardManager : MonoBehaviour
     int maxHandSize;
     ReferenceManager rm;
     RectTransform animationLayer;
+
+    public bool doneLoading = false;
 
     private void Awake()
     {
@@ -58,11 +64,10 @@ public class CardManager : MonoBehaviour
 
     private void InitDeck()
     {
-        playerDeck.Setup();
-        InitSideDeck(playerDeck, playerCards, playerDeckPosition, true);
-
-        enemyDeck.Setup();
-        InitSideDeck(enemyDeck, enemyCards, enemyDeckPosition, false);      
+        LoadDeckData(playerDeck, playerCards, playerDeckPosition, true);
+        LoadDeckData(enemyDeck, enemyCards, enemyDeckPosition, false);
+        /*InitSideDeck(playerDeck, playerCards, playerDeckPosition, true);
+        InitSideDeck(enemyDeck, enemyCards, enemyDeckPosition, false);*/
     }
     private void InitSideDeck(Deck deck, Queue<GameObject> cardQueue, Transform deckPosition, bool isPlayer)
     {
@@ -141,16 +146,16 @@ public class CardManager : MonoBehaviour
                 /*DrawEffect cardEffect1 = new();
                 card.onPlay.Add(cardEffect1);*/
 
-                /*BuffEffect cardEffect1 = new(2, CardEffect.Target.Self, "attack", BuffEffect.BuffType.Attack, 1, false);
+                BuffEffect cardEffect1 = new(2, CardEffect.Target.AllAlly, "attack", BuffEffect.BuffType.Attack,2, false);
                 card.onPlay.Add(cardEffect1);
 
                 BuffEffect cardEffect3 = new(2, CardEffect.Target.Self, "shield", BuffEffect.BuffType.Shield);
                 card.onPlay.Add(cardEffect3);
 
                 HealEffect cardEffect2 = new(1, CardEffect.Target.AllAlly, "heal");
-                card.onPlay.Add(cardEffect2);*/
-                DamageEffect cardEffect3 = new(3, CardEffect.Target.AllEnemy, "explosion");
-                card.onPlay.Add(cardEffect3);
+                card.onPlay.Add(cardEffect2);
+                /*DamageEffect cardEffect3 = new(3, CardEffect.Target.AllEnemy, "explosion");
+                card.onPlay.Add(cardEffect3);*/
             }
 
             deck.list.Add(card);
@@ -170,11 +175,7 @@ public class CardManager : MonoBehaviour
     {
         Queue<GameObject> cards = turn == 0 ? playerCards : enemyCards;
         List<GameObject> hand = turn == 0 ? playerHand : enemyHand;
-        if (hand.Count == 10)
-        {
-            rm.textHelper.ShowText("You can't have more than 10 card!");
-            yield break;
-        }
+
         if (cards.Count == 0)
         {
             rm.textHelper.ShowText("You have ran out of card!");
@@ -183,6 +184,20 @@ public class CardManager : MonoBehaviour
         CardDrag.canDrag = false;
         CardHover.canHover = false;
         GameObject cardObj = cards.Dequeue();
+
+        if (hand.Count == 10)
+        {
+            GameObject frontObj = cardObj.transform.Find("Front").gameObject;
+            rm.textHelper.ShowText("You hand is full!");
+            yield return StartCoroutine(cardObj.GetComponent<CardDrag>().MoveSpellCard(turn == 0));
+            DeathExplosionUI deathExplosion = frontObj.GetComponent<DeathExplosionUI>();
+            deathExplosion.canvasTransform = rm.canvas.transform as RectTransform;
+            /*yield return new WaitForSeconds(1f);*/
+            deathExplosion.Explode(frontObj.GetComponent<Image>());
+            Destroy(cardObj);
+            yield break;
+        }
+
         hand.Add(cardObj);
         RectTransform rt = cardObj.GetComponent<RectTransform>();
         rt.SetParent(animationLayer, true);
@@ -240,5 +255,307 @@ public class CardManager : MonoBehaviour
             });
         }
         return tween;
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public void LoadDeckData(Deck deck, Queue<GameObject> cardQueue, Transform deckPosition, bool isPlayer)
+    {
+        StartCoroutine(GetDeckDataCoroutine(deck,cardQueue, deckPosition, isPlayer));
+    }
+    public IEnumerator GetDeckDataCoroutine(Deck deck, Queue<GameObject> cardQueue, Transform deckPosition, bool isPlayer)
+    {
+        if (SceneLoader.Instance.token == null)
+            Debug.Log("null");
+        using UnityWebRequest request = UnityWebRequest.Get(DataFetcher.address+"deck");
+        Debug.Log(SceneLoader.Instance.token);
+        request.SetRequestHeader("Authorization", "Bearer " + SceneLoader.Instance.token);//add SceneLoader.Instance.enemyId if isPlayer==false
+        
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.ConnectionError ||
+            request.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.Log("url: " + DataFetcher.address + "/deck");
+            Debug.Log("Error fetching deck data: " + request.error);
+            yield break;
+        }
+
+        try
+        {
+            DeckResult response = JsonConvert.DeserializeObject<DeckResult>(request.downloadHandler.text);
+
+            if (response?.data?.cards == null)
+            {
+                Debug.LogWarning("Dữ liệu cards null hoặc parse lỗi ở deck.");
+                yield break;
+            }
+            else
+            {
+                Debug.Log($"Deck loaded: {response.data.cards.Count} cards / Total: {response.data.totalCards}");
+            }
+
+            ProcessDeckData(response.data, deck, cardQueue, deckPosition, isPlayer);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Exception occurred:\n" + e);
+        }
+    }
+
+    [System.Serializable]
+    public class DeckResult
+    {
+        public int code;
+        public string message;
+        public DeckData data;
+    }
+
+    [System.Serializable]
+    public class DeckData
+    {
+        public int userId;
+        public string username;
+        public List<CardData> cards;
+        public int totalCards;
+    }
+
+    [System.Serializable]
+    public class CardData
+    {
+        public int inventoryId;
+        public int cardId;
+        public string name;
+        public string type;
+        public string rarity;
+        public int mana;
+        public int? attack;
+        public int? health;
+        public string image;
+        public string mainImg;
+        public string description;
+        public List<EffectData> effects;
+    }
+    #nullable enable
+    [System.Serializable]
+    public class EffectData
+    {
+        public int effectId;
+        public string type;
+        public int value;
+        public string target;
+        public string animationId;
+        public string? buffType;
+        public int duration;
+        public bool isStartOfTurn;
+        public string? summonMinionIds;
+        public string triggerType;
+    }
+
+    private void ProcessDeckData(DeckData data, Deck deck, Queue<GameObject> cardQueue, Transform deckPosition, bool isPlayer)
+    { 
+        foreach (var card in data.cards)
+        {
+            Card newCard;
+            if (card.type == "MINION")
+            {
+                newCard = new MinionCard(card.cardId, card.attack.Value, card.health.Value, null)
+                {
+                    id = card.cardId,
+                    type = Card.CardType.minion,
+                    mana = card.mana,
+                    minionImg = card.image,
+                    image = card.mainImg,
+                };
+            }
+            else
+            {
+                newCard = new SpellCard
+                {
+                    id = card.cardId,
+                    mana = card.mana,
+                    type = 0,
+                    image = card.mainImg,
+                };
+            }
+            foreach(EffectData effectData in card.effects  ){
+                switch (effectData.triggerType)
+                {
+                    case "ON_PLAY":
+                        newCard.onPlay.Add(GetCardEffectByType(effectData));
+                        break;
+                    case "ON_DEATH":
+                        newCard.onDeath.Add(GetCardEffectByType(effectData));
+                        break;
+                    case "ON_START_TURN":
+                        newCard.onStartOfTurn.Add(GetCardEffectByType(effectData));
+                        break;
+                    case "ON_END_TURN":
+                        newCard.onEndOfTurn.Add(GetCardEffectByType(effectData));
+                        break;
+                }
+            }
+
+            deck.list.Add(newCard);
+        }
+
+        deck.Setup();
+
+        foreach (var newCard in deck.list)
+        {
+            GameObject cardObj = Instantiate(cardPrefab);
+
+            Image image = cardObj.transform.Find("Front").GetComponent<Image>();
+            StartCoroutine(LoadImageFromURLCoroutine(newCard.image, image));
+
+            CardDisplay cardDisplay = cardObj.GetComponentInChildren<CardDisplay>();
+            cardDisplay.SetupCard(newCard);
+
+            CardDrag cardDrag = cardObj.GetComponentInChildren<CardDrag>();
+            cardDrag.isDraggable = isPlayer;
+            cardDrag.isMinionCard = newCard.type == Card.CardType.minion;
+
+            cardObj.GetComponent<CardHover>().isEnemyCard = !isPlayer;
+
+            cardObj.transform.SetParent(deckPosition);
+            cardQueue.Enqueue(cardObj);
+        }
+    }
+
+    IEnumerator LoadImageFromURLCoroutine(string url, Image image)
+    {
+        using UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError("Failed to load image: " + request.error);
+        }
+        else
+        {
+            Texture2D texture = DownloadHandlerTexture.GetContent(request);
+            Texture2D cropped = CropTransparent(texture);
+
+            Sprite sprite = Sprite.Create(cropped, new Rect(0, 0, cropped.width, cropped.height), new Vector2(0.5f, 0.5f), 1f);
+            image.sprite = sprite;
+        }
+    }
+    
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+    /// //////////////////////////////////////////////////////
+
+    CardEffect GetCardEffectByType(EffectData effectData)
+    {
+        return effectData.type switch
+        {
+            "Damage" => new DamageEffect(effectData.value, GetTargetByString(effectData.target), effectData.animationId),
+            "Heal" => new HealEffect(effectData.value, GetTargetByString(effectData.target), effectData.animationId),
+            "Draw" => new DrawEffect(effectData.value, GetTargetByString(effectData.target), ""),
+            /*"Summon" => new SummonEffect(effectData.value, GetTargetByString(effectData.target)),*/
+            "Buff"=>new BuffEffect(effectData.value,GetTargetByString(effectData.target), "",GetBuffTypeByString(effectData.buffType),effectData.duration,effectData.isStartOfTurn),
+        };
+    }
+     CardEffect.Target GetTargetByString(string targetString)
+    {
+        return targetString switch
+        {
+            "None" => CardEffect.Target.None,
+            "Self" => CardEffect.Target.Self,
+            "Enemy" => CardEffect.Target.Enemy,
+            "CurrentMinion" => CardEffect.Target.CurrentMinion,
+            "All" => CardEffect.Target.All,
+            "AllAlly" => CardEffect.Target.AllAlly,
+            "AllEnemy" => CardEffect.Target.AllEnemy,
+            "AllMinions" => CardEffect.Target.AllMinions,
+            "AllEnemyMinions" => CardEffect.Target.AllEnemyMinions,
+            "AllAllyMinions" => CardEffect.Target.AllAllyMinions,
+            "RandomAllyMinion" => CardEffect.Target.RandomAllyMinion,
+            "RandomEnemyMinion" => CardEffect.Target.RandomEnemyMinion,
+            "ChosenTarget" => CardEffect.Target.ChosenTarget,
+            _ => CardEffect.Target.None,
+        };
+    }
+     List<String> GetListOfMinionIds(string text)
+    {
+        List<String> list = new();
+        string currentStr="";
+        foreach(char c in text)
+        {
+            if (c != ',' || c != ' ')
+                currentStr += c;
+            else
+            {
+                list.Add(currentStr);
+                currentStr = "";
+            }
+        }
+        return list;
+    }
+    BuffEffect.BuffType GetBuffTypeByString(string text)
+    {
+        if (Enum.TryParse(text, out BuffEffect.BuffType result))
+            return result;
+
+        throw new ArgumentException($"Invalid buff type: {text}");
+    }
+    Texture2D CropTransparent(Texture2D texture)
+    {
+        int width = texture.width;
+        int height = texture.height;
+
+        int minX = width;
+        int minY = height;
+        int maxX = 0;
+        int maxY = 0;
+
+        Color32[] pixels = texture.GetPixels32();
+
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                Color32 pixel = pixels[y * width + x];
+                if (pixel.a > 5)
+                {
+                    if (x < minX) minX = x;
+                    if (y < minY) minY = y;
+                    if (x > maxX) maxX = x;
+                    if (y > maxY) maxY = y;
+                }
+            }
+        }
+
+        int croppedWidth = maxX - minX + 1;
+        int croppedHeight = maxY - minY + 1;
+
+        if (croppedWidth <= 0 || croppedHeight <= 0)
+            return texture; // empty image, skip crop
+
+        Texture2D newTex = new(croppedWidth, croppedHeight);
+        newTex.SetPixels(texture.GetPixels(minX, minY, croppedWidth, croppedHeight));
+        newTex.Apply();
+
+        return newTex;
     }
 }

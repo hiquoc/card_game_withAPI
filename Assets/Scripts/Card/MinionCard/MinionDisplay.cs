@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class MinionDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
@@ -10,6 +11,7 @@ public class MinionDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public MinionCard minion;
     public GameObject cardPreviewPrefab;
     private GameObject cardPreviewObj;
+    public Image image;
     public TMP_Text attackText;
     public TMP_Text healthText;
     Coroutine coroutine;
@@ -22,6 +24,7 @@ public class MinionDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     }
     public void SetupMinion(MinionCard card, GameObject prefab)
     {
+        StartCoroutine(LoadImageFromURLCoroutine(card.minionImg, image));
         minion = card;
         attackText.text = card.currentAttack.ToString();
         healthText.text = card.currentHealth.ToString();
@@ -29,6 +32,22 @@ public class MinionDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         cardPreviewPrefab = Instantiate(prefab);
         cardPreviewPrefab.SetActive(false);
         minion.SetCanAttack(false);
+    }
+    IEnumerator LoadImageFromURLCoroutine(string url, Image image)
+    {
+        using UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError("Failed to load image: " + request.error);
+        }
+        else
+        {
+            Texture2D texture = DownloadHandlerTexture.GetContent(request);
+            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            image.sprite = sprite;
+        }
     }
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
@@ -73,6 +92,11 @@ public class MinionDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void UpdateAttack()
     {
         attackText.text = $"{minion.currentAttack}";
+        if (attackText != null)
+        {
+            attackText.transform.parent.TryGetComponent(out Animator component);
+            component.Play("Move");
+        }
     }
     public void UpdateHealth()
     {

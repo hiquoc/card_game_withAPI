@@ -568,6 +568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a641b05abc1cfb458a28dcefe52b594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnemyCard: 0
 --- !u!225 &75176060921086546
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -592,7 +593,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f09cb1c044def754da9cc0459074cb1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardImage: {fileID: 1246756746081234785}
   manaText: {fileID: 9037084312069875809}
   minionStatsPanel: {fileID: 7106006172534617423}
   attackText: {fileID: 6347396852676333241}
@@ -796,6 +796,7 @@ GameObject:
   - component: {fileID: 9059863071628661333}
   - component: {fileID: 1100567658028892667}
   - component: {fileID: 1246756746081234785}
+  - component: {fileID: 5499033770043336233}
   m_Layer: 5
   m_Name: Front
   m_TagString: Untagged
@@ -845,14 +846,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.4666667, g: 0.5764706, b: 0.76470596, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2370353425558626194, guid: 065c487636a5cb8498f9e3a82028dfcf, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -862,3 +863,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5499033770043336233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9169977881563624834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b04a0a6946162147b112c3fd03bc39e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slicePrefab: {fileID: 5403270834606643228, guid: 195806bc7c5ceb047a10dea666eb211d, type: 3}
+  canvasTransform: {fileID: 0}
+  columns: 4
+  rows: 4
+  minSpeed: 70
+  maxSpeed: 150

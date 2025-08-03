@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR;
 using static Unity.VisualScripting.Member;
 using static UnityEngine.Rendering.DebugUI;
 using Random = UnityEngine.Random;
@@ -133,7 +134,9 @@ public class BattleManager : MonoBehaviour
         isWaiting = false;
         player.currentMana = turnNum <= 10 ? turnNum : 10;
         UpdateMana();
+        rm.textHelper.ShowText("Your turn");
         rm.cm.DrawPlayerCard();
+        CheckDraw();
         ResetAttack(true);
         /*if (player.GetAttack() > 0 || playerMinionList.Count > 0)*/
         rm.am.drawable = true;
@@ -168,6 +171,7 @@ public class BattleManager : MonoBehaviour
         enemy.currentMana = turnNum <= 10 ? turnNum : 10;
         UpdateMana();
         rm.cm.DrawEnemyCard();
+        CheckDraw();
         ResetAttack(true);
         yield return StartCoroutine(EnemyTurnCoroutine());
     }
@@ -360,7 +364,8 @@ public class BattleManager : MonoBehaviour
     }
     IEnumerator PlayOnStartOfTurnEffect()
     {
-        foreach (GameObject minionObj in tmpMinionList)
+        List<GameObject> copy = new(tmpMinionList);
+        foreach (GameObject minionObj in copy)
         {
             MinionCard minionCard = minionObj.GetComponent<MinionDisplay>().minion;
             foreach (CardEffect c in minionCard.onStartOfTurn)
@@ -428,7 +433,8 @@ public class BattleManager : MonoBehaviour
             if (minionObj == null) continue;
             MinionCard minionCard = minionObj.GetComponent<MinionDisplay>().minion;
             bool hasEffect = minionCard.onDeath.Count > 0;
-            yield return new WaitUntil(() => !isWaiting);
+            if(player.GetHealth()>0&&enemy.GetHealth()>0)
+                yield return new WaitUntil(() => !isWaiting);
 
             if (hasEffect)
             {
@@ -624,10 +630,13 @@ public class BattleManager : MonoBehaviour
             case CardEffect.Target.RandomEnemyMinion:
                 ApplyEffectToTarget(card, effect, GetSource(card), value, false, GetRandomEnemyMinion(card), true);
                 break;
+            default:
+                Debug.Log("unknown effect: "+effect.target);
+                break;
         }
     }
 
-    public void ApplyEffectToTarget(Card card, CardEffect effect, ITarget source, int value, bool hasPlayedAni = false, ITarget target = null, bool triedToGetTarget = false)
+    public async void ApplyEffectToTarget(Card card, CardEffect effect, ITarget source, int value, bool hasPlayedAni = false, ITarget target = null, bool triedToGetTarget = false)
     {
         switch (effect.type)
         {
@@ -677,11 +686,24 @@ public class BattleManager : MonoBehaviour
                 break;
 
             case CardEffect.Type.Draw:
-                if (turn == 0)
+                /*if (turn == 0)
                     rm.cm.DrawPlayerCard();
                 else
-                    rm.cm.DrawEnemyCard();
+                    rm.cm.DrawEnemyCard();*/
+                if(source is Character character)
+                {       
+                    for(int i = 0; i < value; i++)
+                    {
+                        if (character == player)
+                            rm.cm.DrawPlayerCard();
+                        else
+                            rm.cm.DrawEnemyCard();
+                    }
+                }
                 break;
+/*            case CardEffect.Type.Summon:
+                
+                break;*/
             case CardEffect.Type.Buff:
                 if (effect is not BuffEffect buffEffect) break;
                 switch (buffEffect.buffType)
@@ -1081,7 +1103,13 @@ public class BattleManager : MonoBehaviour
 
      }
  */
-
+    void CheckDraw()
+    {
+        if(rm.cm.playerCards.Count==0 && rm.cm.enemyCards.Count == 0)
+        {
+            GetComponent<StartAndEndBattle>().PlayDraw();
+        }
+    }
     public void PlayEndAnimation()
     {
         isWaiting = true;

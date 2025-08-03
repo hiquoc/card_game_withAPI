@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public abstract class Card
 {
-    public Image image;
+    public string image;
     public int id;
     public CardType type;//0:spell,1:minion
     public string name;

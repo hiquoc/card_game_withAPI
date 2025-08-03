@@ -15,6 +15,7 @@ public class CharacterDisplay : MonoBehaviour
     public TMP_Text manaText;
     public TMP_Text attackText;
     GameObject attackObj;
+    public GameObject deadAniObj;
 
     ReferenceManager rm;
 
@@ -50,11 +51,13 @@ public class CharacterDisplay : MonoBehaviour
         if (character.currentAttack > 0)
         {
             attackObj.SetActive(true);
+            attackObj.GetComponent<Animator>().Play("Move");
         }
         else
         {
             attackObj.SetActive(false);
         }
+        
     }
     public void UpdateHealth()
     {
@@ -151,8 +154,12 @@ public class CharacterDisplay : MonoBehaviour
     }
     IEnumerator PlayDeathAnimationCoroutine()
     {
+        BattleManager.Instance.isWaiting = true;
         DeathExplosionUI deathExplosion = GetComponent<DeathExplosionUI>();
         yield return new WaitForSeconds(1f);
+        deadAniObj.SetActive(true);
+        deadAniObj.transform.SetParent(rm.canvas.transform, true);
+        deadAniObj.GetComponent<Animator>().Play("Move");
         deathExplosion.Explode(GetComponent<Image>());
         rm.bm.PlayEndAnimation();
         gameObject.SetActive(false);

@@ -2,12 +2,9 @@
 
 public class SummonEffect : CardEffect
 {
-    public List<int> minionIdList;
-
-    public SummonEffect(List<int> minionIdList, Target target, string animationId = "")
-        : base(minionIdList.Count, target, animationId)
+    public SummonEffect(int minionId, Target target, string animationId = "")
+        : base(minionId, target, animationId)
     {
-        this.minionIdList = minionIdList;
         this.type = Type.Summon;
     }
 }

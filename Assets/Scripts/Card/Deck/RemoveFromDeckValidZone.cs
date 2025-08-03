@@ -8,9 +8,12 @@ public class RemoveFromDeckValidZone : MonoBehaviour, IDropHandler
         GameObject eventObj = eventData.pointerDrag;
         if (eventObj.TryGetComponent(out SelectedCard selectedCard))
         {
-            selectedCard.GetComponent<SelectedCard>().isDroppedOnValidZone = true;
-
-            DeckManager.Instance.numOfCard.text = DeckManager.Instance.deck.Count.ToString() + "/30";
+            selectedCard.isDroppedOnValidZone = true;
+            DeckManager dm = DeckManager.Instance;
+            Debug.Log(selectedCard.inventoryId);
+            dm.deck.Remove(selectedCard.inventoryId);
+            dm.manaDict[selectedCard.inventoryId] = selectedCard.mana;
+            dm.numOfCard.text = DeckManager.Instance.deck.Count.ToString() + "/30";
         }
     }
 }

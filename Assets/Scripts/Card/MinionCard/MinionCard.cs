@@ -3,7 +3,7 @@
 public class MinionCard : Card, ITarget
 {
     public MinionDisplay display;
-
+    public string minionImg;
     public int currentHealth, baseHealth, maxHealth;
     public int currentAttack, baseAttack;
 

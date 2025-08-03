@@ -6,6 +6,7 @@ public class CardHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 {
     public static bool canHover = true;
     bool hasEnter = false;
+    public bool isEnemyCard = false;
     private Vector2 originalPosition;
     private Vector3 originalRotation;
     private RectTransform rt;
@@ -18,7 +19,7 @@ public class CardHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (CardDrag.isDragging || !canHover) return;
+        if (CardDrag.isDragging || !canHover||isEnemyCard) return;
         /*Debug.Log(1);*/
         hasEnter = true;
         originalPosition = rt.anchoredPosition;

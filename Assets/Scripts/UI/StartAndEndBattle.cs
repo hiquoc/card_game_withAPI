@@ -31,10 +31,33 @@ public class StartAndEndBattle : MonoBehaviour
         RectTransform endGamePanel = ReferenceManager.Instance.endGamePanel;
         endGamePanel.localScale = Vector3.zero;
         endGamePanel.gameObject.SetActive(true);
-        if (isWin)
-            endGamePanel.gameObject.transform.Find("winImg").gameObject.SetActive(true);
+        if (BattleManager.Instance.player.GetHealth() <= 0 && BattleManager.Instance.enemy.GetHealth() <= 0)
+        {
+            endGamePanel.gameObject.transform.Find("drawImg").gameObject.SetActive(true);
+        }
         else
-            endGamePanel.gameObject.transform.Find("loseImg").gameObject.SetActive(true);
+        {
+            if (isWin)
+                endGamePanel.gameObject.transform.Find("winImg").gameObject.SetActive(true);
+            else
+                endGamePanel.gameObject.transform.Find("loseImg").gameObject.SetActive(true);
+        }
+        Sequence seq = DOTween.Sequence();
+        seq.AppendInterval(1f);
+        seq.Append(endGamePanel.DOScale(Vector3.one, 0.5f));
+
+        yield return seq.WaitForCompletion();
+    }
+    public void PlayDraw()
+    {        
+        StartCoroutine(PlayDrawBattleCoroutine());
+    }
+    public IEnumerator PlayDrawBattleCoroutine()
+    {
+        RectTransform endGamePanel = ReferenceManager.Instance.endGamePanel;
+        endGamePanel.localScale = Vector3.zero;
+        endGamePanel.gameObject.SetActive(true);
+        endGamePanel.gameObject.transform.Find("drawImg").gameObject.SetActive(true);
 
         Sequence seq = DOTween.Sequence();
         seq.AppendInterval(1f);

@@ -132,21 +132,24 @@ public class EnemyAI : MonoBehaviour
     {
         GameObject bestTarget = null;
         int bestScore = int.MinValue;
+        Character enemy = rm.bm.enemy;
+        Character player= rm.bm.player;
 
-        if (targets.Contains(rm.bm.playerDisplay.gameObject) && value >= rm.bm.player.GetHealth())
+        if (targets.Contains(rm.bm.playerDisplay.gameObject) && value >= player.GetHealth())
             return rm.bm.playerDisplay.gameObject;
 
         int enemyMinionDamage = 0;
         foreach (GameObject playerMinion in rm.bm.playerMinionList) {
             enemyMinionDamage += playerMinion.GetComponent<MinionDisplay>().minion.GetAttack();
         }
-        if(rm.bm.enemy.GetHealth() <= enemyMinionDamage)
+        enemyMinionDamage += player.GetAttack();
+        if(enemy.GetHealth() <= enemyMinionDamage)
             targets.Remove(rm.bm.playerDisplay.gameObject);
         foreach (GameObject targetObj in targets)
         {
             if (targetObj == null) continue;
 
-            ITarget target = targetObj.TryGetComponent(out MinionDisplay md) ? md.minion : rm.bm.player;
+            ITarget target = targetObj.TryGetComponent(out MinionDisplay md) ? md.minion : player;
             if (target == null) continue;
 
             int score = 0;
@@ -156,33 +159,41 @@ public class EnemyAI : MonoBehaviour
                 int targetATK = target.GetAttack();
 
                 if (value >= targetHP && targetATK < attackerHP)
-                    score += 30; // strong trade
+                    score += 3; // strong trade
                 else if (value >= targetHP)
-                    score += 20; // still a kill
+                    score += 2; // still a kill
                 else if (attackerHP > targetATK)
-                    score += 10; // at least attacker survives
+                    score += 1; // at least attacker survives
                 else
-                    score -= 50; // bad trade
-                int effectiveDamage = Mathf.Min(value, targetHP);
-                score += effectiveDamage * 3;
+                    score -= 5; // bad trade
+
                 int overkill = value - targetHP;
                 if (overkill > 0)
-                    score -= overkill * 2;
-                score += target.GetAttack() * 3;
-                score += target.GetHealth() * 2;
+                    score -= overkill;
+                score += target.GetAttack() * 2;
+                score += target.GetHealth();
+                if (targetATK > value)
+                    score += (targetATK - value) * 2;
+                score += targetHP/2;
             }
 
             if (target is MinionCard minion)
             {
-                if (minion.hasTaunt) score += 10;
-                if (minion.onDeath.Count != 0) score -= 20;
-                if (minion.onStartOfTurn.Count != 0) score += 20;
-                if (minion.onEndOfTurn.Count != 0) score += 20;
-                if (BuffManager.Instance.IsBuffing(minion)) score += 30;
+                if (minion.hasTaunt) score += 1;
+                if (minion.onDeath.Count != 0) {
+                    score -= 3;
+                    if(minion.onDeath.Exists(effect=>effect.type==CardEffect.Type.Damage && effect.value+minion.GetAttack()>= enemy.GetHealth()+enemy.GetShield())){
+                        score -= 9999;
+                    }
+                }
+                
+                if (minion.onStartOfTurn.Count != 0) score += 2;
+                if (minion.onEndOfTurn.Count != 0) score += 2;
+                if (BuffManager.Instance.IsBuffing(minion)) score += 3;
             }
             else
             {
-                score += 20;
+                score += 2;
             }
 
             if (score > bestScore)
@@ -287,6 +298,8 @@ public class EnemyAI : MonoBehaviour
     }
     public IEnumerator DoAttackCoroutine()
     {
+        Character player=rm.bm.player;
+        Character enemy=rm.bm.enemy;
         List<GameObject> minionCopyList = new(rm.bm.enemyMinionList);
         foreach (GameObject minionObj in minionCopyList)
         {
@@ -300,13 +313,18 @@ public class EnemyAI : MonoBehaviour
                     Debug.LogWarning("Cant get Target");
                     continue;
                 }
+                yield return null;
+                while (rm.bm.isWaiting || rm.bm.minionDying )
+                {
+                    yield return new WaitForSeconds(0.2f);
+                }
                 if (target.TryGetComponent(out MinionDisplay component))
                     minionCard.AttackTarget(component.minion);
                 else
                 {
-                    if (rm.bm.player.GetHealth() <= 0)
+                    if (player.GetHealth() <= 0)
                         yield break;
-                    minionCard.AttackTarget(rm.bm.player);
+                    minionCard.AttackTarget(player);
                 }      
                 yield return null;
                 while (rm.bm.isWaiting ||rm.bm.minionDying)
@@ -320,17 +338,20 @@ public class EnemyAI : MonoBehaviour
         }
         if (rm.bm.enemy.CanAttack())
         {
-            Character enemy = rm.bm.enemy;
             GameObject target = GetAttackTarget(enemy);
             if (target == null)
                 Debug.LogWarning("Cant get Target");
             if (target.TryGetComponent(out MinionDisplay component))
-                enemy.AttackTarget(component.minion);
+            {
+                if(enemy.GetHealth()>component.minion.GetAttack())
+                    enemy.AttackTarget(component.minion);
+            }       
             else
             {
-                if (rm.bm.player.GetHealth() <= 0)
+                if (player.GetHealth() <= 0)
                     yield break;
-                enemy.AttackTarget(rm.bm.player);
+                if (enemy.GetHealth() > player.GetAttack())
+                    enemy.AttackTarget(player);
             }            
             yield return null;
             while (rm.bm.isWaiting || rm.bm.minionDying)

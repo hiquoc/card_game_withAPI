@@ -150,6 +150,10 @@ public class Character : ITarget
         currentShield = Mathf.Max(0, currentShield - value);
         display.UpdateShield();
     }
+    public int GetShield()
+    {
+        return currentShield;
+    }
     public GameObject GetGameObject()
     {
         return display.gameObject;

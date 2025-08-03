@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 2831786086160023889}
   - component: {fileID: 4986579111666005342}
   - component: {fileID: 8106552199350315470}
+  - component: {fileID: 4585483012808917542}
   m_Layer: 5
   m_Name: AttackImg
   m_TagString: Untagged
@@ -166,6 +167,28 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &4585483012808917542
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296120130117639959}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 167fceadfece7b14f9aba5943515a6a5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1587581511883850927
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,6 +360,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5600529aa8bd7044a8ec39d771c7d82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardPreviewPrefab: {fileID: 0}
+  image: {fileID: 147532004101298600}
   attackText: {fileID: 3082219746746418437}
   healthText: {fileID: 4749360822607979182}
 --- !u!114 &-342495939712029136
@@ -847,14 +872,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7176471, g: 0.35686275, b: 0.37254903, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2461145959615685416, guid: 15b344e39ab2afe469a0b1649f8ce108, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

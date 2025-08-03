@@ -114,7 +114,7 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     {
         canDrag = false;
         CardHover.canHover = canHover;
-        Vector2 screenCenter = new((Screen.width + 100f) / 2f, Screen.height / 2f);
+        Vector2 screenCenter = new((Screen.width) / 2f, Screen.height / 2f);
         ReferenceManager rm = ReferenceManager.Instance;
         transform.SetParent(rm.animationLayer);
         rt.localEulerAngles = new Vector2(0f, 0f);
@@ -127,7 +127,6 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             seq.AppendCallback(() => flipCard.Flip());
             seq.AppendInterval(1f);
         }
-
         rm.cm.UpdateCardPosition(rm.bm.turn);
 
         yield return seq.WaitForCompletion();

@@ -87,7 +87,10 @@ public class CardAction
                 case CardEffect.Target.AllEnemyMinions:
                     if (effect.type == CardEffect.Type.Damage)
                     {
-                        value += 3 * playerMinionCount;
+                        if (playerMinionCount < 2)
+                            value -= 5;
+                        else if (playerMinionCount > enemyMinionCount + 1)
+                            value += 2 * (playerMinionCount - enemyMinionCount);
                     }
                     else if (effect.type == CardEffect.Type.Heal)
                         value -= 20 * playerMinionCount;
