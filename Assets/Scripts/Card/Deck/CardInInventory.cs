@@ -15,6 +15,7 @@ public class CardInInventory : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public bool isDropOnValidZone = false;
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
     {
+        if (inventoryId == -1) return;
         //Add check if can drag this card
         copyObj = Instantiate(gameObject, ReferenceManager.Instance.animationLayer);
         RectTransform copyRT = copyObj.GetComponent<RectTransform>();
@@ -27,12 +28,14 @@ public class CardInInventory : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     void IDragHandler.OnDrag(PointerEventData eventData)
     {
+        if (inventoryId == -1) return;
         if (copyObj == null) return;
         copyObj.transform.position = eventData.position;
     }
 
     void IEndDragHandler.OnEndDrag(PointerEventData eventData)
     {
+        if (inventoryId == -1) return;
         if (copyObj == null) return;
         StartCoroutine(OnEndDragCoroutine());
 

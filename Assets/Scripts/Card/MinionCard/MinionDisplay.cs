@@ -24,7 +24,11 @@ public class MinionDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     }
     public void SetupMinion(MinionCard card, GameObject prefab)
     {
-        StartCoroutine(LoadImageFromURLCoroutine(card.minionImg, image));
+        Sprite sprite = PoolManager.Instance.GetSprite(card.id);
+        if(sprite==null )
+            StartCoroutine(LoadImageFromURLCoroutine(card.minionImg, image));
+        else
+            image.sprite = sprite;       
         minion = card;
         attackText.text = card.currentAttack.ToString();
         healthText.text = card.currentHealth.ToString();
@@ -175,6 +179,7 @@ public class MinionDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     }
     private void OnDestroy()
     {
+        PoolManager.Instance.ReleaseSprite(minion.id);
         if (cardPreviewPrefab != null)
         {
             Destroy(cardPreviewPrefab);
@@ -187,7 +192,7 @@ public class MinionDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void ShowPopup(int value)
     {
         if (gameObject == null) return;
-        if (rm.bm.dyingMinions.Contains(gameObject)) return;
+       /* if (rm.bm.dyingMinions.Contains(gameObject)) return;*/
         if (activePopup == null)
         {
             GameObject popupGO = PoolManager.Instance.GetPopup();
@@ -199,6 +204,6 @@ public class MinionDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     IEnumerator ShowPopupCoroutine(int value)
     {
         yield return null;
-        activePopup.AddValue(value, transform);
+        activePopup.ShowPopup(value, transform);
     }
 }

@@ -3,10 +3,13 @@ using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Splines;
 using UnityEngine.UI;
+using static LoginHandler;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class CardManager : MonoBehaviour
 {
@@ -23,7 +26,10 @@ public class CardManager : MonoBehaviour
     ReferenceManager rm;
     RectTransform animationLayer;
 
-    public bool doneLoading = false;
+    public int loadedImg;
+    public bool isLoaded;
+
+    public GameObject errorPanel;
 
     private void Awake()
     {
@@ -37,7 +43,8 @@ public class CardManager : MonoBehaviour
         enemyDeck = new();
         playerCards = new();
         enemyCards = new();
-
+        loadedImg = 0;
+        isLoaded=false;
         rm = ReferenceManager.Instance;
         animationLayer = rm.animationLayer;
         InitDeck();
@@ -69,108 +76,6 @@ public class CardManager : MonoBehaviour
         /*InitSideDeck(playerDeck, playerCards, playerDeckPosition, true);
         InitSideDeck(enemyDeck, enemyCards, enemyDeckPosition, false);*/
     }
-    private void InitSideDeck(Deck deck, Queue<GameObject> cardQueue, Transform deckPosition, bool isPlayer)
-    {
-        for (int i = 0; i < 30; i++)
-        {
-            Card card;
-            if (i > 0 && i <= 1)
-            {
-                card = new MinionCard(i, 1, 2, null)
-                {
-                    type = Card.CardType.minion,
-                    mana = 3,
-                };
-                /*DamageEffect cardEffect1 = new(2, CardEffect.Target.ChosenTarget, "arrow");
-                card.onPlay.Add(cardEffect1);*/
-
-                /*BuffEffect cardEffect2 = new(0, CardEffect.Target.CurrentMinion, "", BuffEffect.BuffType.Taunt);
-                card.onPlay.Add(cardEffect2);*/
-
-                BuffEffect cardEffect2 = new(01, CardEffect.Target.ChosenTarget, "attack", BuffEffect.BuffType.Attack,1,false);
-                card.onPlay.Add(cardEffect2);
-                /*BuffEffect cardEffect3 = new(2, CardEffect.Target.AllAlly, "heal", BuffEffect.BuffType.IncreaseMaxHealth);
-                card.onPlay.Add(cardEffect3);*/
-            }
-            else if (i > 1 && i < 5)
-            {
-                card = new MinionCard(i, 1, 2, null)
-                {
-                    type = Card.CardType.minion,
-                    mana = 3,
-                };
-                DamageEffect cardEffect2 = new(1, CardEffect.Target.RandomEnemyMinion, "fireball");
-                card.onEndOfTurn.Add(cardEffect2);
-                /*card.onEndOfTurn.Add(cardEffect2);
-                card.onEndOfTurn.Add(cardEffect2);*/
-
-                BuffEffect cardEffect1 = new(2, CardEffect.Target.RandomAllyMinion, "attack", BuffEffect.BuffType.Attack);
-                card.onPlay.Add(cardEffect1);
-                /*BuffEffect cardEffect4 = new(1, CardEffect.Target.AllAllyMinions, "", BuffEffect.BuffType.ActiveHealthBuff);
-                card.onPlay.Add(cardEffect4);
-                DrawEffect cardEffect3 = new();
-                card.onEndOfTurn.Add(cardEffect3);
-                BuffEffect cardEffect9 = new(2, CardEffect.Target.RandomAllyMinion, "heal", BuffEffect.BuffType.HealOverTime,1,true);
-                card.onPlay.Add(cardEffect9);*/
-                HealEffect cardEffect = new(3, CardEffect.Target.AllAllyMinions, "heal");
-                card.onPlay.Add(cardEffect);
-                DamageEffect cardEffect3 = new(3, CardEffect.Target.AllEnemy, "explosion");
-                card.onDeath.Add(cardEffect3);
-            }
-            else if (i > 5)
-            {
-                card = new MinionCard(i, 1, 2, null)
-                {
-                    type = Card.CardType.minion,
-                    mana = 3,
-                };
-                
-                /*DamageEffect cardEffect2 = new(1, CardEffect.Target.RandomEnemyMinion, "arrow");
-                card.onStartOfTurn.Add(cardEffect2);
-                BuffEffect cardEffect1 = new(2, CardEffect.Target.RandomAllyMinion, "attack", BuffEffect.BuffType.Attack);
-                card.onPlay.Add(cardEffect1);*/
-                /*DrawEffect cardEffect3 = new();
-                card.onEndOfTurn.Add(cardEffect3);*/
-                HealEffect cardEffect = new(3, CardEffect.Target.AllAllyMinions, "heal");
-                card.onDeath.Add(cardEffect);
-            }
-            else
-            {
-                card = new SpellCard
-                {
-                    id = i,
-                    type = Card.CardType.spell,
-                    mana = 2
-                };
-
-                /*DrawEffect cardEffect1 = new();
-                card.onPlay.Add(cardEffect1);*/
-
-                BuffEffect cardEffect1 = new(2, CardEffect.Target.AllAlly, "attack", BuffEffect.BuffType.Attack,2, false);
-                card.onPlay.Add(cardEffect1);
-
-                BuffEffect cardEffect3 = new(2, CardEffect.Target.Self, "shield", BuffEffect.BuffType.Shield);
-                card.onPlay.Add(cardEffect3);
-
-                HealEffect cardEffect2 = new(1, CardEffect.Target.AllAlly, "heal");
-                card.onPlay.Add(cardEffect2);
-                /*DamageEffect cardEffect3 = new(3, CardEffect.Target.AllEnemy, "explosion");
-                card.onPlay.Add(cardEffect3);*/
-            }
-
-            deck.list.Add(card);
-
-            GameObject cardObj = Instantiate(cardPrefab);
-            CardDisplay cardDisplay = cardObj.GetComponentInChildren<CardDisplay>();
-            cardDisplay.SetupCard(card);
-            CardDrag cardDrag = cardObj.GetComponentInChildren<CardDrag>();
-
-            cardDrag.isDraggable = isPlayer;
-            cardDrag.isMinionCard = card.type == Card.CardType.minion;
-            cardObj.transform.SetParent(deckPosition);
-            cardQueue.Enqueue(cardObj);
-        }
-    }
     public IEnumerator DrawCard(int turn)
     {
         Queue<GameObject> cards = turn == 0 ? playerCards : enemyCards;
@@ -178,7 +83,7 @@ public class CardManager : MonoBehaviour
 
         if (cards.Count == 0)
         {
-            rm.textHelper.ShowText("You have ran out of card!");
+            rm.textHelper.ShowText(turn==0?"You":"Enemy"+" have ran out of card!");
             yield break;
         }
         CardDrag.canDrag = false;
@@ -188,7 +93,7 @@ public class CardManager : MonoBehaviour
         if (hand.Count == 10)
         {
             GameObject frontObj = cardObj.transform.Find("Front").gameObject;
-            rm.textHelper.ShowText("You hand is full!");
+            rm.textHelper.ShowText(turn == 0 ? "You" : "Enemy" + " hand is full!");
             yield return StartCoroutine(cardObj.GetComponent<CardDrag>().MoveSpellCard(turn == 0));
             DeathExplosionUI deathExplosion = frontObj.GetComponent<DeathExplosionUI>();
             deathExplosion.canvasTransform = rm.canvas.transform as RectTransform;
@@ -199,6 +104,15 @@ public class CardManager : MonoBehaviour
         }
 
         hand.Add(cardObj);
+        if(cardObj.TryGetComponent(out CardDisplay component) && component.card is MinionCard minion)
+        {
+            /*if (turn == 0)
+            {
+                Debug.Log(minion.id);
+                Debug.Log(minion.minionImg);
+            }*/
+            PoolManager.Instance.SetUpNewSprite(minion.id, minion.minionImg);
+        }
         RectTransform rt = cardObj.GetComponent<RectTransform>();
         rt.SetParent(animationLayer, true);
         rm.sm.Play("cardDrawn");
@@ -238,7 +152,7 @@ public class CardManager : MonoBehaviour
             seq.Append(currentCard.transform.DOMove(splinePosition, 0.5f));
             seq.Join(currentCard.transform.DORotate(new Vector3(0, 0, angle), 0.5f));
             if (turn == 0)
-                seq.Join(currentCard.transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 0.2f));
+                seq.Join(currentCard.transform.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.2f));
             seq.OnComplete(() =>
             {
                 if (turn == 0)
@@ -274,11 +188,18 @@ public class CardManager : MonoBehaviour
     public IEnumerator GetDeckDataCoroutine(Deck deck, Queue<GameObject> cardQueue, Transform deckPosition, bool isPlayer)
     {
         if (SceneLoader.Instance.token == null)
+        {
             Debug.Log("null");
-        using UnityWebRequest request = UnityWebRequest.Get(DataFetcher.address+"deck");
-        Debug.Log(SceneLoader.Instance.token);
-        request.SetRequestHeader("Authorization", "Bearer " + SceneLoader.Instance.token);//add SceneLoader.Instance.enemyId if isPlayer==false
-        
+            yield break;
+        }
+
+        string url = DataFetcher.address + "deck";
+        if(!isPlayer)
+            url+= "/" + SceneLoader.Instance.enemyId;
+        using UnityWebRequest request = UnityWebRequest.Get(url);
+        /*Debug.Log(url);*/
+        request.SetRequestHeader("Authorization", "Bearer " + SceneLoader.Instance.token);
+
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.ConnectionError ||
@@ -286,6 +207,16 @@ public class CardManager : MonoBehaviour
         {
             Debug.Log("url: " + DataFetcher.address + "/deck");
             Debug.Log("Error fetching deck data: " + request.error);
+            if (request.responseCode == 403)
+            {
+                ShowErrorPanel("Expired session\nPlease re-login");
+                Debug.LogWarning("Access forbidden (403). Possibly due to an invalid or expired token.");
+                SceneLoader.Instance.BackToMenuAndLogout();
+            }
+            else if (!errorPanel.activeInHierarchy)
+            {
+                ShowErrorPanel();
+            }
             yield break;
         }
 
@@ -447,10 +378,64 @@ public class CardManager : MonoBehaviour
             Sprite sprite = Sprite.Create(cropped, new Rect(0, 0, cropped.width, cropped.height), new Vector2(0.5f, 0.5f), 1f);
             image.sprite = sprite;
         }
+        loadedImg++;
+        if (loadedImg == 60)
+            isLoaded = true;
     }
-    
+    public List<int> stageRewardId;
+    public IEnumerator GiveRewardCard(int cardId)
+    {
+        SceneLoader sceneLoader=SceneLoader.Instance;
+        string giveCardUrl = $"{DataFetcher.address}inventory/{sceneLoader.userId}/cards/system";
+        
+        string jsonBody = JsonUtility.ToJson(new CardRequest(cardId));
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonBody);
+        using UnityWebRequest request =new (giveCardUrl, "POST");
 
- 
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Authorization", "Bearer " + sceneLoader.token);
+        Debug.Log($"URL: {giveCardUrl}");
+        Debug.Log($"Token: {sceneLoader.token}");
+        Debug.Log($"JSON Body: {jsonBody}");
+        yield return request.SendWebRequest();
+        if (request.result == UnityWebRequest.Result.ConnectionError ||
+            request.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.Log("Error giving reward: " + request.error);
+            if (request.responseCode == 403)
+            {
+                ShowErrorPanel("Expired session\nPlease re-login");
+                Debug.LogWarning("Access forbidden (403). Possibly due to an invalid or expired token.");
+                SceneLoader.Instance.BackToMenuAndLogout();
+            }
+            else if (!errorPanel.activeInHierarchy)
+            {
+                ShowErrorPanel();
+            }
+            yield break;
+        }
+
+    }
+    [Serializable]
+    public class CardRequest
+    {
+        public int cardId;
+
+        public CardRequest(int cardId)
+        {
+            this.cardId = cardId;
+        }
+    }
+
+
+
+
+
+
+
+
 
 
 
@@ -473,7 +458,7 @@ public class CardManager : MonoBehaviour
             "Heal" => new HealEffect(effectData.value, GetTargetByString(effectData.target), effectData.animationId),
             "Draw" => new DrawEffect(effectData.value, GetTargetByString(effectData.target), ""),
             /*"Summon" => new SummonEffect(effectData.value, GetTargetByString(effectData.target)),*/
-            "Buff"=>new BuffEffect(effectData.value,GetTargetByString(effectData.target), "",GetBuffTypeByString(effectData.buffType),effectData.duration,effectData.isStartOfTurn),
+            "Buff"=>new BuffEffect(effectData.value,GetTargetByString(effectData.target), effectData.animationId, GetBuffTypeByString(effectData.buffType),effectData.duration,effectData.isStartOfTurn),
         };
     }
      CardEffect.Target GetTargetByString(string targetString)
@@ -515,11 +500,14 @@ public class CardManager : MonoBehaviour
     BuffEffect.BuffType GetBuffTypeByString(string text)
     {
         if (Enum.TryParse(text, out BuffEffect.BuffType result))
+        {
             return result;
+        }
+            
 
-        throw new ArgumentException($"Invalid buff type: {text}");
+        return BuffEffect.BuffType.None;
     }
-    Texture2D CropTransparent(Texture2D texture)
+    public Texture2D CropTransparent(Texture2D texture)
     {
         int width = texture.width;
         int height = texture.height;
@@ -558,4 +546,10 @@ public class CardManager : MonoBehaviour
 
         return newTex;
     }
+    public void ShowErrorPanel(string text = "Something went wrong\nPlease try again later")
+    {
+        errorPanel.GetComponentInChildren<TMP_Text>().text = text;
+        errorPanel.SetActive(true);
+    }
+
 }

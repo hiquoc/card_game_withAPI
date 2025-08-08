@@ -7,25 +7,35 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
+using Button = UnityEngine.UI.Button;
 
 public class DeckManager : MonoBehaviour
 {
     public static DeckManager Instance;
     public Button reloadBtn;
+    public Button showAllCardBtn;
+    public Button hideAllCardBtn;
     public Button submitBtn;
+    public Button sortByManaBtn,sortByRarityBtn;
+    public GameObject errorPanel;
     public TMP_Text numOfCard;
-    public List<int> deck;
+    public GameObject loadingText;
+    
 
     public Dictionary<int, int> manaDict = new();
     public Dictionary<int, Sprite> imgDict = new();
     public Dictionary<int, InventoryCardData> inventoryDict = new();
     public Dictionary<int,GameObject> inventoryObjDict = new();
+    int itemCount;
 
+    public Dictionary<int, int> deckManaDict = new();
+    public List<int> deck;
+    
     ReferenceManager rm;
 
     public GameObject cardInInventoryPre, selectedCardPre;
-    readonly string deckUrl = DataFetcher.address + "deck";
-    readonly string inventoryUrl = DataFetcher.address + "inventory";
+     
 
     private void Start()
     {
@@ -38,8 +48,27 @@ public class DeckManager : MonoBehaviour
         rm=ReferenceManager.Instance;
         ReloadInventory();
         LoadDeckData();
-        reloadBtn.onClick.AddListener(ReloadInventory);
+        reloadBtn.onClick.AddListener(ReloadItem);
         submitBtn.onClick.AddListener(SubmitDeck);
+        showAllCardBtn.onClick.AddListener(LoadCollection);
+        hideAllCardBtn.onClick.AddListener(ReloadInventory);
+        sortByManaBtn.onClick.AddListener(SortItemByMana);
+        sortByRarityBtn.onClick.AddListener(SortItemByRarity);
+    }
+    public void ReloadItem()
+    {
+        Debug.Log("Reloaded");
+        if (showAllCardBtn.gameObject.activeInHierarchy)
+        {
+            ReloadInventory();     
+        }       
+        else
+            LoadCollection();
+        if (sortByManaBtn.gameObject.activeInHierarchy)
+        {
+            sortByManaBtn.gameObject.SetActive(false);
+            sortByRarityBtn.gameObject.SetActive(true);
+        }
     }
 
     public void ReloadInventory()
@@ -67,6 +96,7 @@ public class DeckManager : MonoBehaviour
     {
         if (SceneLoader.Instance.token == null)
             Debug.Log("null");
+        string inventoryUrl = DataFetcher.address + "inventory";
         using UnityWebRequest request = UnityWebRequest.Get(inventoryUrl);
         request.SetRequestHeader("Authorization", "Bearer " + SceneLoader.Instance.token);
         yield return request.SendWebRequest();
@@ -75,6 +105,16 @@ public class DeckManager : MonoBehaviour
             request.result == UnityWebRequest.Result.ProtocolError)
         {
             Debug.Log("Error fetching collection data: " + request.error);
+            if(request.responseCode==401)
+            {
+                ShowErrorPanel(false, "Expired session\nPlease re-login");
+                Debug.LogWarning("Access forbidden (401). Possibly due to an invalid or expired token.");
+                SceneLoader.Instance.BackToMenuAndLogout();
+            }
+            else if(!errorPanel.activeInHierarchy)
+            {
+                ShowErrorPanel(true);
+            }                         
             yield break;
         }
 
@@ -92,6 +132,7 @@ public class DeckManager : MonoBehaviour
         }
         catch (Exception e)
         {
+            ShowErrorPanel(true);
             Debug.LogError("Exception occurred:\n" + e);
         }
     }
@@ -121,12 +162,21 @@ public class DeckManager : MonoBehaviour
     }
     void ProcessInventoryData(InventoryResult result)
     {
+        loadingText.SetActive(true);
+        manaDict.Clear();
+        imgDict.Clear();
+        inventoryDict.Clear();
+        inventoryObjDict.Clear();
+        itemCount=result.data.Count;
         Transform allCardPanel = rm.allCardPanel;
         foreach (InventoryData card in result.data)
         {
+            itemCount--;
+            /*Debug.Log(itemCount);*/
             if (inventoryDict.ContainsKey(card.cardId))
             {
-                inventoryDict.TryGetValue(card.cardId,out InventoryCardData cardData);               
+                inventoryDict.TryGetValue(card.cardId,out InventoryCardData cardData);
+                cardData.inventoryId.Add(card.inventoryId);
                 if (card.forSale)
                     cardData.onSale += 1;
                 else
@@ -137,10 +187,12 @@ public class DeckManager : MonoBehaviour
                 card.mana, card.attack, card.health, card.forSale ? 0 : 1, card.forSale ? 1 : 0);
 
             GameObject g = Instantiate(cardInInventoryPre, allCardPanel);
+            g.SetActive(false);
 
             Image imageComponent = g.transform.Find("Image").GetComponent<Image>();
-            StartCoroutine(AddGameObjectToDict(card, g, imageComponent));
+            StartCoroutine(AddSpriteToDict(card, g, imageComponent));
             CardInInventory cid = g.GetComponent<CardInInventory>();
+            
             cid.cardId = card.cardId;
             cid.rarity = card.rarity;
             cid.cardName = card.cardName;
@@ -151,6 +203,7 @@ public class DeckManager : MonoBehaviour
             manaObj.GetComponent<TMP_Text>().text = card.mana.ToString();
             inventoryObjDict[card.cardId] = g;
 
+
             if (card.attack==0 && card.health==0) continue;
             cid.attack = card.attack;
             cid.health = card.health;
@@ -160,8 +213,9 @@ public class DeckManager : MonoBehaviour
             GameObject healthObj = g.transform.Find("HealthImg").gameObject;
             healthObj.SetActive(true);
             healthObj.GetComponentInChildren<TMP_Text>().text = card.health.ToString();
-            
 
+            if(!manaDict.ContainsKey(card.cardId))
+                manaDict[card.cardId] = card.mana;
         }
         foreach(int cardId in inventoryObjDict.Keys)
         {
@@ -171,18 +225,19 @@ public class DeckManager : MonoBehaviour
             GameObject countObj = g.transform.Find("Count").gameObject;
             if (icd.quantity > 0)
             {
-                Debug.Log(icd.quantity);
+                /*Debug.Log(icd.quantity);*/
                 countObj.SetActive(true);
                 countObj.GetComponent<TMP_Text>().text = "x " + icd.quantity.ToString();
                 cid.quantity= icd.quantity;
+                cid.inventoryId = inventoryDict[cardId].inventoryId.First();
             }
             else
             {
-                Debug.Log(icd.quantity);
+                /*Debug.Log(icd.quantity);*/
                 countObj.SetActive(false);
                 CanvasGroup cvg = g.GetComponent<CanvasGroup>();
                 cvg.alpha = 0.6f;
-                Destroy(cid);
+                cid.inventoryId = -1;
             }
 
             if (icd.onSale == 0) continue;
@@ -191,7 +246,7 @@ public class DeckManager : MonoBehaviour
             onSaleObj.GetComponent<TMP_Text>().text = "s " + icd.onSale.ToString();
         }
     }
-    IEnumerator AddGameObjectToDict(InventoryData card, GameObject g, Image imageComponent)
+    IEnumerator AddSpriteToDict(InventoryData card, GameObject g, Image imageComponent)
     {
         yield return StartCoroutine(LoadImageFromURLCoroutine(card, imageComponent));
 
@@ -217,11 +272,16 @@ public class DeckManager : MonoBehaviour
             image.sprite = sprite;
             if (!imgDict.ContainsKey(card.cardId))
             {
-                Debug.Log(card.cardName);
-                Debug.Log(card.cardId);
+                /*Debug.Log(card.cardName);
+                Debug.Log(card.cardId);*/
                 imgDict[card.cardId] = sprite;
+                inventoryObjDict[card.cardId].SetActive(true);
+                if(itemCount==0)
+                {
+                    loadingText.SetActive(false);
+                    SortItemByMana();
+                }
             }
-                
         }
     }
 
@@ -232,10 +292,11 @@ public class DeckManager : MonoBehaviour
     public IEnumerator GetDeckDataCoroutine()
     {
         if (SceneLoader.Instance.token == null)
-        {            Debug.Log("null");
+        {            
+            Debug.Log("null");
             yield break;
         }
-            
+        string deckUrl = DataFetcher.address + "deck";
         using UnityWebRequest request = UnityWebRequest.Get(deckUrl);
         Debug.Log(SceneLoader.Instance.token);
         request.SetRequestHeader("Authorization", "Bearer " + SceneLoader.Instance.token);
@@ -245,6 +306,16 @@ public class DeckManager : MonoBehaviour
             request.result == UnityWebRequest.Result.ProtocolError)
         {
             Debug.Log("Error fetching deck data: " + request.error);
+            if (request.responseCode == 401)
+            {
+                ShowErrorPanel(false, "Expired session\nPlease re-login");
+                Debug.LogWarning("Access forbidden (401). Possibly due to an invalid or expired token.");
+                SceneLoader.Instance.BackToMenuAndLogout();
+            }
+            else if (!errorPanel.activeInHierarchy)
+            {
+                ShowErrorPanel(true);
+            }
             yield break;
         }
 
@@ -266,6 +337,7 @@ public class DeckManager : MonoBehaviour
         }
         catch (Exception e)
         {
+            ShowErrorPanel(true);
             Debug.LogError("Exception occurred:\n" + e);
         }
     }
@@ -312,12 +384,18 @@ public class DeckManager : MonoBehaviour
     private void ProcessDeckData(DeckData data)
     {
         Transform selectedCardPanel = rm.selectedCardPanel;
+        for (int i = selectedCardPanel.childCount - 1; i >= 0; i--)
+        {
+            Destroy(selectedCardPanel.GetChild(i).gameObject);
+        }
+        deck.Clear();
         foreach (var card in data.cards)
         {
             GameObject g = Instantiate(selectedCardPre, selectedCardPanel);
             SelectedCard selectedCard = g.GetComponent<SelectedCard>();
             selectedCard.inventoryId = card.inventoryId;
             selectedCard.cardId = card.cardId;
+            selectedCard.cardName = card.name;
             selectedCard.mana = card.mana;
             if (card.type == "MINION")
             {
@@ -331,15 +409,20 @@ public class DeckManager : MonoBehaviour
             manaTxt.GetComponentInChildren<TMP_Text>().text = card.mana.ToString();
             nameTxt.GetComponent<TMP_Text>().text = card.name;
             deck.Add(card.inventoryId);
-            Debug.Log(card.inventoryId);
-/*            Debug.Log(card.cardId);*/
-            manaDict[card.inventoryId] = card.mana;
+            /*Debug.Log(card.inventoryId);*/
+            deckManaDict[card.inventoryId] = card.mana;
         }
         numOfCard.text = data.cards.Count.ToString() + "/" + "30";
+        SortDeckItem();
     }
 
     private void SubmitDeck()
     {
+        if (deck.Count < 30)
+        {
+            ShowErrorPanel(false, "You don't have enough cards\n" + deck.Count.ToString() + "/" + "30");
+            return;
+        }
         StartCoroutine(SubmitDeckCoroutine());
     }
 
@@ -351,10 +434,11 @@ public class DeckManager : MonoBehaviour
             yield break;
         }
 
-        Debug.Log(SceneLoader.Instance.token);
-        string jsonBody = JsonUtility.ToJson(new SubmitDeckRequest(deck));
+        string jsonBody = JsonConvert.SerializeObject(new SubmitDeckRequest(deck));
+        Debug.Log(jsonBody);
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonBody);
-        using UnityWebRequest request = new(deckUrl, "POST")
+        string deckUrl = DataFetcher.address + "deck";
+        using UnityWebRequest request = new(deckUrl, "PUT")
         {
             uploadHandler = new UploadHandlerRaw(bodyRaw),
             downloadHandler = new DownloadHandlerBuffer()
@@ -368,6 +452,16 @@ public class DeckManager : MonoBehaviour
             request.result == UnityWebRequest.Result.ProtocolError)
         {
             Debug.Log("Error fetching deck data: " + request.error);
+            if (request.responseCode == 401)
+            {
+                ShowErrorPanel(false, "Expired session\nPlease re-login");
+                Debug.LogWarning("Access forbidden (401). Possibly due to an invalid or expired token.");
+                SceneLoader.Instance.BackToMenuAndLogout();
+            }
+            else if (!errorPanel.activeInHierarchy)
+            {
+                ShowErrorPanel(true);
+            }
             yield break;
         }
 
@@ -383,8 +477,11 @@ public class DeckManager : MonoBehaviour
         }
         catch (Exception e)
         {
+            ShowErrorPanel(true,"Can't save your deck\nPlease try again later");
             Debug.LogError("Exception occurred:\n" + e);
         }
+        ShowErrorPanel(false, "Save sucessfully");
+        LoadDeckData();
     }
     [System.Serializable]
     public class SubmitDeckRequest
@@ -404,22 +501,299 @@ public class DeckManager : MonoBehaviour
         public DeckData data;
     }
 
+    void LoadCollection()
+    {
+        sortByManaBtn.gameObject.SetActive(false);
+        sortByRarityBtn.gameObject.SetActive(true);
+        StartCoroutine(LoadCollectionDataCoroutine());
+    }
+    IEnumerator LoadCollectionDataCoroutine()
+    {
+        if (SceneLoader.Instance.token == null)
+        {
+            Debug.Log("null");
+            yield break;
+        }
+        string collectionUrl = DataFetcher.address + "deck/collection";
+        using UnityWebRequest request = new(collectionUrl, "GET");
+        request.SetRequestHeader("Authorization","Bearer "+SceneLoader.Instance.token);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        yield return request.SendWebRequest();
+        if(request.result==UnityWebRequest.Result.ConnectionError||
+            request.result==UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.Log("Error fetching collection data: " + request.error);
+            if (request.responseCode == 401)
+            {
+                ShowErrorPanel(false, "Expired session\nPlease re-login");
+                Debug.LogWarning("Access forbidden (401). Possibly due to an invalid or expired token.");
+                SceneLoader.Instance.BackToMenuAndLogout();
+            }
+            else if (!errorPanel.activeInHierarchy)
+            {
+                ShowErrorPanel(true);
+            }
+            yield break;
+        }
+        try
+        {
+            CollectionResult response = JsonConvert.DeserializeObject<CollectionResult>(request.downloadHandler.text);
+
+            if (response == null)
+            {
+                Debug.LogError("Deserialized response is null!");
+                yield break;
+            }
+            if (response.data == null)
+            {
+                Debug.LogError("response.data is null!");
+                yield break;
+            }
+            if (response.data.cards == null)
+            {
+                Debug.LogError("response.data.cards is null!");
+                yield break;
+            }
+
+            ProcessCollectionData(response);
+        }
+        catch (Exception e)
+        {
+            ShowErrorPanel(true);
+            Debug.LogError("Exception occurred:\n" + e);
+        }
+
+    }
+
+    [Serializable]
+    public class CollectionResult
+    {
+        public int code;
+        public string message;
+        public CollectionDataResult data;
+    }
+
+    [Serializable]
+    public class CollectionDataResult
+    {
+        public int userId;
+        public string username;
+        public List<CollectionCardData> cards;
+        public int totalCards;
+        public int ownedCards;
+        public float completionPercentage;
+    }
+
+    [Serializable]
+    public class CollectionCardData
+    {
+        public int cardId;
+        public string name;           
+        public string type;          
+        public string rarity;
+        public int mana;
+        public int attack;
+        public int health;
+        public string image;
+        public bool owned;
+        public int quantity;         
+    }
 
 
+    void ProcessCollectionData(CollectionResult result)
+    {
+        Transform allCardPanel = rm.allCardPanel;
+
+        for (int i = allCardPanel.childCount - 1; i >= 0; i--)
+        {
+            Destroy(allCardPanel.GetChild(i).gameObject);
+        }
+
+        loadingText.SetActive(true);
+        /*manaDict.Clear();*/
+        /*imgDict.Clear();*/
+        inventoryDict.Clear();
+        inventoryObjDict.Clear();
+        itemCount=result.data.totalCards;
+        foreach (CollectionCardData card in result.data.cards)
+        {
+            itemCount--;
+            /*Debug.Log(itemCount);*/
+            if (inventoryDict.ContainsKey(card.cardId))
+            {
+                /*inventoryDict.TryGetValue(card.cardId, out InventoryCardData cardData);
+                if (card.forSale)
+                    cardData.onSale += 1;
+                else
+                    cardData.quantity += 1;
+                */
+                continue;
+            }
+            inventoryDict[card.cardId] = new(null, card.cardId, card.rarity, card.name, card.image,
+                card.mana, card.attack, card.health, card.quantity, 0);
+
+            GameObject g = Instantiate(cardInInventoryPre, allCardPanel);
+            Image imageComponent = g.transform.Find("Image").GetComponent<Image>();
+            StartCoroutine(AddSpriteToDict(card, g, imageComponent));
+            g.SetActive(false);
+            CardInInventory cid = g.GetComponent<CardInInventory>();
+            cid.inventoryId = -1;
+            cid.cardId = card.cardId;
+            cid.rarity = card.rarity;
+            cid.cardName = card.name;
+            cid.cardMana = card.mana;
+            cid.quantity = 1;
 
 
+            GameObject manaObj = g.transform.Find("ManaText").gameObject;
+            manaObj.GetComponent<TMP_Text>().text = card.mana.ToString();
+            inventoryObjDict[card.cardId] = g;
+
+            if (!card.owned)
+            {
+                CanvasGroup cvg = g.GetComponent<CanvasGroup>();
+                cvg.alpha = 0.6f;
+            }
+
+            if (card.attack == 0 && card.health == 0) continue;
+            GameObject attackObj = g.transform.Find("AttackImg").gameObject;
+            attackObj.SetActive(true);
+            attackObj.GetComponentInChildren<TMP_Text>().text = card.attack.ToString();
+            GameObject healthObj = g.transform.Find("HealthImg").gameObject;
+            healthObj.SetActive(true);
+            healthObj.GetComponentInChildren<TMP_Text>().text = card.health.ToString();
+
+                      
+        }
+        IEnumerator AddSpriteToDict(CollectionCardData card, GameObject g, Image imageComponent)
+        {
+            yield return StartCoroutine(LoadImageFromURLCoroutine(card, imageComponent));
+
+        }
+        IEnumerator LoadImageFromURLCoroutine(CollectionCardData card, Image image)
+        {
+            using UnityWebRequest request = UnityWebRequestTexture.GetTexture(card.image);
+            yield return request.SendWebRequest();
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError("Failed to load image: " + request.error);
+            }
+            else
+            {
+                Texture2D texture = DownloadHandlerTexture.GetContent(request);
+                texture.filterMode = FilterMode.Point;
+                texture.Apply();
+
+                Texture2D cropped = CropTransparent(texture);
+
+                Sprite sprite = Sprite.Create(cropped, new Rect(0, 0, cropped.width, cropped.height), new Vector2(0.5f, 0.5f), 1f);
+                if(image!=null)
+                    image.sprite = sprite;
+
+                inventoryObjDict[card.cardId].SetActive(true);
+                if (itemCount == 0)
+                {
+                    loadingText.SetActive(false);
+                    SortItemByMana();
+                }
+            }
+        }
+    }
 
 
+    public void ShowErrorPanel(bool reload = false,string text="Something went wrong\nPlease try again later")
+    {
+        errorPanel.GetComponentInChildren<TMP_Text>().text = text;
+        errorPanel.SetActive(true);
+/*        if (reload)
+        {
+            ReloadInventory();
+            showAllCardBtn.gameObject.SetActive(true) ;
+            hideAllCardBtn.gameObject.SetActive(false) ;
+        }*/
+    }
+    public int GetInventoryId(int cardId)
+    {
+        if (!inventoryDict.ContainsKey(cardId)) return -1;
 
+        inventoryDict.TryGetValue(cardId, out InventoryCardData data);
+        /*Debug.Log(data.inventoryId.Count);*/
+        for (int i = 0; i < data.inventoryId.Count; i++) {
+            
+            /*Debug.Log(data.inventoryId[i]);*/
+            int inventoryId=data.inventoryId[i];
+            if(!deck.Contains(inventoryId)) return inventoryId;
+        }
+        /*Debug.Log("2");*/
+        return inventoryDict[cardId].inventoryId.First();
+    }
 
 
 
 
 
     ////////////////////////////////////////////////
-    void SortInventoryByMana()
+    void SortItemByMana()
     {
-        
+        List<GameObject>list=inventoryObjDict.Values.ToList();
+        list.Sort((a,b)=>a.GetComponent<CardInInventory>().cardMana.CompareTo(b.GetComponent<CardInInventory>().cardMana));
+        for (int i = 0; i < list.Count; i++)
+        {
+            list[i].transform.SetSiblingIndex(i);
+        }
+    }
+    void SortItemByRarity()
+    {
+        Dictionary<string, int> dic = new()
+        {
+            { "COMMON", 0 },
+            { "RARE", 1 },
+            { "EPIC", 2 },
+            { "LEGENDARY", 3 }
+        };
+
+        List<GameObject> list = inventoryObjDict.Values.ToList();
+        list.Sort((a, b) => {
+            CardInInventory cardA = a.GetComponent<CardInInventory>();
+            CardInInventory cardB = b.GetComponent<CardInInventory>();
+            dic.TryGetValue(cardA.rarity,out int valueA);
+            dic.TryGetValue(cardB.rarity, out int valueB);
+            if(valueA == valueB)
+            {
+                return cardA.cardMana.CompareTo(cardB.cardMana);
+            }
+            return valueA.CompareTo(valueB); 
+        });
+        for (int i = 0; i < list.Count; i++)
+        {
+            list[i].transform.SetSiblingIndex(i);
+        }
+    }
+    public void SortDeckItem()
+    {
+        List<Transform> list = new();
+        Transform selectCardPanel = rm.selectedCardPanel;
+
+        for (int i = 0; i < selectCardPanel.childCount; i++) { 
+            list.Add(selectCardPanel.GetChild(i));
+        }
+        list.Sort((a, b) =>
+        {
+            SelectedCard cardA = a.GetComponent<SelectedCard>();
+            SelectedCard cardB = b.GetComponent<SelectedCard>();
+
+            int manaCompare = cardA.mana.CompareTo(cardB.mana);
+            if (manaCompare == 0)
+            {
+                return string.Compare(cardA.cardName, cardB.cardName, StringComparison.OrdinalIgnoreCase);
+            }
+            return manaCompare;
+        });
+        for(int i=0; i < list.Count; i++)
+        {
+            list[i].SetSiblingIndex(i);
+        }
     }
     Texture2D CropTransparent(Texture2D texture)
     {

@@ -73,21 +73,24 @@ public class Character : ITarget
     }
     public void RestoreHealth(int value)
     {
+        if (currentHealth <= 0) return;
         int healed = Mathf.Min(value, maxHealth - currentHealth);
         currentHealth += healed;
-
+        /*Debug.Log(value);*/
         OnHeal(healed);
         display.UpdateHealth();
     }
 
     public void IncreaseHealth(int value)
     {
+        if (currentHealth <= 0) return;
         maxHealth += value;
         RestoreHealth(value);
         display.HaveHealthBuff(currentHealth > baseHealth);
     }
     public void DecreaseHealth(int value)
     {
+        if (currentHealth <= 0) return;
         maxHealth -= value;
         currentHealth -= value;
         display.HaveHealthBuff(currentHealth > baseHealth);

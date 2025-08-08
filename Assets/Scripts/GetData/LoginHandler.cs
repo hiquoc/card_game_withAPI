@@ -8,8 +8,6 @@ public class LoginHandler : MonoBehaviour
     public TMP_InputField  username, password;
     public GameObject resultPanel, loginPanel, loginBtn, logoutBtn,signupBtn, userBtn;
     public TMP_Text resultTxt;
-    string loginUrl = DataFetcher.address + "auth/login";
-
 
     public void LoginBtnClicked()
     {
@@ -20,8 +18,10 @@ public class LoginHandler : MonoBehaviour
     }
     public IEnumerator LoginCoroutine(string username, string password)
     {
-        string jsonBody = JsonUtility.ToJson(new LoginRequest(username, password));
-        /*Debug.Log("JSON Body: " + jsonBody);*/
+        string loginUrl = DataFetcher.address + "auth/login";
+        string jsonBody = JsonUtility.ToJson(new LoginRequest(username, password, "UNITY",$"web{Time.time}"));
+        Debug.Log("JSON Body: " + jsonBody);
+        Debug.Log(loginUrl);
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonBody);
 
         UnityWebRequest request = new(loginUrl, "POST")
@@ -52,6 +52,7 @@ public class LoginHandler : MonoBehaviour
             userBtn.SetActive(true);
             TMP_Text userTxt = userBtn.GetComponentInChildren<TMP_Text>();
             userTxt.text = username;
+            SocketClient.Instance.SetUpSocket();
 
         }
         else
@@ -77,11 +78,15 @@ public class LoginHandler : MonoBehaviour
     {
         public string username;
         public string password;
+        public string deviceType;
+        public string deviceId;
 
-        public LoginRequest(string u, string p)
+        public LoginRequest(string u, string p,string t,string i)
         {
             username = u;
             password = p;
+            deviceType = t;
+            deviceId = i;
         }
     }
     [System.Serializable]

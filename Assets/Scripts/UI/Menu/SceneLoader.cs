@@ -9,9 +9,12 @@ public class SceneLoader : MonoBehaviour
     public static SceneLoader Instance;
     public Slider slider;
     public Image circle;
-    public string username;
     public string token;
+    public int userId;
+    public string username;
     public int enemyId;
+    public int finishedStage;
+    public int selectedStage;
     private void Awake()
     {
         if (Instance != null)
@@ -21,13 +24,20 @@ public class SceneLoader : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(Instance);
+        DataFetcher.LoadConfig();
     }
 
-
+    private void Start()
+    {
+        
+    }
 
     public void LoadNextScene(string sceneName)
     {
-        StartCoroutine(LoadNextSceneCoroutine(sceneName));
+        if (sceneName == "BattleScene")
+            StartCoroutine(LoadBattleSceneCoroutine(sceneName));
+        else
+            StartCoroutine(LoadNextSceneCoroutine(sceneName));
     }
     private IEnumerator LoadNextSceneCoroutine(string sceneName)
     {
@@ -35,13 +45,21 @@ public class SceneLoader : MonoBehaviour
         AsyncOperation scene = SceneManager.LoadSceneAsync(sceneName);
         scene.allowSceneActivation = false;
 
-        /*slider.gameObject.SetActive(true);*/
         while (scene.progress < 0.9f)
+            yield return null;
+
+        /*slider.gameObject.SetActive(true);
+        while (CardManager.Instance == null)
         {
-            /*slider.value = Mathf.Clamp01(scene.progress / 0.9f);*/
             yield return null;
         }
-        /*slider.value = 1;*/
+        CardManager cm = CardManager.Instance;
+        while (cm.loadedImg < 60)
+        {
+            slider.value = Mathf.Clamp01(cm.loadedImg / 60f);
+            yield return null;
+        }
+        slider.value = 1;*/
 
         scene.allowSceneActivation = true;
         while (!scene.isDone)
@@ -49,6 +67,35 @@ public class SceneLoader : MonoBehaviour
             yield return null;
         }
         /*slider.gameObject.SetActive(false);*/
+        yield return StartCoroutine(AnimateTransitionOut());
+    }
+    private IEnumerator LoadBattleSceneCoroutine(string sceneName)
+    {
+        yield return StartCoroutine(AnimateTransitionIn());
+        AsyncOperation scene = SceneManager.LoadSceneAsync(sceneName);
+        scene.allowSceneActivation = false;
+
+        while (scene.progress < 0.9f)
+            yield return null;
+        scene.allowSceneActivation = true;
+        while (!scene.isDone)
+        {
+            yield return null;
+        }
+        slider.gameObject.SetActive(true);
+        while(CardManager.Instance == null)
+        {   
+            yield return null;
+        }
+        CardManager cm=CardManager.Instance;
+        while (!cm.isLoaded)
+        {
+            slider.value = Mathf.Clamp01(cm.loadedImg / 60f);
+            yield return null;
+        }
+        slider.value = 1;
+        yield return new WaitForSeconds(1f);
+        slider.gameObject.SetActive(false);
         yield return StartCoroutine(AnimateTransitionOut());
     }
     public IEnumerator AnimateTransitionIn()
@@ -61,5 +108,34 @@ public class SceneLoader : MonoBehaviour
     {
         yield return circle.rectTransform.DOMoveX(3500f, 1f).WaitForCompletion();
         circle.gameObject.SetActive(false);
+    }
+    public void BackToMenuAndLogout()
+    {
+        StartCoroutine(BackToMenuAndLogoutCoroutine());
+    }
+    IEnumerator BackToMenuAndLogoutCoroutine()
+    {
+        yield return new WaitForSeconds(2f);
+        yield return StartCoroutine(AnimateTransitionIn());
+        AsyncOperation scene = SceneManager.LoadSceneAsync("StartScene");
+        scene.allowSceneActivation = false;
+
+        while (scene.progress < 0.9f)
+            yield return null;
+
+        scene.allowSceneActivation = true;
+        while (!scene.isDone)
+        {
+            yield return null;
+        }
+        GameObject canvas = GameObject.Find("Canvas");
+        if (canvas != null)
+        {
+            canvas.TryGetComponent(out MainMenu menu);
+            StartCoroutine(menu.SendLogoutRequest());
+        }
+
+        yield return StartCoroutine(AnimateTransitionOut());
+
     }
 }

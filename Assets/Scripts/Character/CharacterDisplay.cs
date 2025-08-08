@@ -145,7 +145,7 @@ public class CharacterDisplay : MonoBehaviour
     IEnumerator ShowPopupCoroutine(int value)
     {
         yield return null;
-        activePopup.AddValue(value, transform);
+        activePopup.ShowPopup(value, transform);
     }
 
     public void PlayDeathAnimation()

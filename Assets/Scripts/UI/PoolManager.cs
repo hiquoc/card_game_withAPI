@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class PoolManager : MonoBehaviour
 {
@@ -7,8 +9,21 @@ public class PoolManager : MonoBehaviour
     ReferenceManager rm;
     [SerializeField] private GameObject popupPre;
     [SerializeField] private int poolSize = 5;
-    Queue<GameObject> pool = new();
+    Queue<GameObject> popups = new();
+    public class SpriteData
+    {
+        public Sprite sprite;
+        public Texture2D texture;
 
+        public SpriteData(Texture2D tex, Sprite spr)
+        {
+            texture = tex;
+            sprite = spr;
+        }
+    }
+
+    private Dictionary<int, SpriteData> sprites = new();
+    private Dictionary<int, int> spriteCounter = new();
 
     private void Awake()
     {
@@ -23,15 +38,15 @@ public class PoolManager : MonoBehaviour
         {
             GameObject obj = Instantiate(popupPre, rm.canvas.transform);
             obj.SetActive(false);
-            pool.Enqueue(obj);
+            popups.Enqueue(obj);
         }
     }
     //Popup
     public GameObject GetPopup()
     {
-        if (pool.Count > 0)
+        if (popups.Count > 0)
         {
-            return pool.Dequeue();
+            return popups.Dequeue();
         }
         else
         {
@@ -44,18 +59,51 @@ public class PoolManager : MonoBehaviour
     public void ReturnPopup(GameObject popup)
     {
         popup.SetActive(false);
-        pool.Enqueue(popup);
+        popups.Enqueue(popup);
     }
-
-    /*public void Show(GameObject popup, int value, Transform target)
+    public void SetUpNewSprite(int cardId,string url)
     {
-        StartCoroutine(ShowCoroutine(popup, value, target));
+        if (!spriteCounter.ContainsKey(cardId))
+            spriteCounter[cardId] = 0;
+        spriteCounter[cardId]++;
+        if (!sprites.ContainsKey(cardId))
+            StartCoroutine(LoadImageFromURLCoroutine(cardId,url));
     }
-
-    private IEnumerator ShowCoroutine(GameObject popup, int value, Transform target)
+    IEnumerator LoadImageFromURLCoroutine(int cardId, string url)
     {
-        yield return null;
-        Popup popupS = popup.GetComponent<Popup>();
-        popupS.AddValue(value, target);
-    }*/
+        using UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError("Failed to load image: " + request.error);
+        }
+        else
+        {
+            Texture2D texture = DownloadHandlerTexture.GetContent(request);
+            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), 1f);
+            sprites[cardId] = new SpriteData(texture, sprite);
+        }
+    }
+    public Sprite GetSprite(int cardId)
+    {
+        return sprites.ContainsKey(cardId) ? sprites[cardId].sprite : null;
+    }
+    public void ReleaseSprite(int cardId)
+    {
+        if (!spriteCounter.ContainsKey(cardId))
+            return;
+
+        spriteCounter[cardId]--;
+
+        if (spriteCounter[cardId] <= 0 && sprites.ContainsKey(cardId))
+        {
+            var data = sprites[cardId];
+            if (data.texture != null) Destroy(data.texture);
+            if (data.sprite != null) Destroy(data.sprite);
+
+            sprites.Remove(cardId);
+            spriteCounter.Remove(cardId);
+        }
+    }
 }

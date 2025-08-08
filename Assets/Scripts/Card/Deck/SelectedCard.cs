@@ -10,6 +10,7 @@ public class SelectedCard : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     public bool isDroppedOnValidZone = false;
     public int inventoryId;
     public int cardId;
+    public string cardName;
     public int mana;
     public int attack, health;
     public GameObject cardInCollectionPre;
@@ -75,9 +76,9 @@ public class SelectedCard : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
             coroutine = null;
             yield break;
         }
-        Debug.Log(cardId);
+        /*Debug.Log(cardId);*/
         if (!DeckManager.Instance.imgDict.ContainsKey(cardId)) yield break;
-        Debug.Log(1);
+        /*Debug.Log(1);*/
         cardObj = Instantiate(cardInCollectionPre, ReferenceManager.Instance.animationLayer);
         cardObj.transform.localScale = new Vector3(2f, 2f, 2f);
         Destroy(cardObj.GetComponent<CardInInventory>());
@@ -88,7 +89,7 @@ public class SelectedCard : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         }
         if (attack >0||health>0)
         {
-            Debug.Log(2);
+            /*Debug.Log(2);*/
             GameObject attackObj = cardObj.transform.Find("AttackImg").gameObject;
             attackObj.SetActive(true);
             attackObj.GetComponentInChildren<TMP_Text>().text = attack.ToString();

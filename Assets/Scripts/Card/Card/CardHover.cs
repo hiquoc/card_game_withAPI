@@ -61,7 +61,7 @@ public class CardHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         if (cardObj != null)
             Destroy(cardObj);
         if (CardDrag.isDragging || !canHover || !hasEnter || rt == null) return;
-        /*Debug.Log("x");*/
+        /*Debug.Log(2);*/
         rt.anchoredPosition = originalPosition;
         rt.localEulerAngles = originalRotation;
         transform.SetSiblingIndex(originalIndex);

@@ -14,7 +14,7 @@ public class DeckValidZone : MonoBehaviour, IDropHandler
         DeckManager dm = DeckManager.Instance;
         if (dm.deck.Count == 30)
         {
-            Debug.LogWarning("You cant add more to the deck");
+            dm.ShowErrorPanel(false,"You cant add more to the deck");
             return;
         }
         GameObject eventObj = eventData.pointerDrag;
@@ -27,13 +27,13 @@ public class DeckValidZone : MonoBehaviour, IDropHandler
                 if(cardInInventory.cardId==selected.cardId)
                     inDeck++;
             }
-            
-            Debug.Log(dm.deck.Count);
+
+           /* Debug.Log(dm.deck.Count);
             Debug.Log(owned);
-            Debug.Log(inDeck);
+            Debug.Log(inDeck);*/
             if (inDeck >= owned)
             {
-                Debug.LogWarning("You don't have more copy of that card");
+                dm.ShowErrorPanel(false,"You don't have more copy of that card");
                 return;
             }
             GameObject selectedCardObj = Instantiate(selectedCardPre);
@@ -53,11 +53,10 @@ public class DeckValidZone : MonoBehaviour, IDropHandler
             selectedCard.mana = cardInInventory.cardMana;
             selectedCard.cardId= cardInInventory.cardId;
             selectedCard.inventoryId= cardInInventory.inventoryId;
-
-            dm.deck.Add(cardInInventory.inventoryId);
+            dm.deck.Add(dm.GetInventoryId(cardInInventory.cardId));
             dm.manaDict[cardInInventory.inventoryId] = cardInInventory.cardMana;
             dm.numOfCard.text = dm.deck.Count.ToString() + "/30";
-            
+            dm.SortDeckItem();
         }
     }
 }

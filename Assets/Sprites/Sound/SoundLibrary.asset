@@ -13,6 +13,14 @@ MonoBehaviour:
   m_Name: SoundLibrary
   m_EditorClassIdentifier: 
   sounds:
+  - name: start
+    clip: {fileID: 8300000, guid: 1904d4f9d2cd2b9489f372eac2ff108f, type: 3}
+  - name: battleMusic
+    clip: {fileID: 8300000, guid: 97eaabace7c598649898c2e4d5e5dcb4, type: 3}
+  - name: win
+    clip: {fileID: 8300000, guid: d08c5053cd8b0b9458de1f699d38ae44, type: 3}
+  - name: lose
+    clip: {fileID: 8300000, guid: ed226fc7d071ce6438f72baf4a6ab2a8, type: 3}
   - name: cardDrawn
     clip: {fileID: 8300000, guid: d78cfa2c4b648d549a4328a864fe3e61, type: 3}
   - name: cardDrop
@@ -28,7 +36,7 @@ MonoBehaviour:
   - name: explosion
     clip: {fileID: 8300000, guid: f94733c461ca06b4e9518699da4fd53e, type: 3}
   - name: btnClick
-    clip: {fileID: 8300000, guid: f283e3c2e70fc2f429a7cc1bce1fd493, type: 3}
+    clip: {fileID: 8300000, guid: 0c1e31442529d4d4eb08293a3d8222bb, type: 3}
   - name: attack
     clip: {fileID: 8300000, guid: 363f4d2cffc5bda41be92b070ad311c9, type: 3}
   - name: shield

@@ -13,9 +13,9 @@ public class Popup : MonoBehaviour
     private Coroutine showCoroutine;
     private Transform target;
 
-    public void AddValue(int value, Transform target)
+    public void ShowPopup(int value, Transform target)
     {
-        currentValue += value;
+        currentValue = value;
         this.target = target;
 
         UpdateDisplay();

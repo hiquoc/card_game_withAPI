@@ -28,6 +28,7 @@ public class BuffManager : MonoBehaviour
 
         if (existingInstance == null)
         {
+            /*Debug.Log(1);*/
             var newInstance = new BuffInstance(effect, character);
             ApplyBuffEffect(target, newInstance);
             newInstance.affectedTargets.Add(target);
@@ -35,6 +36,7 @@ public class BuffManager : MonoBehaviour
         }
         else if (!existingInstance.affectedTargets.Contains(target))
         {
+            /*Debug.Log(2);*/
             ApplyBuffEffect(target, existingInstance);
             existingInstance.affectedTargets.Add(target);
         }
@@ -64,7 +66,8 @@ public class BuffManager : MonoBehaviour
     }
     void ApplyBuffEffect(ITarget target, BuffInstance buffInstance)
     {
-        /*Debug.Log(buffInstance.effect.buffType);*/
+        if (target == null) return;
+        Debug.Log(buffInstance.effect.buffType);
         switch (buffInstance.effect.buffType)
         {
             case BuffEffect.BuffType.ActiveAttackBuff:
@@ -83,6 +86,7 @@ public class BuffManager : MonoBehaviour
     }
     void RemoveBuffEffect(ITarget target, BuffInstance buffInstance)
     {
+        if (target == null) return;
         /*Debug.Log("RemoveBuffEffect");*/
         switch (buffInstance.effect.buffType)
         {
@@ -107,11 +111,17 @@ public class BuffManager : MonoBehaviour
         {
             foreach (BuffInstance instance in value)
             {
-                if (character == instance.character && !instance.affectedTargets.Contains(target))
+                if (!instance.affectedTargets.Contains(target))
                 {
-                    Debug.Log("OnNewMinion");
-                    ApplyBuffEffect(target, instance);
-                    instance.affectedTargets.Add(target);
+                    if(character == instance.character && instance.effect.target != CardEffect.Target.AllEnemy && instance.effect.target != CardEffect.Target.AllEnemyMinions)
+                    {
+                        ApplyBuffEffect(target, instance);
+                        instance.affectedTargets.Add(target);
+                    }else if(character!=instance.character &&(instance.effect.target == CardEffect.Target.AllEnemy || instance.effect.target == CardEffect.Target.AllEnemyMinions))
+                    {
+                        ApplyBuffEffect(target, instance);
+                        instance.affectedTargets.Add(target);
+                    }
                 }
             }
         }

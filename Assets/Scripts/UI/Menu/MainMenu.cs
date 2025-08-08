@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -30,9 +31,20 @@ public class MainMenu : MonoBehaviour
         }
         SceneLoader.Instance.LoadNextScene("AISelectionScene");
     }
-    public void OnAIButton(int aiId)
+    public void OnAIButton(int stageId)
     {
-        SceneLoader.Instance.enemyId = aiId;
+        SceneLoader.Instance.enemyId = stageId==1?10:stageId==2?11:12;
+        SceneLoader.Instance.selectedStage=stageId;
+        SceneLoader.Instance.LoadNextScene("BattleScene");
+    }
+    public void OnReloadAIButton()
+    {
+        SceneLoader.Instance.LoadNextScene("BattleScene");
+    }
+    public void OnNextAIButton()
+    {
+        SceneLoader.Instance.enemyId += 1;
+        SceneLoader.Instance.selectedStage += 1;
         SceneLoader.Instance.LoadNextScene("BattleScene");
     }
     public void OnDeckButton()
@@ -57,15 +69,16 @@ public class MainMenu : MonoBehaviour
         popupPanel.SetActive(false);
     }
 
-    string logoutUrl = DataFetcher.address + "auth/logout";
+    
     public void LogoutBtnClicked()
     {
         if (SceneLoader.Instance.token == "") return;
         StartCoroutine(SendLogoutRequest());
     }
 
-    private IEnumerator SendLogoutRequest()
+    public IEnumerator SendLogoutRequest()
     {
+        string logoutUrl = DataFetcher.address + "auth/logout";
         using UnityWebRequest request = UnityWebRequest.PostWwwForm(logoutUrl, "");
         request.SetRequestHeader("Authorization", "Bearer " + SceneLoader.Instance.token);
 
@@ -73,22 +86,43 @@ public class MainMenu : MonoBehaviour
 
         if (request.result == UnityWebRequest.Result.Success)
         {
+            SocketClient.Instance.CloseConnection();
             SceneLoader.Instance.token = "";
             loginBtn.SetActive(true);
-            TMP_InputField userText=loginBtn.transform.Find("Username").GetComponent<TMP_InputField>();
-            TMP_InputField passText=loginBtn.transform.Find("Password").GetComponent<TMP_InputField>();
+            Transform loginPanel = loginBtn.transform.parent.Find("LoginPanel");
+            TMP_InputField userText= loginPanel.Find("Username").GetComponent<TMP_InputField>();
+            TMP_InputField passText= loginPanel.Find("Password").GetComponent<TMP_InputField>();
             userText.text = "";
             passText.text = "";
             signupBtn.SetActive(true);
             logoutBtn.SetActive(false);
             userBtn.SetActive(false);
-            resultPanel.SetActive(false );
-            StartCoroutine( ShowPopupPanel("Logout successfully"));
-            SceneLoader.Instance.token = "";
+            resultPanel.SetActive(false);
+            /*StartCoroutine( ShowPopupPanel("Logout successfully"));*/
         }
         else
         {
             Debug.LogWarning("Logout failed: " + request.error);
         }
+    }
+    public void OpenWeb()
+    {
+        Application.OpenURL(DataFetcher.GetReplacedPortUrl(3000));
+    }
+    public void OpenUserWeb()
+    {
+        Application.OpenURL(DataFetcher.GetReplacedPortUrl(3000) + "profile");
+    }
+    public void OpenSignUpWeb()
+    {
+        Application.OpenURL(DataFetcher.GetReplacedPortUrl(3000)+"register");
+    }
+    public void OpenEventWeb()
+    {
+        Application.OpenURL(DataFetcher.GetReplacedPortUrl(3000)+"event");
+    }
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }

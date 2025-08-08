@@ -18,7 +18,7 @@ public class MinionCard : Card, ITarget
         currentHealth = maxHealth;
         baseHealth = currentHealth;
         currentAttack = attack;
-        baseAttack = attack;
+        baseAttack = currentAttack;
         minionPrefab = prefab;
     }
     public int GetAttack()

@@ -11,7 +11,7 @@ using UnityEngine.UI;
 public class StagePicker : MonoBehaviour
 {
     public  List<GameObject> stageList;
-    string levelUrl =DataFetcher.address+ "";
+    
     private void Start()
     {
         StartCoroutine(GetPlayerPlayedLevel());
@@ -20,6 +20,7 @@ public class StagePicker : MonoBehaviour
     {
         if (SceneLoader.Instance.token == null)
             Debug.Log("null");
+        string levelUrl = DataFetcher.address + "";
         using UnityWebRequest request = UnityWebRequest.Get(levelUrl);
         request.SetRequestHeader("Authorization", "Bearer " + SceneLoader.Instance.token);
         yield return request.SendWebRequest();

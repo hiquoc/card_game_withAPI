@@ -35,7 +35,7 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
     {
-        /*Debug.Log(2);*/
+        /*Debug.Log(1);*/
         if (!isDraggable || !canDrag||rm.bm.turn==1) return;
 
         canvasGroup.blocksRaycasts = false;
@@ -44,11 +44,11 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         originalPosition = transform.position;
         originalRotation = rt.localEulerAngles;
         rt.localEulerAngles = Vector3.zero;
-        originalIndex = transform.GetSiblingIndex();
+        /*originalIndex = transform.GetSiblingIndex();*/
 
         originalParent = transform.parent;
 
-        transform.SetAsLastSibling();
+        /*transform.SetAsLastSibling();*/
         if (isMinionCard && rm.bm.playerMinionList.Count < 6)
         {
             minionHolderObj = Instantiate(rm.minionHolderPrefab, rm.playerMinionPosition);
@@ -70,8 +70,8 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         /*Debug.Log(3.1);*/
         if (!isDragging) return;
         /*Debug.Log(3.2);*/
-        isDragging = false;
-        cardHover.ResetSiblingIndex();
+        /*isDragging = false;*/
+        /*cardHover.ResetSiblingIndex();*/
         canvasGroup.blocksRaycasts = true;
         StartCoroutine(OnEndDragCoroutine());
 
@@ -89,15 +89,8 @@ public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             rt.SetParent(originalParent, false);
             transform.position = originalPosition;
             rt.localEulerAngles = originalRotation;
-            transform.SetSiblingIndex(originalIndex);
+            /*transform.SetSiblingIndex(originalIndex);*/
             Destroy(minionHolderObj);
-        }
-        else
-        {
-            /*Debug.Log("[OnEndDrag] Card successfully dropped on valid zone.");*/
-            /*isDragging = false;
-            isDroppedValidZone = false;
-            ReferenceManager.Instance.validZone.SetActive(false);*/
         }
 
         yield return null;

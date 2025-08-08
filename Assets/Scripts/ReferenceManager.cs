@@ -15,6 +15,7 @@ public class ReferenceManager : MonoBehaviour
     public RectTransform endGamePanel;
     public TextHelper textHelper;
 
+
     [Header("Instance")]
     public CardManager cm;
     public BattleManager bm;
