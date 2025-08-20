@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -13,7 +12,7 @@ public class StartAndEndBattle : MonoBehaviour
 {
     public IEnumerator PlayStartBattle()
     {
-        ReferenceManager rm=ReferenceManager.Instance;
+        ReferenceManager rm = ReferenceManager.Instance;
         rm.sm.Play("start");
         RectTransform blurPanel = rm.blurPanel;
         blurPanel.gameObject.SetActive(true);
@@ -29,9 +28,9 @@ public class StartAndEndBattle : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
 
         startImage.gameObject.SetActive(false);
-        blurPanel.GetComponent<Image>().raycastTarget=false;
+        blurPanel.GetComponent<Image>().raycastTarget = false;
         blurPanel.gameObject.SetActive(false);
-        rm.sm.PlayLoop("battleMusic");
+        /*rm.sm.PlayLoop("battleMusic");*/
     }
     public void PlayEndBattle(bool isWin)
     {
@@ -46,7 +45,7 @@ public class StartAndEndBattle : MonoBehaviour
         if (SceneLoader.Instance.selectedStage != 3 && isWin)
         {
             Transform nextStageBtn = endGamePanel.transform.Find("NextStageBtn");
-            if(nextStageBtn != null)
+            if (nextStageBtn != null)
                 nextStageBtn.gameObject.SetActive(true);
         }
         if (BattleManager.Instance.player.GetHealth() <= 0 && BattleManager.Instance.enemy.GetHealth() <= 0)
@@ -62,12 +61,12 @@ public class StartAndEndBattle : MonoBehaviour
                 ReferenceManager.Instance.sm.Play("win");
                 endGamePanel.gameObject.transform.Find("winImg").gameObject.SetActive(true);
             }
-                
+
             else
             {
                 ReferenceManager.Instance.sm.Play("lose");
                 endGamePanel.gameObject.transform.Find("loseImg").gameObject.SetActive(true);
-            }               
+            }
         }
         Sequence seq = DOTween.Sequence();
         seq.AppendInterval(1f);
@@ -76,7 +75,7 @@ public class StartAndEndBattle : MonoBehaviour
         yield return seq.WaitForCompletion();
     }
     public void PlayDraw()
-    {        
+    {
         StartCoroutine(PlayDrawBattleCoroutine());
     }
     public IEnumerator PlayDrawBattleCoroutine()
@@ -109,7 +108,7 @@ public class StartAndEndBattle : MonoBehaviour
     {
         Transform rewardPanel = ReferenceManager.Instance.endGamePanel.transform.Find("RewardPanel");
         GameObject rewardCardObj = rewardPanel.Find("RewardCard").gameObject;
-        StartCoroutine(LoadRewardCard(CardManager.Instance.stageRewardId[SceneLoader.Instance.selectedStage-1], rewardCardObj));
+        StartCoroutine(LoadRewardCard(CardManager.Instance.stageRewardId[SceneLoader.Instance.selectedStage - 1], rewardCardObj));
         rewardPanel.localScale = Vector3.zero;
         rewardPanel.gameObject.SetActive(true);
         rewardPanel.DOScale(1f, 1f);
@@ -121,7 +120,7 @@ public class StartAndEndBattle : MonoBehaviour
         string updateStageUrl = DataFetcher.address + "users/game/" + SceneLoader.Instance.finishedStage;
         /*Debug.Log(updateStageUrl);*/
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes("{}");
-        using UnityWebRequest request=UnityWebRequest.Put(updateStageUrl,bodyRaw);
+        using UnityWebRequest request = UnityWebRequest.Put(updateStageUrl, bodyRaw);
         request.SetRequestHeader("Authorization", "Bearer " + SceneLoader.Instance.token);
         request.SetRequestHeader("Content-Type", "application/json");
         yield return request.SendWebRequest();
@@ -129,7 +128,7 @@ public class StartAndEndBattle : MonoBehaviour
             request.result == UnityWebRequest.Result.ProtocolError)
         {
             Debug.Log("Error updating stage: " + request.error);
-            CardManager cm=CardManager.Instance;
+            CardManager cm = CardManager.Instance;
             if (request.responseCode == 401)
             {
                 cm.ShowErrorPanel("Expired session\nPlease re-login");
@@ -143,8 +142,9 @@ public class StartAndEndBattle : MonoBehaviour
             yield break;
         }
     }
-    IEnumerator LoadRewardCard(int cardId,GameObject cardObj) {       
-        
+    IEnumerator LoadRewardCard(int cardId, GameObject cardObj)
+    {
+
         string getCardUrl = $"{DataFetcher.address}cards/{cardId}";
         using UnityWebRequest request = UnityWebRequest.Get(getCardUrl);
         request.SetRequestHeader("Authorization", "Bearer " + SceneLoader.Instance.token);
@@ -172,7 +172,7 @@ public class StartAndEndBattle : MonoBehaviour
             yield break;
         }
         GameObject manaObj = cardObj.transform.Find("ManaText").gameObject;
-        manaObj.GetComponent<TMP_Text>().text=response.data.mana.ToString();
+        manaObj.GetComponent<TMP_Text>().text = response.data.mana.ToString();
         if (response.data.type == "MINION")
         {
             GameObject AttackObj = cardObj.transform.Find("AttackImg").gameObject;

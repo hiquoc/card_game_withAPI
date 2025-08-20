@@ -25,16 +25,15 @@ public class MinionDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void SetupMinion(MinionCard card, GameObject prefab)
     {
         Sprite sprite = PoolManager.Instance.GetSprite(card.id);
-        if(sprite==null )
+        if (sprite == null)
             StartCoroutine(LoadImageFromURLCoroutine(card.minionImg, image));
         else
-            image.sprite = sprite;       
+            image.sprite = sprite;
         minion = card;
         attackText.text = card.currentAttack.ToString();
         healthText.text = card.currentHealth.ToString();
         card.display = this;
-        cardPreviewPrefab = Instantiate(prefab);
-        cardPreviewPrefab.SetActive(false);
+        StartCoroutine(ClonePrefabAfterSpriteLoaded(prefab));
         minion.SetCanAttack(false);
     }
     IEnumerator LoadImageFromURLCoroutine(string url, Image image)
@@ -192,12 +191,12 @@ public class MinionDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void ShowPopup(int value)
     {
         if (gameObject == null) return;
-       /* if (rm.bm.dyingMinions.Contains(gameObject)) return;*/
+        /* if (rm.bm.dyingMinions.Contains(gameObject)) return;*/
         if (activePopup == null)
         {
             GameObject popupGO = PoolManager.Instance.GetPopup();
             activePopup = popupGO.GetComponent<Popup>();
-        }      
+        }
         /*Debug.Log("Minion "+value);*/
         StartCoroutine(ShowPopupCoroutine(value));
     }
@@ -205,5 +204,14 @@ public class MinionDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         yield return null;
         activePopup.ShowPopup(value, transform);
+    }
+    IEnumerator ClonePrefabAfterSpriteLoaded(GameObject prefab)
+    {
+        Image img = prefab.transform.Find("Front").GetComponent<Image>();
+
+        while (img.sprite == null) yield return null;
+
+        cardPreviewPrefab = Instantiate(prefab);
+        cardPreviewPrefab.SetActive(false);
     }
 }

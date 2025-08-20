@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-
-public class SummonEffect : CardEffect
+﻿public class SummonEffect : CardEffect
 {
-    public SummonEffect(int minionId, Target target, string animationId = "")
-        : base(minionId, target, animationId)
+    public int minionId;
+    public SummonEffect(int duplicate, Target target, string animationId, int minionId)
+        : base(duplicate, target, animationId)
     {
         this.type = Type.Summon;
+        this.minionId = minionId;
     }
 }

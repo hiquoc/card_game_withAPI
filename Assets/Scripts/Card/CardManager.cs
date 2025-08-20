@@ -3,13 +3,12 @@ using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Splines;
 using UnityEngine.UI;
-using static LoginHandler;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class CardManager : MonoBehaviour
 {
@@ -44,7 +43,7 @@ public class CardManager : MonoBehaviour
         playerCards = new();
         enemyCards = new();
         loadedImg = 0;
-        isLoaded=false;
+        isLoaded = false;
         rm = ReferenceManager.Instance;
         animationLayer = rm.animationLayer;
         InitDeck();
@@ -83,7 +82,7 @@ public class CardManager : MonoBehaviour
 
         if (cards.Count == 0)
         {
-            rm.textHelper.ShowText(turn==0?"You":"Enemy"+" have ran out of card!");
+            rm.textHelper.ShowText(turn == 0 ? "You" : "Enemy" + " have ran out of card!");
             yield break;
         }
         CardDrag.canDrag = false;
@@ -104,26 +103,22 @@ public class CardManager : MonoBehaviour
         }
 
         hand.Add(cardObj);
-        if(cardObj.TryGetComponent(out CardDisplay component) && component.card is MinionCard minion)
+        if (cardObj.TryGetComponent(out CardDisplay component) && component.card is MinionCard minion)
         {
-            /*if (turn == 0)
-            {
-                Debug.Log(minion.id);
-                Debug.Log(minion.minionImg);
-            }*/
             PoolManager.Instance.SetUpNewSprite(minion.id, minion.minionImg);
         }
         RectTransform rt = cardObj.GetComponent<RectTransform>();
         rt.SetParent(animationLayer, true);
         rm.sm.Play("cardDrawn");
-        Tween tween= UpdateCardPosition(turn);
-        if (tween != null) {
+        Tween tween = UpdateCardPosition(turn);
+        if (tween != null)
+        {
             yield return tween.WaitForCompletion();
         }
         CardDrag.canDrag = true;
         CardHover.canHover = true;
         yield return null;
-        
+
     }
 
     public Tween UpdateCardPosition(int turn)
@@ -147,7 +142,7 @@ public class CardManager : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(0, 0, angle);
 
             GameObject card = hand[i];
-            GameObject currentCard = card;           
+            GameObject currentCard = card;
             Sequence seq = DOTween.Sequence();
             seq.Append(currentCard.transform.DOMove(splinePosition, 0.5f));
             seq.Join(currentCard.transform.DORotate(new Vector3(0, 0, angle), 0.5f));
@@ -183,7 +178,7 @@ public class CardManager : MonoBehaviour
 
     public void LoadDeckData(Deck deck, Queue<GameObject> cardQueue, Transform deckPosition, bool isPlayer)
     {
-        StartCoroutine(GetDeckDataCoroutine(deck,cardQueue, deckPosition, isPlayer));
+        StartCoroutine(GetDeckDataCoroutine(deck, cardQueue, deckPosition, isPlayer));
     }
     public IEnumerator GetDeckDataCoroutine(Deck deck, Queue<GameObject> cardQueue, Transform deckPosition, bool isPlayer)
     {
@@ -194,8 +189,8 @@ public class CardManager : MonoBehaviour
         }
 
         string url = DataFetcher.address + "deck";
-        if(!isPlayer)
-            url+= "/" + SceneLoader.Instance.enemyId;
+        if (!isPlayer)
+            url += "/" + SceneLoader.Instance.enemyId;
         using UnityWebRequest request = UnityWebRequest.Get(url);
         /*Debug.Log(url);*/
         request.SetRequestHeader("Authorization", "Bearer " + SceneLoader.Instance.token);
@@ -275,7 +270,7 @@ public class CardManager : MonoBehaviour
         public string description;
         public List<EffectData> effects;
     }
-    #nullable enable
+#nullable enable
     [System.Serializable]
     public class EffectData
     {
@@ -287,12 +282,12 @@ public class CardManager : MonoBehaviour
         public string? buffType;
         public int duration;
         public bool isStartOfTurn;
-        public string? summonMinionIds;
+        public int? summonMinionIds;
         public string triggerType;
     }
 
     private void ProcessDeckData(DeckData data, Deck deck, Queue<GameObject> cardQueue, Transform deckPosition, bool isPlayer)
-    { 
+    {
         foreach (var card in data.cards)
         {
             Card newCard;
@@ -317,7 +312,8 @@ public class CardManager : MonoBehaviour
                     image = card.mainImg,
                 };
             }
-            foreach(EffectData effectData in card.effects  ){
+            foreach (EffectData effectData in card.effects)
+            {
                 switch (effectData.triggerType)
                 {
                     case "ON_PLAY":
@@ -385,12 +381,12 @@ public class CardManager : MonoBehaviour
     public List<int> stageRewardId;
     public IEnumerator GiveRewardCard(int cardId)
     {
-        SceneLoader sceneLoader=SceneLoader.Instance;
+        SceneLoader sceneLoader = SceneLoader.Instance;
         string giveCardUrl = $"{DataFetcher.address}inventory/{sceneLoader.userId}/cards/system";
-        
+
         string jsonBody = JsonUtility.ToJson(new CardRequest(cardId));
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonBody);
-        using UnityWebRequest request =new (giveCardUrl, "POST");
+        using UnityWebRequest request = new(giveCardUrl, "POST");
 
         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = new DownloadHandlerBuffer();
@@ -457,11 +453,22 @@ public class CardManager : MonoBehaviour
             "Damage" => new DamageEffect(effectData.value, GetTargetByString(effectData.target), effectData.animationId),
             "Heal" => new HealEffect(effectData.value, GetTargetByString(effectData.target), effectData.animationId),
             "Draw" => new DrawEffect(effectData.value, GetTargetByString(effectData.target), ""),
-            /*"Summon" => new SummonEffect(effectData.value, GetTargetByString(effectData.target)),*/
-            "Buff"=>new BuffEffect(effectData.value,GetTargetByString(effectData.target), effectData.animationId, GetBuffTypeByString(effectData.buffType),effectData.duration,effectData.isStartOfTurn),
+            "Summon" => new SummonEffect(effectData.value, GetTargetByString(effectData.target), "", effectData.summonMinionIds.Value),
+            "Buff" => new BuffEffect(effectData.value, GetTargetByString(effectData.target), effectData.animationId, GetBuffTypeByString(effectData.buffType), effectData.duration, effectData.isStartOfTurn),
         };
     }
-     CardEffect.Target GetTargetByString(string targetString)
+    CardEffect GetCardEffectByType2(SingleCardEffect effectData)
+    {
+        return effectData.type switch
+        {
+            "Damage" => new DamageEffect(effectData.value, GetTargetByString(effectData.target), effectData.animationId),
+            "Heal" => new HealEffect(effectData.value, GetTargetByString(effectData.target), effectData.animationId),
+            "Draw" => new DrawEffect(effectData.value, GetTargetByString(effectData.target), ""),
+            "Summon" => new SummonEffect(effectData.value, GetTargetByString(effectData.target), "", effectData.summonMinionIds.Value),
+            "Buff" => new BuffEffect(effectData.value, GetTargetByString(effectData.target), effectData.animationId, GetBuffTypeByString(effectData.buffType), effectData.duration, effectData.isStartOfTurn),
+        };
+    }
+    CardEffect.Target GetTargetByString(string targetString)
     {
         return targetString switch
         {
@@ -481,11 +488,11 @@ public class CardManager : MonoBehaviour
             _ => CardEffect.Target.None,
         };
     }
-     List<String> GetListOfMinionIds(string text)
+    List<String> GetListOfMinionIds(string text)
     {
         List<String> list = new();
-        string currentStr="";
-        foreach(char c in text)
+        string currentStr = "";
+        foreach (char c in text)
         {
             if (c != ',' || c != ' ')
                 currentStr += c;
@@ -497,13 +504,185 @@ public class CardManager : MonoBehaviour
         }
         return list;
     }
+    public async Task<GameObject> GetNewCardObjByCardId(int cardId)
+    {
+        return await GetACardData(cardId);
+    }
+    private async Task<GameObject> GetACardData(int cardId)
+    {
+        string singleCardUrl = DataFetcher.address + "cards/" + cardId;
+        using UnityWebRequest request = UnityWebRequest.Get(singleCardUrl);
+        request.SetRequestHeader("Authorization", "Bearer " + SceneLoader.Instance.token);
+
+        var operation = request.SendWebRequest();
+        while (!operation.isDone)
+            await Task.Yield();
+
+        if (request.result == UnityWebRequest.Result.ConnectionError ||
+            request.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.Log("Error fetching deck data: " + request.error);
+            if (request.responseCode == 403)
+            {
+                Debug.LogWarning("Access forbidden (403). Possibly due to an invalid or expired token.");
+            }
+            return null;
+        }
+
+        try
+        {
+            SingleCardResult response = JsonConvert.DeserializeObject<SingleCardResult>(request.downloadHandler.text);
+            if (response?.data == null)
+            {
+                Debug.LogWarning("Dữ liệu card null hoặc parse lỗi ở card.");
+                return null;
+            }
+
+            return await ProcessCardData(response.data);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Exception occurred:\n" + e);
+            return null;
+        }
+    }
+    private async Task<GameObject> ProcessCardData(SingleCardData card)
+    {
+        Card newCard;
+        if (card.type == "MINION")
+        {
+            newCard = new MinionCard(card.cardId, card.attack.Value, card.health.Value, null)
+            {
+                id = card.cardId,
+                type = Card.CardType.minion,
+                mana = card.mana,
+                minionImg = card.imageUrl,
+                image = card.mainImg,
+            };
+        }
+        else
+        {
+            newCard = new SpellCard
+            {
+                id = card.cardId,
+                mana = card.mana,
+                type = 0,
+                image = card.mainImg,
+            };
+        }
+        foreach (SingleCardEffectBinding effectBindingData in card.effectBindings)
+        {
+            switch (effectBindingData.triggerType)
+            {
+                case "ON_PLAY":
+                    newCard.onPlay.Add(GetCardEffectByType2(effectBindingData.effect));
+                    break;
+                case "ON_DEATH":
+                    newCard.onDeath.Add(GetCardEffectByType2(effectBindingData.effect));
+                    break;
+                case "ON_START_TURN":
+                    newCard.onStartOfTurn.Add(GetCardEffectByType2(effectBindingData.effect));
+                    break;
+                case "ON_END_TURN":
+                    newCard.onEndOfTurn.Add(GetCardEffectByType2(effectBindingData.effect));
+                    break;
+            }
+        }
+
+        GameObject cardObj = Instantiate(cardPrefab);
+
+        Image image = cardObj.transform.Find("Front").GetComponent<Image>();
+        StartCoroutine(LoadImageFromURLCoroutineAsync(newCard.image, image));
+        PoolManager.Instance.SetUpNewSprite(newCard.id, card.imageUrl);
+        CardDisplay cardDisplay = cardObj.GetComponentInChildren<CardDisplay>();
+        cardDisplay.SetupCard(newCard);
+        return cardObj;
+    }
+    IEnumerator LoadImageFromURLCoroutineAsync(string url, Image image)
+    {
+        using UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError("Failed to load image: " + request.error);
+            yield break;
+        }
+        else
+        {
+            Texture2D texture = DownloadHandlerTexture.GetContent(request);
+            Texture2D cropped = CropTransparent(texture);
+
+            if (image && image.gameObject)
+            {
+                Sprite sprite = Sprite.Create(
+                    cropped,
+                    new Rect(0, 0, cropped.width, cropped.height),
+                    new Vector2(0.5f, 0.5f),
+                    100f
+                );
+                image.sprite = sprite;
+                /*Debug.Log(3);*/
+            }
+        }
+    }
+
+    [Serializable]
+    public class SingleCardResult
+    {
+        public int code;
+        public string message;
+        public SingleCardData data;
+    }
+
+    [Serializable]
+    public class SingleCardData
+    {
+        public int cardId;
+        public string name;
+        public string type;
+        public string rarity;
+        public int mana;
+        public int? attack;
+        public int? health;
+        public string description;
+        public string? animationId;
+        public string? imageUrl;
+        public string mainImg;
+        public string createdAt;
+        public string updatedAt;
+        public List<SingleCardEffectBinding> effectBindings;
+    }
+
+    [Serializable]
+    public class SingleCardEffectBinding
+    {
+        public int bindingId;
+        public SingleCardEffect? effect;
+        public string triggerType;
+    }
+
+    [Serializable]
+    public class SingleCardEffect
+    {
+        public int effectId;
+        public string type;
+        public int value;
+        public string target;
+        public string? animationId;
+        public string buffType;
+        public int duration;
+        public bool isStartOfTurn;
+        public int? summonMinionIds;
+    }
+
     BuffEffect.BuffType GetBuffTypeByString(string text)
     {
         if (Enum.TryParse(text, out BuffEffect.BuffType result))
         {
             return result;
         }
-            
+
 
         return BuffEffect.BuffType.None;
     }

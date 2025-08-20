@@ -1,14 +1,8 @@
 ﻿using DG.Tweening;
-using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.UI;
-using UnityEngine.XR;
-using static Unity.VisualScripting.Member;
-using static UnityEngine.Rendering.DebugUI;
 using Random = UnityEngine.Random;
 
 public class BattleManager : MonoBehaviour
@@ -103,9 +97,10 @@ public class BattleManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.5f);
             }
-        } else if (SceneLoader.Instance.enemyId == 11)
+        }
+        else if (SceneLoader.Instance.enemyId == 11)
         {
-            BuffEffect cardEffect = new(2, CardEffect.Target.Enemy, "heal", BuffEffect.BuffType.HealOverTime, int.MaxValue, true);
+            BuffEffect cardEffect = new(1, CardEffect.Target.Enemy, "heal", BuffEffect.BuffType.HealOverTime, int.MaxValue, true);
             spellCard.onPlay.Add(cardEffect);
             enemyActiveEffectList.Add(new(spellCard, cardEffect, cardEffect.duration, enemy));
             while (rm.anim.isPlaying)
@@ -115,8 +110,6 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            enemy.maxHealth = 40;
-            enemy.RestoreHealth(10);
             BuffEffect cardEffect = new(1, CardEffect.Target.Enemy, "attack", BuffEffect.BuffType.Attack);
             spellCard.onPlay.Add(cardEffect);
             ApplyEffect(spellCard, cardEffect, null);
@@ -126,7 +119,7 @@ public class BattleManager : MonoBehaviour
                 yield return new WaitForSeconds(0.2f);
             }
 
-            BuffEffect cardEffect1 = new(2, CardEffect.Target.Enemy, "heal", BuffEffect.BuffType.HealOverTime, int.MaxValue, true);
+            BuffEffect cardEffect1 = new(1, CardEffect.Target.Enemy, "heal", BuffEffect.BuffType.HealOverTime, int.MaxValue, true);
             spellCard.onPlay.Add(cardEffect1);
 
             enemyActiveEffectList.Add(new(spellCard, cardEffect1, cardEffect1.duration, enemy));
@@ -279,7 +272,8 @@ public class BattleManager : MonoBehaviour
             yield break;
         }
         Card card = cardObj.GetComponent<CardDisplay>().card;
-        if (card.mana > tmpChar.currentMana) {
+        if (card.mana > tmpChar.currentMana)
+        {
             rm.textHelper.ShowText("You don't have enough mana!");
             if (card is MinionCard && cardObj.TryGetComponent(out CardDrag cd))
             {
@@ -340,7 +334,6 @@ public class BattleManager : MonoBehaviour
 
         PlayOnPlayEffect(card);
         ReferenceManager.Instance.validZone.SetActive(false);
-
 
         if (cardObj != null)
         {
@@ -669,12 +662,12 @@ public class BattleManager : MonoBehaviour
                 ApplyEffectToTarget(card, effect, GetSource(card), value, false, GetRandomEnemyMinion(card), true);
                 break;
             default:
-                Debug.Log("unknown effect: "+effect.target);
+                Debug.Log("unknown effect: " + effect.target);
                 break;
         }
     }
 
-    public void ApplyEffectToTarget(Card card, CardEffect effect, ITarget source, int value, bool hasPlayedAni = false, ITarget target = null, bool triedToGetTarget = false)
+    public async void ApplyEffectToTarget(Card card, CardEffect effect, ITarget source, int value, bool hasPlayedAni = false, ITarget target = null, bool triedToGetTarget = false)
     {
         /*Debug.Log(effect.type);*/
         switch (effect.type)
@@ -725,10 +718,6 @@ public class BattleManager : MonoBehaviour
                 break;
 
             case CardEffect.Type.Draw:
-                /*if (turn == 0)
-                    rm.cm.DrawPlayerCard();
-                else
-                    rm.cm.DrawEnemyCard();*/
                 if (source is Character character)
                 {
                     for (int i = 0; i < value; i++)
@@ -740,9 +729,38 @@ public class BattleManager : MonoBehaviour
                     }
                 }
                 break;
-            /*            case CardEffect.Type.Summon:
+            case CardEffect.Type.Summon:
+                SummonEffect summonEffect = effect as SummonEffect;
+                int characterIndex = effect.target == CardEffect.Target.Self ? 0 : 1;
+                for (int i = 0; i < value; i++)
+                {
+                    if (characterIndex == 0 && playerMinionList.Count == 6) continue;
+                    else if (characterIndex == 1 && enemyMinionList.Count == 6) continue;
 
-                            break;*/
+                    GameObject newCardObj = await rm.cm.GetNewCardObjByCardId(summonEffect.minionId);
+                    /*newCardObj.SetActive(false);*/
+                    if (newCardObj == null) continue;
+                    /*Debug.Log(newCardObj);*/
+
+                    rm.sm.Play("cardDrop");
+                    MinionCard minionCard = newCardObj.GetComponent<CardDisplay>().card as MinionCard;
+                    GameObject minion = Instantiate(rm.minionPrefab);
+                    minion.GetComponent<MinionDisplay>().SetupMinion(minionCard, newCardObj);
+
+                    RectTransform minionRT = minion.GetComponent<RectTransform>();
+
+                    minionRT.SetParent(characterIndex == 0 ? rm.playerMinionPosition : rm.enemyMinionPosition);
+                    if (characterIndex == 0)
+                        playerMinionList.Add(minion);
+                    else
+                        enemyMinionList.Add(minion);
+                    rm.buffm.OnNewMinion(minionCard, characterIndex);
+                    PlayOnPlayEffect(minionCard);
+                    ReferenceManager.Instance.validZone.SetActive(false);
+                    StartCoroutine(DestroyObjectAfterDelay(newCardObj));
+                }
+
+                break;
             case CardEffect.Type.Buff:
                 if (effect is not BuffEffect buffEffect) break;
                 switch (buffEffect.buffType)
@@ -871,7 +889,7 @@ public class BattleManager : MonoBehaviour
         bool willPlayOne = isOneTimeAnimation(effect.animationId);
         if (willPlayOne)
         {
-            rm.anim.EnqueueAnimation(new(effect.animationId, /*GetSource(card).GetPosition()*/GetCharacterFromACard(card)==player?new Vector3(0,-200,0):new Vector3(0,200,0), Vector3.zero, () =>
+            rm.anim.EnqueueAnimation(new(effect.animationId, /*GetSource(card).GetPosition()*/GetCharacterFromACard(card) == player ? new Vector3(0, -200, 0) : new Vector3(0, 200, 0), Vector3.zero, () =>
             {
                 foreach (GameObject obj in GetAllyMinionListFromACard(card))
                 {
@@ -980,7 +998,7 @@ public class BattleManager : MonoBehaviour
                         ITarget source = obj.GetComponent<MinionDisplay>().minion;
                         ApplyEffectToTarget(card, effect, source, value, true);
                     }
-                }                    
+                }
             }, true));
         }
         else
@@ -998,7 +1016,7 @@ public class BattleManager : MonoBehaviour
                     ApplyEffectToTarget(card, effect, source, value);
                 }
             }
-                
+
         }
     }
 
@@ -1015,7 +1033,7 @@ public class BattleManager : MonoBehaviour
                     ITarget source = obj.GetComponent<MinionDisplay>().minion;
                     ApplyEffectToTarget(card, effect, source, value, true);
                 }
-            },true));
+            }, true));
         }
         else
         {
@@ -1067,7 +1085,7 @@ public class BattleManager : MonoBehaviour
                                 ae.target.DecreaseAttack(ae.effect.value);
                                 /*Debug.Log(ae.pendingTime);*/
                             }
-                                
+
                             break;
                         case BuffEffect.BuffType.DealDamageOverTime:
                             ae.target.TakeDamage(ae.effect.value);
@@ -1075,7 +1093,7 @@ public class BattleManager : MonoBehaviour
                         case BuffEffect.BuffType.HealOverTime:
                             rm.anim.EnqueueAnimation(new(ae.effect.animationId, ae.target.GetPosition(), Vector3.zero,
                         () => { ae.target.RestoreHealth(ae.effect.value); }));
-                            
+
                             break;
                         default:
                             Debug.Log("Unchecked BuffType");
@@ -1092,13 +1110,13 @@ public class BattleManager : MonoBehaviour
         foreach (var expired in expiredEffects)
             tmpActiveEffectList.Remove(expired);
     }
-    
+
 
 
 
     void CheckDraw()
     {
-        if(rm.cm.playerCards.Count==0 && rm.cm.enemyCards.Count == 0)
+        if (rm.cm.playerCards.Count == 0 && rm.cm.enemyCards.Count == 0)
         {
             GetComponent<StartAndEndBattle>().PlayDraw();
         }
@@ -1111,8 +1129,8 @@ public class BattleManager : MonoBehaviour
     }
     IEnumerator PlayEndAnimationCoroutine(bool isWin)
     {
-        SceneLoader sceneLoader=SceneLoader.Instance;
-        if(isWin && sceneLoader.selectedStage>sceneLoader.finishedStage) 
+        SceneLoader sceneLoader = SceneLoader.Instance;
+        if (isWin && sceneLoader.selectedStage > sceneLoader.finishedStage)
         {
             int rewardId = rm.cm.stageRewardId[sceneLoader.selectedStage - 1];
             StartCoroutine(rm.cm.GiveRewardCard(rewardId));
@@ -1229,5 +1247,13 @@ public class BattleManager : MonoBehaviour
             "explosion" => true,
             _ => false
         };
+    }
+    IEnumerator DestroyObjectAfterDelay(GameObject obj)
+    {
+        yield return new WaitForSeconds(5f);
+        if (obj != null)
+        {
+            Destroy(obj);
+        }
     }
 }

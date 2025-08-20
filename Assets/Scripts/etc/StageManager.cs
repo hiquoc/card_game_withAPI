@@ -7,23 +7,23 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class StageManager:MonoBehaviour
+public class StageManager : MonoBehaviour
 {
 
     public List<Button> stageList;
     public GameObject errorPanel;
     private void Start()
     {
-        for(int i = 1; i < stageList.Count; i++)
+        for (int i = 1; i < stageList.Count; i++)
         {
-            stageList[i].interactable=false;
+            stageList[i].interactable = false;
         }
         StartCoroutine(GetUserStage());
     }
     IEnumerator GetUserStage()
     {
         string stageUrl = DataFetcher.address + "users/me";
-        using UnityWebRequest request= UnityWebRequest.Get(stageUrl);
+        using UnityWebRequest request = UnityWebRequest.Get(stageUrl);
         request.SetRequestHeader("Authorization", "Bearer " + SceneLoader.Instance.token);
         yield return request.SendWebRequest();
 
@@ -96,12 +96,17 @@ public class StageManager:MonoBehaviour
             SceneLoader.Instance.userId = result.data.userId;
             return;
         }
-        int stage= result.data.stage.Value;
+        int stage = result.data.stage.Value;
         SceneLoader.Instance.finishedStage = stage;
         SceneLoader.Instance.userId = result.data.userId;
-        for (int i = 0; i < stageList.Count; i++) { 
-            if(i<=stage)
+        for (int i = 0; i < stageList.Count; i++)
+        {
+            if (i <= stage)
                 stageList[i].interactable = true;
+            if (i < stage)
+            {
+                stageList[i].gameObject.transform.Find("Finished").gameObject.SetActive(true);
+            }
         }
     }
 

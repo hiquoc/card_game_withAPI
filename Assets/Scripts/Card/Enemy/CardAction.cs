@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using static BuffEffect;
 
@@ -13,7 +12,7 @@ public class CardAction
 
     public int playerMinionCount => BattleManager.Instance.playerMinionList.Count;
     public int enemyMinionCount => BattleManager.Instance.enemyMinionList.Count;
-    Character enemy=>BattleManager.Instance.enemy;
+    Character enemy => BattleManager.Instance.enemy;
     Character player => BattleManager.Instance.player;
 
     public CardAction(Card card, GameObject cardObj)
@@ -58,9 +57,9 @@ public class CardAction
                 case CardEffect.Target.All:
                     if (effect.type == CardEffect.Type.Damage)
                     {
-                        value += (playerMinionCount - enemyMinionCount)*Mathf.Min(5,effect.value);
+                        value += (playerMinionCount - enemyMinionCount) * Mathf.Min(5, effect.value);
 
-                        if (playerMinionCount < 2 || enemyMinionCount>playerMinionCount||value>=enemy.GetHealth())
+                        if (playerMinionCount < 2 || enemyMinionCount > playerMinionCount || value >= enemy.GetHealth())
                             value -= 9999;
                     }
                     else if (effect.type == CardEffect.Type.Heal || effect.type == CardEffect.Type.Buff)
@@ -74,7 +73,7 @@ public class CardAction
                 case CardEffect.Target.AllMinions:
                     if (effect.type == CardEffect.Type.Damage)
                     {
-                        value += (playerMinionCount - enemyMinionCount) * Mathf.Min(5, effect.value) ;
+                        value += (playerMinionCount - enemyMinionCount) * Mathf.Min(5, effect.value);
 
                         if (playerMinionCount < 2 || enemyMinionCount > playerMinionCount)
                             value -= 9999;
@@ -89,10 +88,50 @@ public class CardAction
                     break;
 
                 case CardEffect.Target.AllAlly:
+                    if (effect.type == CardEffect.Type.Damage)
+                    {
+                        value -= -5 - 5 * enemyMinionCount;
+                    }
+                    else if (effect.type == CardEffect.Type.Heal)
+                    {
+                        int totalHealingPotential = 0;
+                        foreach (GameObject g in BattleManager.Instance.enemyMinionList)
+                        {
+                            MinionCard minionCard = g.GetComponent<MinionDisplay>().minion;
+                            int missing = minionCard.maxHealth - minionCard.GetHealth();
+                            totalHealingPotential += Mathf.Clamp(missing, 0, effect.value) / 2;
+                        }
+                        totalHealingPotential += Mathf.Clamp(enemy.maxHealth - enemy.GetHealth(), 0, effect.value) / 2;
+
+                        if (totalHealingPotential <= 0)
+                        {
+                            return -9999;
+                        }
+
+                        value += totalHealingPotential;
+                    }
+                    else if (effect is BuffEffect buff)
+                    {
+                        if (buff.buffType is BuffType.Attack or BuffType.ActiveAttackBuff
+                            or BuffType.ActiveHealthBuff or BuffType.IncreaseMaxHealth)
+                        {
+                            int totalBuffPotential = 0;
+                            foreach (GameObject g in BattleManager.Instance.enemyMinionList)
+                            {
+                                totalBuffPotential += effect.value / 2;
+                            }
+                            if (totalBuffPotential <= 0)
+                            {
+                                return -9999;
+                            }
+                            value += totalBuffPotential;
+                        }
+                    }
+                    break;
                 case CardEffect.Target.AllAllyMinions:
                     if (effect.type == CardEffect.Type.Damage)
                     {
-                        value -=-5- 5 * enemyMinionCount;
+                        value -= -5 - 5 * enemyMinionCount;
                     }
                     else if (effect.type == CardEffect.Type.Heal)
                     {
@@ -106,14 +145,14 @@ public class CardAction
 
                         if (totalHealingPotential <= 0)
                         {
-                             return -9999;
+                            return -9999;
                         }
 
                         value += totalHealingPotential;
                     }
                     else if (effect is BuffEffect buff)
                     {
-                        if (buff.buffType is BuffType.Attack or BuffType.ActiveAttackBuff 
+                        if (buff.buffType is BuffType.Attack or BuffType.ActiveAttackBuff
                             or BuffType.ActiveHealthBuff or BuffType.IncreaseMaxHealth)
                         {
                             int totalBuffPotential = 0;
@@ -122,16 +161,14 @@ public class CardAction
                                 totalBuffPotential += effect.value / 2;
                             }
 
-                            if (totalBuffPotential <= 0 )
+                            if (totalBuffPotential <= 0)
                             {
                                 return -9999;
                             }
                             value += totalBuffPotential;
                         }
-                        
-
                     }
-                     break;
+                    break;
 
                 case CardEffect.Target.AllEnemy:
                     if (effect.type == CardEffect.Type.Damage)
@@ -206,7 +243,7 @@ public class CardAction
                         if (effect.value >= enemy.currentHealth)
                             value += 1000;
                     }
-                        
+
                     else if (effect.type == CardEffect.Type.Buff || effect.type == CardEffect.Type.Heal)
                         value -= 5;
                     break;
@@ -230,7 +267,7 @@ public class CardAction
     {
         return effect.type switch
         {
-            CardEffect.Type.Damage =>Mathf.Min(5,effect.value),
+            CardEffect.Type.Damage => Mathf.Min(5, effect.value),
             CardEffect.Type.Heal =>
             BattleManager.Instance.playerMinionList.Exists(
                 g => g.GetComponent<MinionDisplay>().minion.GetHealth()
@@ -247,7 +284,7 @@ public class CardAction
         {
             BuffType.Attack => effect.value + 2,
             BuffType.Shield => 2,
-            BuffType.Taunt => enemy.GetHealth()<10?9999:3,
+            BuffType.Taunt => enemy.GetHealth() < 10 ? 9999 : 3,
             BuffType.ActiveAttackBuff => 4,
             BuffType.ActiveHealthBuff => 3,
             _ => 0,

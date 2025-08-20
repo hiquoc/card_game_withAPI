@@ -7,7 +7,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 using Button = UnityEngine.UI.Button;
 
 public class DeckManager : MonoBehaviour
@@ -17,25 +16,25 @@ public class DeckManager : MonoBehaviour
     public Button showAllCardBtn;
     public Button hideAllCardBtn;
     public Button submitBtn;
-    public Button sortByManaBtn,sortByRarityBtn;
+    public Button sortByManaBtn, sortByRarityBtn;
     public GameObject errorPanel;
     public TMP_Text numOfCard;
     public GameObject loadingText;
-    
+
 
     public Dictionary<int, int> manaDict = new();
     public Dictionary<int, Sprite> imgDict = new();
     public Dictionary<int, InventoryCardData> inventoryDict = new();
-    public Dictionary<int,GameObject> inventoryObjDict = new();
+    public Dictionary<int, GameObject> inventoryObjDict = new();
     int itemCount;
 
     public Dictionary<int, int> deckManaDict = new();
     public List<int> deck;
-    
+
     ReferenceManager rm;
 
     public GameObject cardInInventoryPre, selectedCardPre;
-     
+
 
     private void Start()
     {
@@ -45,7 +44,7 @@ public class DeckManager : MonoBehaviour
             return;
         }
         Instance = this;
-        rm=ReferenceManager.Instance;
+        rm = ReferenceManager.Instance;
         ReloadInventory();
         LoadDeckData();
         reloadBtn.onClick.AddListener(ReloadItem);
@@ -60,8 +59,8 @@ public class DeckManager : MonoBehaviour
         Debug.Log("Reloaded");
         if (showAllCardBtn.gameObject.activeInHierarchy)
         {
-            ReloadInventory();     
-        }       
+            ReloadInventory();
+        }
         else
             LoadCollection();
         if (sortByManaBtn.gameObject.activeInHierarchy)
@@ -105,16 +104,16 @@ public class DeckManager : MonoBehaviour
             request.result == UnityWebRequest.Result.ProtocolError)
         {
             Debug.Log("Error fetching collection data: " + request.error);
-            if(request.responseCode==401)
+            if (request.responseCode == 401)
             {
                 ShowErrorPanel(false, "Expired session\nPlease re-login");
                 Debug.LogWarning("Access forbidden (401). Possibly due to an invalid or expired token.");
                 SceneLoader.Instance.BackToMenuAndLogout();
             }
-            else if(!errorPanel.activeInHierarchy)
+            else if (!errorPanel.activeInHierarchy)
             {
                 ShowErrorPanel(true);
-            }                         
+            }
             yield break;
         }
 
@@ -167,7 +166,7 @@ public class DeckManager : MonoBehaviour
         imgDict.Clear();
         inventoryDict.Clear();
         inventoryObjDict.Clear();
-        itemCount=result.data.Count;
+        itemCount = result.data.Count;
         Transform allCardPanel = rm.allCardPanel;
         foreach (InventoryData card in result.data)
         {
@@ -175,7 +174,7 @@ public class DeckManager : MonoBehaviour
             /*Debug.Log(itemCount);*/
             if (inventoryDict.ContainsKey(card.cardId))
             {
-                inventoryDict.TryGetValue(card.cardId,out InventoryCardData cardData);
+                inventoryDict.TryGetValue(card.cardId, out InventoryCardData cardData);
                 cardData.inventoryId.Add(card.inventoryId);
                 if (card.forSale)
                     cardData.onSale += 1;
@@ -183,7 +182,7 @@ public class DeckManager : MonoBehaviour
                     cardData.quantity += 1;
                 continue;
             }
-            inventoryDict[card.cardId] = new(card.forSale?null:card.inventoryId, card.cardId, card.rarity, card.cardName, card.mainImg,
+            inventoryDict[card.cardId] = new(card.forSale ? null : card.inventoryId, card.cardId, card.rarity, card.cardName, card.mainImg,
                 card.mana, card.attack, card.health, card.forSale ? 0 : 1, card.forSale ? 1 : 0);
 
             GameObject g = Instantiate(cardInInventoryPre, allCardPanel);
@@ -192,7 +191,7 @@ public class DeckManager : MonoBehaviour
             Image imageComponent = g.transform.Find("Image").GetComponent<Image>();
             StartCoroutine(AddSpriteToDict(card, g, imageComponent));
             CardInInventory cid = g.GetComponent<CardInInventory>();
-            
+
             cid.cardId = card.cardId;
             cid.rarity = card.rarity;
             cid.cardName = card.cardName;
@@ -204,7 +203,7 @@ public class DeckManager : MonoBehaviour
             inventoryObjDict[card.cardId] = g;
 
 
-            if (card.attack==0 && card.health==0) continue;
+            if (card.attack == 0 && card.health == 0) continue;
             cid.attack = card.attack;
             cid.health = card.health;
             GameObject attackObj = g.transform.Find("AttackImg").gameObject;
@@ -214,10 +213,10 @@ public class DeckManager : MonoBehaviour
             healthObj.SetActive(true);
             healthObj.GetComponentInChildren<TMP_Text>().text = card.health.ToString();
 
-            if(!manaDict.ContainsKey(card.cardId))
+            if (!manaDict.ContainsKey(card.cardId))
                 manaDict[card.cardId] = card.mana;
         }
-        foreach(int cardId in inventoryObjDict.Keys)
+        foreach (int cardId in inventoryObjDict.Keys)
         {
             InventoryCardData icd = inventoryDict[cardId];
             CardInInventory cid = inventoryObjDict[cardId].GetComponent<CardInInventory>();
@@ -228,7 +227,7 @@ public class DeckManager : MonoBehaviour
                 /*Debug.Log(icd.quantity);*/
                 countObj.SetActive(true);
                 countObj.GetComponent<TMP_Text>().text = "x " + icd.quantity.ToString();
-                cid.quantity= icd.quantity;
+                cid.quantity = icd.quantity;
                 cid.inventoryId = inventoryDict[cardId].inventoryId.First();
             }
             else
@@ -276,7 +275,7 @@ public class DeckManager : MonoBehaviour
                 Debug.Log(card.cardId);*/
                 imgDict[card.cardId] = sprite;
                 inventoryObjDict[card.cardId].SetActive(true);
-                if(itemCount==0)
+                if (itemCount == 0)
                 {
                     loadingText.SetActive(false);
                     SortItemByMana();
@@ -292,7 +291,7 @@ public class DeckManager : MonoBehaviour
     public IEnumerator GetDeckDataCoroutine()
     {
         if (SceneLoader.Instance.token == null)
-        {            
+        {
             Debug.Log("null");
             yield break;
         }
@@ -461,6 +460,7 @@ public class DeckManager : MonoBehaviour
             else if (!errorPanel.activeInHierarchy)
             {
                 ShowErrorPanel(true);
+                LoadDeckData();
             }
             yield break;
         }
@@ -477,7 +477,7 @@ public class DeckManager : MonoBehaviour
         }
         catch (Exception e)
         {
-            ShowErrorPanel(true,"Can't save your deck\nPlease try again later");
+            ShowErrorPanel(true, "Can't save your deck\nPlease try again later");
             Debug.LogError("Exception occurred:\n" + e);
         }
         ShowErrorPanel(false, "Save sucessfully");
@@ -516,11 +516,11 @@ public class DeckManager : MonoBehaviour
         }
         string collectionUrl = DataFetcher.address + "deck/collection";
         using UnityWebRequest request = new(collectionUrl, "GET");
-        request.SetRequestHeader("Authorization","Bearer "+SceneLoader.Instance.token);
+        request.SetRequestHeader("Authorization", "Bearer " + SceneLoader.Instance.token);
         request.downloadHandler = new DownloadHandlerBuffer();
         yield return request.SendWebRequest();
-        if(request.result==UnityWebRequest.Result.ConnectionError||
-            request.result==UnityWebRequest.Result.ProtocolError)
+        if (request.result == UnityWebRequest.Result.ConnectionError ||
+            request.result == UnityWebRequest.Result.ProtocolError)
         {
             Debug.Log("Error fetching collection data: " + request.error);
             if (request.responseCode == 401)
@@ -588,15 +588,15 @@ public class DeckManager : MonoBehaviour
     public class CollectionCardData
     {
         public int cardId;
-        public string name;           
-        public string type;          
+        public string name;
+        public string type;
         public string rarity;
         public int mana;
         public int attack;
         public int health;
         public string image;
         public bool owned;
-        public int quantity;         
+        public int quantity;
     }
 
 
@@ -614,7 +614,7 @@ public class DeckManager : MonoBehaviour
         /*imgDict.Clear();*/
         inventoryDict.Clear();
         inventoryObjDict.Clear();
-        itemCount=result.data.totalCards;
+        itemCount = result.data.totalCards;
         foreach (CollectionCardData card in result.data.cards)
         {
             itemCount--;
@@ -663,7 +663,7 @@ public class DeckManager : MonoBehaviour
             healthObj.SetActive(true);
             healthObj.GetComponentInChildren<TMP_Text>().text = card.health.ToString();
 
-                      
+
         }
         IEnumerator AddSpriteToDict(CollectionCardData card, GameObject g, Image imageComponent)
         {
@@ -688,7 +688,7 @@ public class DeckManager : MonoBehaviour
                 Texture2D cropped = CropTransparent(texture);
 
                 Sprite sprite = Sprite.Create(cropped, new Rect(0, 0, cropped.width, cropped.height), new Vector2(0.5f, 0.5f), 1f);
-                if(image!=null)
+                if (image != null)
                     image.sprite = sprite;
 
                 inventoryObjDict[card.cardId].SetActive(true);
@@ -702,16 +702,16 @@ public class DeckManager : MonoBehaviour
     }
 
 
-    public void ShowErrorPanel(bool reload = false,string text="Something went wrong\nPlease try again later")
+    public void ShowErrorPanel(bool reload = false, string text = "Something went wrong\nPlease try again later")
     {
         errorPanel.GetComponentInChildren<TMP_Text>().text = text;
         errorPanel.SetActive(true);
-/*        if (reload)
-        {
-            ReloadInventory();
-            showAllCardBtn.gameObject.SetActive(true) ;
-            hideAllCardBtn.gameObject.SetActive(false) ;
-        }*/
+        /*        if (reload)
+                {
+                    ReloadInventory();
+                    showAllCardBtn.gameObject.SetActive(true) ;
+                    hideAllCardBtn.gameObject.SetActive(false) ;
+                }*/
     }
     public int GetInventoryId(int cardId)
     {
@@ -719,11 +719,12 @@ public class DeckManager : MonoBehaviour
 
         inventoryDict.TryGetValue(cardId, out InventoryCardData data);
         /*Debug.Log(data.inventoryId.Count);*/
-        for (int i = 0; i < data.inventoryId.Count; i++) {
-            
+        for (int i = 0; i < data.inventoryId.Count; i++)
+        {
+
             /*Debug.Log(data.inventoryId[i]);*/
-            int inventoryId=data.inventoryId[i];
-            if(!deck.Contains(inventoryId)) return inventoryId;
+            int inventoryId = data.inventoryId[i];
+            if (!deck.Contains(inventoryId)) return inventoryId;
         }
         /*Debug.Log("2");*/
         return inventoryDict[cardId].inventoryId.First();
@@ -736,8 +737,8 @@ public class DeckManager : MonoBehaviour
     ////////////////////////////////////////////////
     void SortItemByMana()
     {
-        List<GameObject>list=inventoryObjDict.Values.ToList();
-        list.Sort((a,b)=>a.GetComponent<CardInInventory>().cardMana.CompareTo(b.GetComponent<CardInInventory>().cardMana));
+        List<GameObject> list = inventoryObjDict.Values.ToList();
+        list.Sort((a, b) => a.GetComponent<CardInInventory>().cardMana.CompareTo(b.GetComponent<CardInInventory>().cardMana));
         for (int i = 0; i < list.Count; i++)
         {
             list[i].transform.SetSiblingIndex(i);
@@ -754,16 +755,17 @@ public class DeckManager : MonoBehaviour
         };
 
         List<GameObject> list = inventoryObjDict.Values.ToList();
-        list.Sort((a, b) => {
+        list.Sort((a, b) =>
+        {
             CardInInventory cardA = a.GetComponent<CardInInventory>();
             CardInInventory cardB = b.GetComponent<CardInInventory>();
-            dic.TryGetValue(cardA.rarity,out int valueA);
+            dic.TryGetValue(cardA.rarity, out int valueA);
             dic.TryGetValue(cardB.rarity, out int valueB);
-            if(valueA == valueB)
+            if (valueA == valueB)
             {
                 return cardA.cardMana.CompareTo(cardB.cardMana);
             }
-            return valueA.CompareTo(valueB); 
+            return valueA.CompareTo(valueB);
         });
         for (int i = 0; i < list.Count; i++)
         {
@@ -775,7 +777,8 @@ public class DeckManager : MonoBehaviour
         List<Transform> list = new();
         Transform selectCardPanel = rm.selectedCardPanel;
 
-        for (int i = 0; i < selectCardPanel.childCount; i++) { 
+        for (int i = 0; i < selectCardPanel.childCount; i++)
+        {
             list.Add(selectCardPanel.GetChild(i));
         }
         list.Sort((a, b) =>
@@ -790,7 +793,7 @@ public class DeckManager : MonoBehaviour
             }
             return manaCompare;
         });
-        for(int i=0; i < list.Count; i++)
+        for (int i = 0; i < list.Count; i++)
         {
             list[i].SetSiblingIndex(i);
         }
